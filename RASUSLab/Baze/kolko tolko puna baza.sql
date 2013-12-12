@@ -208,7 +208,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (32,'sagagsag',26,32),(33,'sgagsaga',26,32),(34,'gsagsag',26,32),(35,'saga',26,32),(36,'gsaga',26,32),(37,'sdad',27,32),(38,'fsafsa',27,32),(39,'fsafafasfa',27,32),(40,'Provpitnrj',28,32),(41,'Å to je HTML?',28,32),(42,'Tko je usis?',28,32),(43,'Tko je najlakÅ¡i?',28,32),(44,'Koliko je sati?',28,32),(45,'Å to je SOAP?',28,32),(46,'bsbab',28,33),(47,'Najmaji mobitel ima _____ .',28,32);
+INSERT INTO `question` VALUES (40,'Provpitnrj',28,32),(41,'Å to je HTML?',28,32),(42,'Tko je usis?',28,32),(43,'Tko je najlakÅ¡i?',28,32),(44,'Koliko je sati?',28,32),(45,'Å to je SOAP?',28,32),(46,'bsbab',28,33),(47,'Najmaji mobitel ima _____ .',28,32);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -268,7 +268,7 @@ CREATE TABLE `quiz_has_question` (
 
 LOCK TABLES `quiz_has_question` WRITE;
 /*!40000 ALTER TABLE `quiz_has_question` DISABLE KEYS */;
-INSERT INTO `quiz_has_question` VALUES (3,32),(4,32),(1,33),(2,33),(3,33),(2,34),(1,35),(3,36),(2,37),(4,37),(6,37),(1,38),(2,38),(2,39),(1,40),(2,40),(3,40),(5,40),(5,41),(4,42),(5,42),(6,42),(5,43),(4,44),(5,44),(6,44),(5,45),(4,46),(6,47);
+INSERT INTO `quiz_has_question` VALUES (1,40),(2,40),(3,40),(5,40),(5,41),(4,42),(5,42),(6,42),(5,43),(4,44),(5,44),(6,44),(5,45),(4,46),(6,47);
 /*!40000 ALTER TABLE `quiz_has_question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -281,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-12-12 16:07:56
+-- Dump completed on 2013-12-12 16:36:18
