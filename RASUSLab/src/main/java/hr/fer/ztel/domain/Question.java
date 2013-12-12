@@ -40,7 +40,7 @@ public class Question implements Serializable {
 	private String textQuestion;
 
 	@ManyToOne
-	// @Cascade(CascadeType.SAVE_UPDATE)
+	//@Cascade(CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "idcategory")
 	private Category category;
 
@@ -65,7 +65,10 @@ public class Question implements Serializable {
 	private int numberOfCorrectAnswers;
 	@Transient
 	private int numberOfIncorrectAnswers;
-
+	
+	@Transient
+	private List<String> answers;
+	
 	public Question() {
 
 	}
@@ -149,7 +152,7 @@ public class Question implements Serializable {
 				+ creator + "]";
 	}
 
-	public List<String> getAnswers(int numberOfQuestion) {
+	private List<String> createAnswers(int numberOfQuestion) {
 
 		List<String> answers = new ArrayList<String>();
 
@@ -164,6 +167,17 @@ public class Question implements Serializable {
 		}
 
 		return answers;
+	}
+
+	public List<String> getAnswers() {
+		if(answers==null)
+			answers=createAnswers(4);
+		System.out.println("creating ans");
+		return answers;
+	}
+
+	public void setAnswers(List<String> answers) {
+		this.answers = answers;
 	}
 
 	@Override
