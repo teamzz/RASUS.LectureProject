@@ -1,3 +1,6 @@
 TODO
 
 Sinkronizitrati REST kontroler sa smrekijem
+
+
+caja promjena
