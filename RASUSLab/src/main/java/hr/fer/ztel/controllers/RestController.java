@@ -94,13 +94,24 @@ public class RestController {
 	  // receives json data sent by client --> map it to Person object
 	  // return Person object as json
 	  @RequestMapping(value="/Quizes/jax/changeactivequiz", method = RequestMethod.POST)
-	  public @ResponseBody Quiz changeActiveQuiz( @RequestBody final Quiz q) {    
-		  Quiz qnew = quizDao.find(q.getIdQuiz());
-		  qnew.setActivated(q.isActivated());
-		  quizDao.update(qnew);
-		  System.out.println("hoæu da mi bude " + q.isActivated());
-	      System.out.println("u POST kontroleru sam za aktiviranjedeaktiviranje");
-	      return q;
+	  public @ResponseBody Quiz changeActiveQuiz( @RequestBody final Quiz q) {  
+		  if (!q.isActivated())
+		  {
+			  Quiz qnew = quizDao.find(q.getIdQuiz());
+			  q.setCode(qnew.getCode());
+			  q.setActivated(true);
+			  return q;
+		  }
+		  else
+		  {
+			  Quiz qnew = quizDao.find(q.getIdQuiz());
+			  qnew.setActivated(true);
+			  quizDao.update(qnew);
+			  q.setCode(qnew.getCode());
+			  q.setActivated(false);
+			  return q;
+		  }
+		
 	  }
 	  
 	

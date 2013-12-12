@@ -39,7 +39,17 @@ public class CategoryController {
 		model.addAttribute("quizes",quizDao.list());
 		return "CategoryView";
 	}
+	
+	
+	// ***************************
 
+	@RequestMapping(value = "/NewCategories", method = RequestMethod.GET)
+	public String newCategoriesHome(Model model){
+		model.addAttribute("categories", categoryDao.list());
+		model.addAttribute("quizes", quizDao.list());
+		return "NewCategoryView";
+	}
+	
 
 }
 

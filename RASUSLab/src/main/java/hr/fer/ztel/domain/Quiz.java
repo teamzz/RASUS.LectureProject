@@ -48,6 +48,9 @@ public class Quiz implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idcategory")
 	private Category category;
+	
+	@Column(name = "code")
+	private Long code;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "quiz_has_question", joinColumns = { @JoinColumn(name = "idquiz") }, inverseJoinColumns = { @JoinColumn(name = "idquestion") })
@@ -151,6 +154,14 @@ public class Quiz implements Serializable {
 		} else if (!quizName.equals(other.quizName))
 			return false;
 		return true;
+	}
+
+	public Long getCode() {
+		return code;
+	}
+
+	public void setCode(Long code) {
+		this.code = code;
 	}
 
 }
