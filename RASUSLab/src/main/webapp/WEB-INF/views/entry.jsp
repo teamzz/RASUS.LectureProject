@@ -10,6 +10,9 @@
 </head>
 <body>
 
+	
+	<br/>
+	<br/>
 	<form action="/" method="POST">
 	Unesi kod: <input type="text" name="quizCode"/>
 	<input type="submit" value="Generiraj kviz"/>
