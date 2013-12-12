@@ -22,7 +22,7 @@ public class ProfessorService {
 
 	public List<Quiz> getQuizMadeByProfessorInCategory(String username,
 			Long categoryId) {
-
+		System.out.println(username + " " + categoryId);
 		Professor prof = profDao.getProfessorByUsername(username);
 		Category category = catDao.find(categoryId);
 
