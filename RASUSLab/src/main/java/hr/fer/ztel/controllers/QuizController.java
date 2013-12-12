@@ -1,6 +1,8 @@
 package hr.fer.ztel.controllers;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
@@ -80,7 +82,7 @@ public class QuizController {
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));
 		quiz.setCreator(professorDao.find(quizHolder.getIdProfessor()));
 
-		Set<Question> questionsList = new HashSet<Question>();
+		List<Question> questionsList = new ArrayList<Question>();
 		for (long questionId : quizHolder.getQuestionsIdList()) {
 			/*
 			 * System.out.println("question id je " + questionId);
@@ -112,6 +114,7 @@ public class QuizController {
 
 	@RequestMapping(value = "/Quizes", method = RequestMethod.GET)
 	public String homeQuizes(Model model) {
+		
 		model.addAttribute("quizes", quizDao.list());
 		return "Quizes";
 	}
@@ -120,10 +123,12 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "/SolveSimpleQuiz", method = RequestMethod.GET)
-	public String solveQuiz(Model model) {
-		model.addAttribute("questions", questionDao.list());
-		model.addAttribute("ansOfQuestions", new UserAnswerHolder());
+	@RequestMapping(value = "/SolveSimpleQuiz/{idQuiz}", method = RequestMethod.GET)
+	public String solveQuiz(@PathVariable ("idQuiz") Long idQuiz, Model model) {
+		UserAnswerHolder uah = new UserAnswerHolder();
+		uah.setIdQuiz(idQuiz);
+		model.addAttribute("questions", quizDao.find(idQuiz).getQuestions());
+		model.addAttribute("ansOfQuestions", uah);
 		return "SolveSimpleQuiz";
 	}
 
@@ -150,7 +155,8 @@ public class QuizController {
 			userAnsDao.add(ua);
 			System.out.println(ua);
 		}
-		return "Index";
+		model.addAttribute("quizes", quizDao.list());
+		return "Quizes";
 
 	}
 }
