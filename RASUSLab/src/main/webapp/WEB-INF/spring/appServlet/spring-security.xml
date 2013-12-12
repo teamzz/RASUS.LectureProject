@@ -8,8 +8,7 @@
 
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/entry*"
-			access="ROLE_ADMIN" />
+
 		<security:intercept-url pattern="/NewQuestion*"
 			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/Quizes*"
@@ -30,6 +29,7 @@
 			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/Quizes/jax/changeactivequiz"
 			access="ROLE_ADMIN" />
+
 
 
 		<security:form-login login-page="/login"

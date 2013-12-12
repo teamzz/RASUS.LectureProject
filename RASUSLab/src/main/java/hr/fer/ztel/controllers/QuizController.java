@@ -57,6 +57,8 @@ public class QuizController {
 	 */
 	@RequestMapping(value = "/AddQuiz", method = RequestMethod.GET)
 	public String home(Model model) {
+		
+		
 		model.addAttribute("quizholder", new QuizHolder());
 		model.addAttribute("categories", categoryDao.list());
 		model.addAttribute("questions", questionDao.list());

@@ -25,7 +25,7 @@
 	<br/>
 	<br/>
 	
-	<a href="login">
+	<a href="Quizes">
 		<input type="button" value="Logiraj me">
 	</a>
 	

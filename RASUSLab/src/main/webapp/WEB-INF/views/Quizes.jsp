@@ -12,7 +12,7 @@
 function changeActiveQuiz(quizId) {
 	var active  = document.getElementById("qActive" + quizId); 
 	$.ajax({
-	    url: "/Quizes/jax/changeactivequiz", 
+	    url: "/ztel/Quizes/jax/changeactivequiz", 
 	    type: 'POST', 
 	    dataType: 'json', 
 	    data: "{\"idQuiz\":\"" + quizId + "\", \"activated\":\""+ active.innerHTML +"\"}", 
