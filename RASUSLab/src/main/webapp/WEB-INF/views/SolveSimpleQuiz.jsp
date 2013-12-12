@@ -12,13 +12,12 @@
 <body>
 
 <form:form action="/ztel/SolveSimpleQuiz/formsubmit" method="POST" modelAttribute="ansOfQuestions">
-<label>Kviz br. </label><form:input path="idQuiz" value="6" readonly="true" />
+<label>Kviz br. </label><form:input path="idQuiz" value="6"/>
 
 	<c:forEach var="i" begin="0" end="${fn:length(questions)-1}">
 		<div>
 			<label>${questions[i].textQuestion}</label>
-			<form:input path="questionsId[${i }]" value="${questions[i].idQuestion}" readonly="true" style="display: none;"/>
-			<c:if test="${questions[i].answers.size() != 1 }">
+			<form:input path="questionsId[${i }]" value="${questions[i].idQuestion}" />
 			<form:select path="userAnswers[${i }]">
 			<c:forEach items="${questions[i].answers }" var="answer">
 			
@@ -26,10 +25,7 @@
 			
 			</c:forEach>
 			</form:select>
-			</c:if>
-			<c:if test="${questions[i].answers.size() == 1 }">
-			<form:input path="userAnswers[${i }]"/>
-			</c:if>
+			
 		</div>
 	</c:forEach>
 	<input type="submit" value="Save" />
