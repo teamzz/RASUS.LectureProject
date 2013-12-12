@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.domain.Professor;
 
@@ -25,18 +23,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private ProfessorDao profDao;
 
-	public CustomUserDetailsService() {
-		System.out.println("Jeebene");
-	}
+//	public CustomUserDetailsService() {
+//		System.out.println("Jeebene");
+//	}
 
 	
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 
-		System.out.println("Jebene3");
-		
-		System.out.println(profDao);
 		Professor professor = profDao.getProfessorByUsername(username);
 		System.out.println("Jebene");
 
@@ -45,8 +40,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
 
-		System.out.println("Username " + professor.getUsername());
-		System.out.println("Password " + professor.getPassword());
 
 		return new User(professor.getUsername(), professor.getPassword(),
 				enabled, accountNonExpired, credentialsNonExpired,
