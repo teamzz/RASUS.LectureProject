@@ -12,7 +12,7 @@
 <body>
 
 <form:form action="/ztel/SolveSimpleQuiz/formsubmit" method="POST" modelAttribute="ansOfQuestions">
-<label>Kviz br. </label><form:input path="idQuiz" value="7"/>
+<label>Kviz br. </label><form:input path="idQuiz" value="6"/>
 
 	<c:forEach var="i" begin="0" end="${fn:length(questions)-1}">
 		<div>
