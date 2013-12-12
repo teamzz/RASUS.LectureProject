@@ -37,28 +37,6 @@ public class RestController {
 		System.out.println("init RestController");
 	}
 
-	@RequestMapping(value = "/Quizes/jax", method = RequestMethod.GET)
-	public @ResponseBody
-	Category get(HttpServletResponse res) {
-
-		Category cat = new Category();
-		cat.setCategoryName("tom kategorija");
-		cat.setIdCategory(2909);
-
-		return cat;
-	}
-
-	// this method response to POST request
-	// http://localhost/spring-mvc-json/rest/cont/person
-	// receives json data sent by client --> map it to Person object
-	// return Person object as json
-	@RequestMapping(value = "/Quizes/jax/activatequiz", method = RequestMethod.POST)
-	public @ResponseBody
-	Category post(@RequestBody final Category cat) {
-
-		System.out.println("u POST kontroleru sam");
-		return cat;
-	}
 
 	@RequestMapping(value = "/Categories/jax", method = RequestMethod.GET)
 	public @ResponseBody
@@ -97,18 +75,33 @@ public class RestController {
 		return quizzes;
 	}
 
-	// this method response to POST request
-	// http://localhost/spring-mvc-json/rest/cont/person
-	// receives json data sent by client --> map it to Person object
-	// return Person object as json
-	@RequestMapping(value = "/Quizes/jax/changeactivequiz", method = RequestMethod.POST)
-	public @ResponseBody
-	Quiz changeActiveQuiz(@RequestBody final Quiz q) {
-		Quiz qnew = quizDao.find(q.getIdQuiz());
-		qnew.setActivated(q.isActivated());
-		quizDao.update(qnew);
-		System.out.println("hoæu da mi bude " + q.isActivated());
-		System.out.println("u POST kontroleru sam za aktiviranjedeaktiviranje");
-		return q;
-	}
+	@RequestMapping(value="/Quizes/jax", method = RequestMethod.GET)
+	  public @ResponseBody Quiz get(HttpServletResponse res) {
+		/*
+		   * Cat cat = new cat;
+		   * cat.setcatname
+		   * cat.setidcat;
+		   * ret cat
+		   */
+		Quiz q = new Quiz();
+		
+	      return q;
+	  }
+	
+	
+	  
+	//this method response to POST request http://localhost/spring-mvc-json/rest/cont/person
+	  // receives json data sent by client --> map it to Person object
+	  // return Person object as json
+	  @RequestMapping(value="/Quizes/jax/changeactivequiz", method = RequestMethod.POST)
+	  public @ResponseBody Quiz changeActiveQuiz( @RequestBody final Quiz q) {    
+		  Quiz qnew = quizDao.find(q.getIdQuiz());
+		  qnew.setActivated(q.isActivated());
+		  quizDao.update(qnew);
+		  System.out.println("hoæu da mi bude " + q.isActivated());
+	      System.out.println("u POST kontroleru sam za aktiviranjedeaktiviranje");
+	      return q;
+	  }
+	  
+	
 }
