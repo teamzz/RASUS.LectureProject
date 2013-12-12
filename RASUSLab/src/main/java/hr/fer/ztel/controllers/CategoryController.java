@@ -1,5 +1,6 @@
 package hr.fer.ztel.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import hr.fer.ztel.dao.CategoryDao;
+import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.domain.Category;
+import hr.fer.ztel.domain.Professor;
 
 
 
@@ -30,13 +33,15 @@ public class CategoryController {
 	private CategoryDao categoryDao;
 	@Autowired
 	private QuizDao quizDao;
+	@Autowired
+	private ProfessorDao professorDao;
 	
 	
 	
 	@RequestMapping(value = "/Categories", method = RequestMethod.GET)
-	public String categoriesHome(Model model){
-		model.addAttribute("categories",categoryDao.list());
-		model.addAttribute("quizes",quizDao.list());
+	public String categoriesHome(Model model, Principal pr){
+		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
+		System.out.println(professorDao.getProfessorByUsername(pr.getName()).getCategories());
 		return "CategoryView";
 	}
 
