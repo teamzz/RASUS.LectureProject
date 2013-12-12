@@ -1,8 +1,7 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
-import java.util.Set;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +14,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -53,24 +51,24 @@ public class Professor implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
 	@Cascade(CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	private Set<Quiz> quizes;
+	private List<Quiz> quizes;
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
 	@Cascade(CascadeType.ALL)
 	@Fetch(FetchMode.SELECT)
-	private Set<Question> questions;
+	private List<Question> questions;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@Cascade(CascadeType.SAVE_UPDATE)
 	@JoinTable(name = "professor_has_category", joinColumns = { @JoinColumn(name = "idprofessor") }, inverseJoinColumns = { @JoinColumn(name = "idcategory") })
 	@Fetch(FetchMode.SELECT)
-	private Set<Category> categories;
+	private List<Category> categories;
 
-	public Set<Category> getCategories() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(Set<Category> categories) {
+	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 
@@ -110,19 +108,19 @@ public class Professor implements Serializable {
 		this.idProfessor = idProfessor;
 	}
 
-	public Set<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
 
-	public Set<Quiz> getQuizes() {
+	public List<Quiz> getQuizes() {
 		return quizes;
 	}
 
-	public void setQuizes(Set<Quiz> quizes) {
+	public void setQuizes(List<Quiz> quizes) {
 		this.quizes = quizes;
 	}
 
