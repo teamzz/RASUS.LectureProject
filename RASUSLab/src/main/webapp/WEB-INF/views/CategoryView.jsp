@@ -45,10 +45,21 @@ function sendCategoryToServer(categoryId,categoryName){
 </script>
 </head>
 <body>
-<div id="menu">
+<!-- onclick="sendCategoryToServer(${category.idCategory},'${category.categoryName}')"  -->
+
+<div id="categoryMenu">
+Categories:
+<form:form action="/ztel/Category" method="POST" >
 <c:forEach items="${categories}" var="category" varStatus="status" >
-<button onclick="sendCategoryToServer(${category.idCategory},'${category.categoryName}')" >${category.categoryName}</button></br>
+<button name="selectedCategory" value="${category.idCategory }">${category.categoryName}</input></br>
 </c:forEach>
+</form:form>
+</div>
+<div id="controlMenu">
+Controls:
+<input type="button" onclick="window.open('/ztel/NewQuestion','newwindow','width=700 height=500'); return false;" value="Add new question" />
+<input type="button" onclick="window.open('/ztel/AddQuiz','newwindow','width=500 height=500'); return false;" value="Add new quiz" />
+
 </div>
 <hr>
 Quizzes : 

@@ -50,7 +50,7 @@ public class Quiz implements Serializable {
 	private Category category;
 	
 	@Column(name = "code")
-	private Long code;
+	private String code;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "quiz_has_question", joinColumns = { @JoinColumn(name = "idquiz") }, inverseJoinColumns = { @JoinColumn(name = "idquestion") })
@@ -156,11 +156,11 @@ public class Quiz implements Serializable {
 		return true;
 	}
 
-	public Long getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Long code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
