@@ -67,6 +67,7 @@ public class QuizController {
 		
 		
 		model.addAttribute("quizholder", new QuizHolder());
+		model.addAttribute("idProfessor", professorDao.getProfessorByUsername(principal.getName()).getIdProfessor());
 		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
 		return "AddQuiz";
 	}
@@ -82,7 +83,6 @@ public class QuizController {
 		logger.debug("Received request to add quiz");
 
 		Quiz quiz = quizHolder.getQuiz();
-		quiz.setCode("cmhjHkhKB456fv");
 		System.out.println("id category je " + quizHolder.getIdCategory());
 		System.out.println("id professor je " + quizHolder.getIdProfessor());
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));
