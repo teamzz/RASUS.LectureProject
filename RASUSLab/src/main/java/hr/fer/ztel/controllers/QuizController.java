@@ -78,7 +78,7 @@ public class QuizController {
 		logger.debug("Received request to add quiz");
 
 		Quiz quiz = quizHolder.getQuiz();
-
+		quiz.setCode("cmhjHkhKB456fv");
 		System.out.println("id category je " + quizHolder.getIdCategory());
 		System.out.println("id professor je " + quizHolder.getIdProfessor());
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));
