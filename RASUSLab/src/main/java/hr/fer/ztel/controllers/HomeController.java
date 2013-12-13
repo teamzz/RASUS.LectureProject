@@ -11,6 +11,7 @@ import hr.fer.ztel.domain.IncorrectAnswer;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.Quiz;
+import hr.fer.ztel.service.Statistic;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import javax.swing.ImageIcon;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +58,9 @@ public class HomeController {
 	@Autowired
 	private ProfessorDao p;
 
+	@Autowired
+	private Statistic stat;
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -73,44 +79,49 @@ public class HomeController {
 		System.out.println(model.get("serverTime"));
 		// System.out.println(a);
 		// System.out.println(b);
-		model.addAttribute("broj", new Integer(0));
+		// model.addAttribute("broj", new Integer(0));
+		//
+		// System.out.println(p.find(new Long("26")).getQuestions());
+		// System.out.println(p.find(new Long("27")).getQuestions());
+		//
+		// for (Question q : a.list()) {
+		// System.out.println(q);
+		//
+		// }
+		//
+		// for (Professor prof : p.list()) {
+		// System.out.println(prof.getQuestions());
+		// }
+		//
+		// for (Quiz qu : b.list()) {
+		// System.out.println(qu);
+		// System.out.println(qu.getCreator() + " "
+		// + qu.getCreator().getName());
+		// }
+		//
+		// System.out.println(cad.list().size());
+		// for (CorrectAnswer cc : cad.list()) {
+		// System.out.println(cc);
+		// }
+		//
+		// System.out.println(cd.list().size());
+		//
+		// Quiz a1 = new Quiz();
+		// a1.setCreator(p.find(new Long(24)));
+		// a1.setCategory(cd.find(new Long(32)));
+		// a1.setQuizName("lalal");
+		//
+		// for (Question question : p.find(new Long(27)).getQuestions()) {
+		// System.out.println(question);
+		// }
+		//
+		// for (Question question : a.list()) {
+		// System.out.println(question);
+		// }
+		//
 
-		System.out.println(p.find(new Long("26")).getQuestions());
-		System.out.println(p.find(new Long("27")).getQuestions());
-
-		for (Question q : a.list()) {
-			System.out.println(q);
-
-		}
-
-		for (Professor prof : p.list()) {
-			System.out.println(prof.getQuestions());
-		}
-
-		for (Quiz qu : b.list()) {
-			System.out.println(qu);
-			System.out.println(qu.getCreator() + " "
-					+ qu.getCreator().getName());
-		}
-
-		System.out.println(cad.list().size());
-		for (CorrectAnswer cc : cad.list()) {
-			System.out.println(cc);
-		}
-
-		System.out.println(cd.list().size());
-
-		Quiz a1 = new Quiz();
-		a1.setCreator(p.find(new Long(24)));
-		a1.setCategory(cd.find(new Long(32)));
-		a1.setQuizName("lalal");
-
-		for (Question question : p.find(new Long(27)).getQuestions()) {
-			System.out.println(question);
-		}
-
-		for (Question question : a.list()) {
-			System.out.println(question);
+		for (Quiz quiz : b.list()) {
+			stat.calculateStatisticForQuiz(quiz.getIdQuiz(), 600, 600);
 		}
 
 		return "Index";
