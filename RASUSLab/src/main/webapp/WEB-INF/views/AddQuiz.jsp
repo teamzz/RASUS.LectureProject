@@ -43,11 +43,9 @@
 
 			<tr>
 				<td><label>Kategorija</label></td>
-				<td><form:select path="idCategory">
-						<c:forEach items="${ categories }" var="category">
-							<option value="${category.idCategory }">${ category.categoryName }</option>
-						</c:forEach>
-					</form:select></td>
+				
+				<td><form:input path="idCategory" value="${idCategory}"></form:input></td>
+			
 			</tr>
 
 			<tr>

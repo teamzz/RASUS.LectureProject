@@ -1,5 +1,6 @@
 package hr.fer.ztel.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -57,12 +58,12 @@ public class QuizController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/AddQuiz", method = RequestMethod.GET)
-	public String home(Model model) {
+	@RequestMapping(value = "/AddQuiz/{idCategory}", method = RequestMethod.GET)
+	public String home(@PathVariable("idCategory") Long categoryId, Model model, Principal principal) {
 		
 		
 		model.addAttribute("quizholder", new QuizHolder());
-		model.addAttribute("categories", categoryDao.list());
+		model.addAttribute("category", categoryDao.find(categoryId));
 		model.addAttribute("questions", questionDao.list());
 		return "AddQuiz";
 	}
