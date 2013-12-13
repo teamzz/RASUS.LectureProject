@@ -65,50 +65,52 @@ function showQuestions(quizId) {
 </head>
 <body>
 	<h1>Quizes</h1>
-	
 
-			<c:forEach items="${quizes }" var="quiz">
-			<table>
-		<tr bgcolor="#FFBBBB">
-			<td>ID</td>
-			<td>Ime</td>
-			<td>Kategorija</td>
-			<td></td>
-		<tr>
-				<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
-					<td><c:out value="${quiz.idQuiz}" /></td>
-					<td><c:out value="${quiz.quizName}" /></td>
-					<td><c:out value="${quiz.category.categoryName}" /></td>
-					<c:set value="${quiz.activated }" var="active" />
-					<td><button id="activateBtn${quiz.idQuiz}" type="button"
-							onclick="changeActiveQuiz(${quiz.idQuiz})">
-							<c:out value="${active eq false ? 'Activate': 'Deactivate'}" />
-						</button>
-					<td><div id="Q${quiz.idQuiz }">
-							<c:out value="${active eq false ? 'Deactivated': 'Activated'}" />
-						</div><div id="qActive${quiz.idQuiz }" style="visibility: collapse;"><c:out value="${!quiz.activated}" /></div></td>
-				</tr>
-				</table>
-				
-				<button onclick="showQuestions(${quiz.idQuiz})">+</button>
-				
-				<table id="questionsQuizId${quiz.idQuiz }" style="display: none;">
-				<tr bgcolor="#7070BB">
-					<td>Id pitanja</td>
-					<td>pitanje</td>
-					<td>kategorija</td>
-				</tr>
-				<tr>
+
+	<c:forEach items="${quizes }" var="quiz">
+		<table>
+			<tr bgcolor="#FFBBBB">
+				<td>ID</td>
+				<td>Ime</td>
+				<td>Kategorija</td>
+				<td></td>
+			<tr>
+			<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
+				<td><c:out value="${quiz.idQuiz}" /></td>
+				<td><c:out value="${quiz.quizName}" /></td>
+				<td><c:out value="${quiz.category.categoryName}" /></td>
+				<c:set value="${quiz.activated }" var="active" />
+				<td><button id="activateBtn${quiz.idQuiz}" type="button"
+						onclick="changeActiveQuiz(${quiz.idQuiz})">
+						<c:out value="${active eq false ? 'Activate': 'Deactivate'}" />
+					</button>
+				<td><div id="Q${quiz.idQuiz }">
+						<c:out value="${active eq false ? 'Deactivated': 'Activated'}" />
+					</div>
+					<div id="qActive${quiz.idQuiz }" style="visibility: collapse;">
+						<c:out value="${!quiz.activated}" />
+					</div></td>
+			</tr>
+		</table>
+
+		<button onclick="showQuestions(${quiz.idQuiz})">+</button>
+
+		<table id="questionsQuizId${quiz.idQuiz }" style="display: none;">
+			<tr bgcolor="#7070BB">
+				<td>Id pitanja</td>
+				<td>pitanje</td>
+				<td>kategorija</td>
+			</tr>
+			<tr>
 				<c:forEach items="${quiz.questions }" var="question">
-						<tr bgcolor="#BBBBFF">
-							<td><c:out value="${question.idQuestion}" /></td>
-							<td><c:out value="${question.textQuestion}" /></td>
-							<td><c:out value="${question.category.categoryName}" /></td>
-						</tr>
-					</c:forEach>
-				<tr height="20dp"></tr>
-				</table>
-			</c:forEach>
-	
+					<tr bgcolor="#BBBBFF">
+						<td><c:out value="${question.idQuestion}" /></td>
+						<td><c:out value="${question.textQuestion}" /></td>
+						<td><c:out value="${question.category.categoryName}" /></td>
+					</tr>
+				</c:forEach>
+			<tr height="20dp"></tr>
+		</table>
+	</c:forEach>
 </body>
 </html>
