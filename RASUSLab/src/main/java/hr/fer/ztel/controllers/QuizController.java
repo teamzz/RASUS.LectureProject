@@ -20,6 +20,7 @@ import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
 import hr.fer.ztel.domain.UserAnswerHolder;
+import hr.fer.ztel.service.ProfessorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,9 @@ public class QuizController {
 
 	@Autowired
 	private UserAnswerDao userAnsDao;
+	
+	@Autowired
+	private ProfessorService professorService;
 
 	// add quiz
 	/**
@@ -63,8 +67,7 @@ public class QuizController {
 		
 		
 		model.addAttribute("quizholder", new QuizHolder());
-		model.addAttribute("category", categoryDao.find(categoryId));
-		model.addAttribute("questions", questionDao.list());
+		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
 		return "AddQuiz";
 	}
 
