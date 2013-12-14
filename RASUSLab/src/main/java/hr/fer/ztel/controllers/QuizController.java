@@ -1,5 +1,6 @@
 package hr.fer.ztel.controllers;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -19,6 +20,7 @@ import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
 import hr.fer.ztel.domain.UserAnswerHolder;
+import hr.fer.ztel.service.ProfessorService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,18 +54,21 @@ public class QuizController {
 
 	@Autowired
 	private UserAnswerDao userAnsDao;
+	
+	@Autowired
+	private ProfessorService professorService;
 
 	// add quiz
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/AddQuiz", method = RequestMethod.GET)
-	public String home(Model model) {
+	@RequestMapping(value = "/AddQuiz/{idCategory}", method = RequestMethod.GET)
+	public String home(@PathVariable("idCategory") Long categoryId, Model model, Principal principal) {
 		
 		
 		model.addAttribute("quizholder", new QuizHolder());
-		model.addAttribute("categories", categoryDao.list());
-		model.addAttribute("questions", questionDao.list());
+		model.addAttribute("idProfessor", professorDao.getProfessorByUsername(principal.getName()).getIdProfessor());
+		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
 		return "AddQuiz";
 	}
 
@@ -78,7 +83,6 @@ public class QuizController {
 		logger.debug("Received request to add quiz");
 
 		Quiz quiz = quizHolder.getQuiz();
-		quiz.setCode("cmhjHkhKB456fv");
 		System.out.println("id category je " + quizHolder.getIdCategory());
 		System.out.println("id professor je " + quizHolder.getIdProfessor());
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));

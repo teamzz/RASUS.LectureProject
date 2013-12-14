@@ -113,8 +113,8 @@ Selected CategoryId = ${selectedCategory}
 </div>
 <div id="controlMenu">
 Controls:
-<input type="button" onclick="window.open('/ztel/NewQuestion','newwindow','width=700 height=500'); return false;" value="Add new question" />
-<input type="button" onclick="window.open('/ztel/AddQuiz','newwindow','width=500 height=500'); return false;" value="Add new quiz" />
+<input type="button" onclick="window.open('/ztel/NewQuestion/${selectedCategory}','newwindow','width=700 height=500'); return false;" value="Add new question" />
+<input type="button" onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=500 height=500'); return false;" value="Add new quiz" />
 </div>
 
 <hr>

@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -20,6 +22,7 @@
 		{
 			question.numberOfCorrectAnswers
 		}
+		numberOfCorrect = 1;
 		;
 		var form = document.getElementById("questionForm");
 		var correctAnswers = "";
@@ -59,21 +62,13 @@
 		${question.numberOfIncorrectAnswers}. The number of CorrectAnswer is
 		${question.numberOfCorrectAnswers}.</P>
 
-
+	
+			CategoryID: ${chosenCategory}
 	---------------------------------
 	<form:form method="POST" action="/ztel/questionAdded" id="questionForm"
 		modelAttribute="questionHolder">
 		<table id="formTable">
-			<tr>
-				<td><label name="question.category.idCategory">Category:
-				</label></td>
-				<td><select name="question.category.idCategory">
-						<c:forEach items="${categories}" var="item">
-							<option value="${item.idCategory}">${item.categoryName}
-							</option>
-						</c:forEach>
-				</select></td>
-			</tr>
+			<input type="hidden" name="question.category.idCategory" value="${chosenCategory}"></input>
 			<tr>
 				<td><label name="question.textQuestion">Question: </label></td>
 				<td><input name="question.textQuestion" /></td>
