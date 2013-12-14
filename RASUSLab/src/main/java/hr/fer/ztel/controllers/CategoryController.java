@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.collection.internal.PersistentBag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,9 +56,13 @@ public class CategoryController {
 	
 	@RequestMapping(value = "/Category", method = RequestMethod.POST)
 	public String categoryChosen(Model model, Principal pr,@ModelAttribute("selectedCategory") String cc){
+		Category selectedCategory = categoryDao.find(Long.parseLong(cc));
+		//System.out.println(selectedCategory.getCategoryName());
+		model.addAttribute("selectedCategoryName",selectedCategory.getCategoryName());
 		model.addAttribute("quizesByUser", professorService.getQuizMadeByProfessorInCategory(pr.getName(),Long.parseLong(cc)));
 		return "CategoryChosen";
 	}
+
 
 
 }

@@ -73,8 +73,9 @@
 				<td><label name="question.textQuestion">Question: </label></td>
 				<td><input name="question.textQuestion" /></td>
 			</tr>
+			
 			<c:forEach var="i" begin="0"
-				end="${question.numberOfCorrectAnswers-1}">
+				end="0">
 				<tr>
 					<td><label name="correctAnswers[${i}].textAnswer">Correct
 							Answer</label></td>
