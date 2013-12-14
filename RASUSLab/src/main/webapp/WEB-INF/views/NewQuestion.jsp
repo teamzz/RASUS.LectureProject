@@ -21,12 +21,12 @@
 	<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
 		<table id = "formTable">
 			<tr>
-				<td><form:label path="questionType">Question Type (A/B)</form:label></td>
-				<td><form:input path="questionType" /></td>
+				<!-- <td><form:label path="questionType">Question Type (A/B)</form:label></td>
+				<td><form:input path="questionType" /></td> -->
 				<td><form:label path="numberOfIncorrectAnswers">Number of incorrect answers</form:label></td>
 				<td><form:input path="numberOfIncorrectAnswers" /></td>
-				<td><form:label path="numberOfCorrectAnswers">Number of correct answers</form:label></td>
-				<td><form:input path="numberOfCorrectAnswers" /></td>
+				<!-- <td><form:label path="numberOfCorrectAnswers">Number of correct answers</form:label></td>
+				<td><form:input path="numberOfCorrectAnswers" /></td> -->
 				
 			</tr>
 
