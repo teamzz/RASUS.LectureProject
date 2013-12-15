@@ -14,7 +14,7 @@ public class QuizService {
 	public Quiz getQuizByCode(String code) {
 
 		for (Quiz tempQuiz : quizDao.list()) {
-			if (tempQuiz.getCode().equals(code))
+			if (tempQuiz.getCode().trim().equals(code.trim()))
 				return tempQuiz;
 		}
 		return null;
