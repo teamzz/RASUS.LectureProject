@@ -58,6 +58,9 @@ public class QuizController {
 	
 	@Autowired
 	private ProfessorService professorService;
+	
+	@Autowired
+	private QuizService qs;
 
 	// add quiz
 	/**
@@ -133,11 +136,11 @@ public class QuizController {
 	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
 	public String solveQuiz(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
 		UserAnswerHolder uah = new UserAnswerHolder();
-		System.out.println("code kviz " + codeQuiz);
-		QuizService qs = new QuizService();
+		
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
-		System.out.println("playQuiz id " + playQuiz.getIdQuiz());
+		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
 		uah.setIdQuiz(playQuiz.getIdQuiz());
+		model.addAttribute("quizCode", codeQuiz);
 		model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz()).getQuestions());
 		model.addAttribute("ansOfQuestions", uah);
 		return "SolveSimpleQuiz";
@@ -153,9 +156,7 @@ public class QuizController {
 			Model model) {
 
 		int numOfQuestions = ansToQuestions.getQuestionsId().size();
-		int numOfAnswers = ansToQuestions.getUserAnswers().size();
-		System.out.println("kviz id" + ansToQuestions.getIdQuiz());
-		System.out.println(numOfQuestions + " " + numOfAnswers);
+		
 		for (int i = 0; i < numOfQuestions; i++) {
 			String answer = ansToQuestions.getUserAnswers().get(i);
 			UserAnswer ua = new UserAnswer();
@@ -167,7 +168,7 @@ public class QuizController {
 			System.out.println(ua);
 		}
 		model.addAttribute("quizes", quizDao.list());
-		return "Quizes";
+		return "entry";
 
 	}
 }

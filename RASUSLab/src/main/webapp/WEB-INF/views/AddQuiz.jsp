@@ -27,6 +27,12 @@
 		for (var i = 0; i < currentOptions.length; i++)
 			s.options[currentOptions[i]].selected = true;
 	}
+	
+	function closeWindow()
+	{
+		alert("Kviz je dodan.");
+		window.close();
+	}
 </script>
 
 <title>Dodaj kviz</title>
@@ -67,7 +73,7 @@
 			
 			</div>
 			<div>
-				<input type="submit" value="Save" />
+				<input type="submit" onclick="closeWindow()" value="Save" />
 			</div>
 	</form:form>
 

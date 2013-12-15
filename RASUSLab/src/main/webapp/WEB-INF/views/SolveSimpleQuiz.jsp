@@ -7,13 +7,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript">
+function endQuiz()
+{
+	alert("Vaši odgovori su spremljeni.");
+}
+</script>
 <title>Kviz</title>
 </head>
 <body>
 
+
 <form:form action="/ztel/SolveSimpleQuiz/formsubmit" method="POST" modelAttribute="ansOfQuestions">
-<label>Kviz kod </label><form:input path="codeQuiz"/>
-<label>Kviz id </label><form:input path="idQuiz"/>
+<label>Kviz ${quizCode}</label>
+<form:input path="idQuiz" style="visibility:collapse;"/>
 
 	<c:forEach var="i" begin="0" end="${fn:length(questions)-1}">
 		<div>
@@ -33,7 +40,7 @@
 			</c:if>
 		</div>
 	</c:forEach>
-	<input type="submit" value="Save" />
+	<input type="submit" onclick="endQuiz()" value="Save" />
 </form:form>
 </body>
 </html>
