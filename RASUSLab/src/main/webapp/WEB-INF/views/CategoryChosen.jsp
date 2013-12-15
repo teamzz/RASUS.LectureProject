@@ -104,7 +104,7 @@ function sendCategoryToServer(categoryId,categoryName){
 <!-- onclick="sendCategoryToServer(${category.idCategory},'${category.categoryName}')"  -->
 
 <div id="categoryMenu">
-Selected CategoryId = ${selectedCategory}
+Selected Category = ${selectedCategoryName}
 <form:form action="/ztel/Category" method="POST" >
 <c:forEach items="${categories}" var="category" varStatus="status" >
 <button name="selectedCategory" value="${category.idCategory }">${category.categoryName}</input></br>
@@ -113,7 +113,7 @@ Selected CategoryId = ${selectedCategory}
 </div>
 <div id="controlMenu">
 Controls:
-<input type="button" onclick="window.open('/ztel/NewQuestion/${selectedCategory}','newwindow','width=700 height=500'); return false;" value="Add new question" />
+<input type="button" onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=700 height=500'); return false;" value="Add new question" />
 <input type="button" onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=500 height=500'); return false;" value="Add new quiz" />
 </div>
 
