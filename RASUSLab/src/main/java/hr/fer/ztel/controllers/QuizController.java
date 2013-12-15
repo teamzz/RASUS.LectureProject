@@ -21,6 +21,7 @@ import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
 import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
+import hr.fer.ztel.service.QuizService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -129,11 +130,15 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "/SolveSimpleQuiz/{idQuiz}", method = RequestMethod.GET)
-	public String solveQuiz(@PathVariable ("idQuiz") Long idQuiz, Model model) {
+	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
+	public String solveQuiz(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
 		UserAnswerHolder uah = new UserAnswerHolder();
-		uah.setIdQuiz(idQuiz);
-		model.addAttribute("questions", quizDao.find(idQuiz).getQuestions());
+		System.out.println("code kviz " + codeQuiz);
+		QuizService qs = new QuizService();
+		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
+		System.out.println("playQuiz id " + playQuiz.getIdQuiz());
+		uah.setIdQuiz(playQuiz.getIdQuiz());
+		model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz()).getQuestions());
 		model.addAttribute("ansOfQuestions", uah);
 		return "SolveSimpleQuiz";
 	}
