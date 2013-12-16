@@ -27,46 +27,54 @@
 		for (var i = 0; i < currentOptions.length; i++)
 			s.options[currentOptions[i]].selected = true;
 	}
+	
+	function closeWindow()
+	{
+		alert("Kviz je dodan.");
+		window.close();
+	}
 </script>
 
-<title>Add new quiz</title>
+<title>Dodaj kviz</title>
 </head>
 <body>
 	<form:form method="POST" modelAttribute="quizholder"
 		action="/ztel/AddQuiz/formsubmit">
-		<table>
-
-			<tr>
-				<td><form:label path="quiz.quizName">Name</form:label></td>
-				<td><form:input path="quiz.quizName" /></td>
-			</tr>
-
-			<tr>
-				<td><label>Kategorija</label></td>
-				
-				<td><form:input path="idCategory" value="${idCategory}"></form:input></td>
-			
-			</tr>
-
-			<tr>
-				<td><form:label path="idProfessor">Proff id</form:label></td>
-				<td><form:input path="idProfessor" value="26" /></td>
-			</tr>
-			<tr>
-				<td>Pitanja</td>
-				<td><form:select path="questionsIdList" multiple="multiple"
+			<div>
+				<form:label path="quiz.quizName">Ime kviza</form:label>
+				<form:input path="quiz.quizName" />
+			</div>
+			<div>
+				<form:label path="quiz.quizName">Kod</form:label>
+				<form:input path="quiz.code" />
+			</div>
+			<div>
+			<form:input path="idProfessor" value="${idProfessor }" style="visibility: collapse;"></form:input>
+			</div>
+			<div>
+				<form:input path="idCategory" value="${idCategory}" style="visibility: collapse;"></form:input>
+			</div>
+			<div>
+			Odaberite pitanja za ovaj kviz
+			<br>
+			</div>
+			<div>
+			<c:if test="${questions.size() == 0 }"><b>Nemate napravljenih pitanja u ovoj kategoriji</b></c:if>
+			<c:if test="${questions.size() > 0 }">
+				<form:select path="questionsIdList" multiple="multiple"
 						onclick="selectMultiple(this);" size="10">
 						<c:forEach items="${ questions }" var="question">
 							<option value="${question.idQuestion }">
 								${question.textQuestion}</option>
 						</c:forEach>
 
-					</form:select></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" value="Save" /></td>
-			</tr>
-		</table>
+					</form:select>
+					</c:if>
+			
+			</div>
+			<div>
+				<input type="submit" onclick="closeWindow()" value="Save" />
+			</div>
 	</form:form>
 
 </body>

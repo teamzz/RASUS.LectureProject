@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript">
@@ -15,7 +15,7 @@ function changeActiveQuiz(quizId) {
 	    url: "/ztel/Quizes/jax/changeactivequiz", 
 	    type: 'POST', 
 	    dataType: 'json', 
-	    data: "{\"idQuiz\":\"" + quizId + "\", \"activated\":\""+ active.innerHTML +"\", \"code\":\"0\"}", 
+	    data: "{\"idQuiz\":\"" + quizId + "\", \"activated\":\""+ active.innerHTML +"\"}", 
 	    contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(data) { 
@@ -25,23 +25,18 @@ function changeActiveQuiz(quizId) {
 	    		{
 	    		state = "Activated";
 	    		btnTxt = "Deactivate";
-	    		var code = document.getElementById("quizCode" + data.idQuiz);
-	    		code.innerHTML = "" + data.code;
 	    		}
 	    	else{
 	    		state = "Deactivated";
 	    		btnTxt = "Activate";
-	    		var y = document.getElementById("activateBtn" + data.idQuiz);
-		    	y.disabled = 'disabled';
 	    	}
-	    	
-    		
+	 
 	    	var x=document.getElementById("Q" + data.idQuiz);
 	    	x.innerHTML = state;
 	    	var y = document.getElementById("activateBtn" + data.idQuiz);
 	    	y.innerHTML = btnTxt;
 	    	var z = document.getElementById("qActive" + data.idQuiz);
-	    	z.innerHTML = data.activated;
+	    	z.innerHTML = !data.activated;
 	    
 	    },
 	    error:function(data,status,er) { 
@@ -66,63 +61,56 @@ function showQuestions(quizId) {
 </script>
 
 
-<title>Quizes</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<h1>Quizes</h1>
-	
 
-			<c:forEach items="${quizes }" var="quiz">
-			<table>
-		<tr bgcolor="#FFBBBB">
-			<td>ID</td>
-			<td>Ime</td>
-			<td>Kategorija</td>
-			<td>Akcija</td>
-			<td>Stanje</td>
-			<td>KOD</td>
-		<tr>
-				<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
-					<td><c:out value="${quiz.idQuiz}" /></td>
-					<td><c:out value="${quiz.quizName}" /></td>
-					<td><c:out value="${quiz.category.categoryName}" /></td>
-					<c:set value="${quiz.activated }" var="active" />
-					<td><button id="activateBtn${quiz.idQuiz}" type="button"
-							onclick="changeActiveQuiz(${quiz.idQuiz})" <c:if test="${quiz.activated == true }">disabled="disabled"</c:if>>
-							
-							<c:out value="${active eq false ? 'Activate': 'No Action'}" />
-						</button>
-					<td><div id="Q${quiz.idQuiz }">
-							<c:out value="${active eq false ? 'Not active yet': 'Already activated'}" />
-						</div><div id="qActive${quiz.idQuiz }" style="visibility: collapse;"><c:out value="${quiz.activated}" /></div>
-						</td>
-						<td>
-						
-						<c:if test="${quiz.activated == true }"><div>${quiz.code }</div></c:if>
-						<div id="quizCode${quiz.idQuiz }" ></div>
-						</td>
-				</tr>
-				</table>
-				
-				<button onclick="showQuestions(${quiz.idQuiz})">+</button>
-				
-				<table id="questionsQuizId${quiz.idQuiz }" style="display: none;">
-				<tr bgcolor="#7070BB">
-					<td>Id pitanja</td>
-					<td>pitanje</td>
-					<td>kategorija</td>
-				</tr>
-				<tr>
+
+	<c:forEach items="${quizes }" var="quiz">
+		<table>
+			<tr bgcolor="#FFBBBB">
+				<td>ID</td>
+				<td>Ime</td>
+				<td>Kategorija</td>
+				<td></td>
+			<tr>
+			<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
+				<td><c:out value="${quiz.idQuiz}" /></td>
+				<td><c:out value="${quiz.quizName}" /></td>
+				<td><c:out value="${quiz.category.categoryName}" /></td>
+				<c:set value="${quiz.activated }" var="active" />
+				<td><button id="activateBtn${quiz.idQuiz}" type="button"
+						onclick="changeActiveQuiz(${quiz.idQuiz})">
+						<c:out value="${active eq false ? 'Activate': 'Deactivate'}" />
+					</button>
+				<td><div id="Q${quiz.idQuiz }">
+						<c:out value="${active eq false ? 'Deactivated': 'Activated'}" />
+					</div>
+					<div id="qActive${quiz.idQuiz }" style="visibility: collapse;">
+						<c:out value="${!quiz.activated}" />
+					</div></td>
+			</tr>
+		</table>
+
+		<button onclick="showQuestions(${quiz.idQuiz})">+</button>
+
+		<table id="questionsQuizId${quiz.idQuiz }" style="display: none;">
+			<tr bgcolor="#7070BB">
+				<td>Id pitanja</td>
+				<td>pitanje</td>
+				<td>kategorija</td>
+			</tr>
+			<tr>
 				<c:forEach items="${quiz.questions }" var="question">
-						<tr bgcolor="#BBBBFF">
-							<td><c:out value="${question.idQuestion}" /></td>
-							<td><c:out value="${question.textQuestion}" /></td>
-							<td><c:out value="${question.category.categoryName}" /></td>
-						</tr>
-					</c:forEach>
-				<tr height="20dp"></tr>
-				</table>
-			</c:forEach>
-	
+					<tr bgcolor="#BBBBFF">
+						<td><c:out value="${question.idQuestion}" /></td>
+						<td><c:out value="${question.textQuestion}" /></td>
+						<td><c:out value="${question.category.categoryName}" /></td>
+					</tr>
+				</c:forEach>
+			<tr height="20dp"></tr>
+		</table>
+	</c:forEach>
 </body>
 </html>

@@ -36,14 +36,6 @@
 	<!-- Import persisstance-bena configuration file (hibernate and datasource -->
 	<beans:import resource="classpath:persistence-bean.xml" />
 
-
 	<context:component-scan base-package="hr.fer.ztel"></context:component-scan>
-
-
-
-
-
-
-
 
 </beans:beans>

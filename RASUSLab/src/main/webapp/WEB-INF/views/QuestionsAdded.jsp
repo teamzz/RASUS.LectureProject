@@ -10,12 +10,18 @@
 <meta  >
 <title>Insert title here</title>
 
-
+<script>
+function closeWindow()
+{
+	alert("Pitanje je dodano.");
+	window.close();
+}
+</script>
 
 </head>
 <body>
 	<h1>Questions added.</h1><hr>
-
+<script>closeWindow()</script>
 
 </body>
 </html>

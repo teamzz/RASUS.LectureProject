@@ -21,6 +21,7 @@ import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
 import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
+import hr.fer.ztel.service.QuizService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,6 +58,9 @@ public class QuizController {
 	
 	@Autowired
 	private ProfessorService professorService;
+	
+	@Autowired
+	private QuizService qs;
 
 	// add quiz
 	/**
@@ -67,6 +71,7 @@ public class QuizController {
 		
 		
 		model.addAttribute("quizholder", new QuizHolder());
+		model.addAttribute("idProfessor", professorDao.getProfessorByUsername(principal.getName()).getIdProfessor());
 		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
 		return "AddQuiz";
 	}
@@ -82,7 +87,6 @@ public class QuizController {
 		logger.debug("Received request to add quiz");
 
 		Quiz quiz = quizHolder.getQuiz();
-		quiz.setCode("cmhjHkhKB456fv");
 		System.out.println("id category je " + quizHolder.getIdCategory());
 		System.out.println("id professor je " + quizHolder.getIdProfessor());
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));
@@ -129,11 +133,15 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "/SolveSimpleQuiz/{idQuiz}", method = RequestMethod.GET)
-	public String solveQuiz(@PathVariable ("idQuiz") Long idQuiz, Model model) {
+	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
+	public String solveQuiz(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
 		UserAnswerHolder uah = new UserAnswerHolder();
-		uah.setIdQuiz(idQuiz);
-		model.addAttribute("questions", quizDao.find(idQuiz).getQuestions());
+		
+		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
+		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+		uah.setIdQuiz(playQuiz.getIdQuiz());
+		model.addAttribute("quizCode", codeQuiz);
+		model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz()).getQuestions());
 		model.addAttribute("ansOfQuestions", uah);
 		return "SolveSimpleQuiz";
 	}
@@ -148,9 +156,7 @@ public class QuizController {
 			Model model) {
 
 		int numOfQuestions = ansToQuestions.getQuestionsId().size();
-		int numOfAnswers = ansToQuestions.getUserAnswers().size();
-		System.out.println("kviz id" + ansToQuestions.getIdQuiz());
-		System.out.println(numOfQuestions + " " + numOfAnswers);
+		
 		for (int i = 0; i < numOfQuestions; i++) {
 			String answer = ansToQuestions.getUserAnswers().get(i);
 			UserAnswer ua = new UserAnswer();
@@ -162,7 +168,7 @@ public class QuizController {
 			System.out.println(ua);
 		}
 		model.addAttribute("quizes", quizDao.list());
-		return "Quizes";
+		return "entry";
 
 	}
 }

@@ -1,6 +1,7 @@
 package hr.fer.ztel.controllers;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import hr.fer.ztel.domain.QuestionHolder;
 import hr.fer.ztel.domain.CorrectAnswer;
 import hr.fer.ztel.domain.IncorrectAnswer;
 import hr.fer.ztel.domain.Professor;
+
 
 
 
@@ -60,6 +62,7 @@ public class QuestionController {
 		model.addAttribute("chosenCategory",cat);
 		
 		
+
 		return "NewQuestion";
 	}
 
@@ -77,15 +80,14 @@ public class QuestionController {
 		}
 		model.addAttribute("questionHolder", holder);
 		model.addAttribute("categories",categoryDao.list());
-		
-		
+
 		return "AddQuestion";
 	}
 
 	@RequestMapping(value = "/questionAdded", method = RequestMethod.POST)
 	public String added(
 			@ModelAttribute("questionHolder") QuestionHolder holder,
-			HttpServletRequest request,Model model) throws IOException {
+			HttpServletRequest request,Model model, Principal principal) throws IOException {
 
 		for (CorrectAnswer ca : holder.getCorrectAnswers()) {
 			ca.setAnswerToQuestion(holder.getQuestion());
@@ -98,13 +100,17 @@ public class QuestionController {
 
 		holder.getQuestion().setCorrectAnswers(holder.getCorrectAnswers());
 		holder.getQuestion().setIncorrectAnswers(holder.getIncorrectAnswers());
-		//System.out.println(holder.getQuestion().getCategory().getCategoryName() + " " + holder.getQuestion().getCategory().getIdCategory());
-		
-		//Set category name, found by id given by AddQuestion.jsp
-		//holder.getQuestion().getCategory().setCategoryName(categoryDao.find(holder.getQuestion().getCategory().getIdCategory()).getCategoryName());
-		System.out.println("TEST: " + holder.getQuestion().getCategory().getIdCategory());
-		//Read username from session.		
-		Professor prof = professorDao.getProfessorByUsername("iivic");
+
+		// System.out.println(holder.getQuestion().getCategory().getCategoryName()
+		// + " " + holder.getQuestion().getCategory().getIdCategory());
+
+		// Set category name, found by id given by AddQuestion.jsp
+		// holder.getQuestion().getCategory().setCategoryName(categoryDao.find(holder.getQuestion().getCategory().getIdCategory()).getCategoryName());
+		System.out.println("TEST: "
+				+ holder.getQuestion().getCategory().getIdCategory());
+		// Read username from session.
+		Professor prof = professorDao.getProfessorByUsername(principal
+				.getName());
 		/*
 		 prof = new Professor();
 		prof.setDepartment("zpm");

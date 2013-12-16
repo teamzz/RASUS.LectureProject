@@ -1,0 +1,58 @@
+html, body
+{
+   margin: 0;
+   padding: 0;
+   height: 100%;
+}
+
+#outerDIV {
+	min-height: 100%;
+}
+
+#headerDIV {
+	margin: 0 auto;
+	border-bottom: 1px solid #199BE6;
+	width: 98%;
+	height: 8%; /*ne radi u glupom tomcatu*/
+	background-color: #E7EFF3; /* #868D91 ili #ADB5BA */
+	text-align: left;
+	vertical-align: middle;
+	/*	line-height: 3em;  jebene */
+	color: #2B3838; /* 5D7878 ili 4C6061  */
+	padding-left: 2%;
+	/*	margin-top: -2%; jebene*/
+}
+
+#coreDIV {
+	height: 85%;
+	margin-left: 17%;
+	margin-top: 5%;
+	margin-right: 17%;
+	margin-bottom: 15%;
+	color: #2B3838;
+	padding: 1%;
+	background-color: #FAFAFA;
+}
+
+#innerDownerDIV {
+	text-align: center;
+}
+
+#footerDIV {
+	height: 5%;
+	margin-top: 5%;
+	margin: 0 auto;
+	margin-left: 17%;
+	margin-right: 17%;
+	text-align: center;
+}
+
+#loginForm {
+	margin-left: auto;
+    margin-right: auto;
+    width: 30%; 
+}
+
+body {
+	background-color: #FAFAFA;
+}
