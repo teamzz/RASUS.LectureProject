@@ -1,10 +1,14 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -48,20 +54,33 @@ public class Quiz implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idcategory")
 	private Category category;
-	
+
 	@Column(name = "code")
 	private String code;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "quiz_has_question", joinColumns = { @JoinColumn(name = "idquiz") }, inverseJoinColumns = { @JoinColumn(name = "idquestion") })
-	@Fetch(FetchMode.SELECT)
-	private List<Question> questions;
+	// @OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz")
+	// @Fetch(FetchMode.SELECT)
+	// private List<QuestionInQuizInformation> questions;
+	//
+	// public List<QuestionInQuizInformation> getQuestions() {
+	// return questions;
+	// }
+	//
+	// public void setQuestions(List<QuestionInQuizInformation> questions) {
+	// this.questions = questions;
+	// }
 
-	public List<Question> getQuestions() {
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz")
+	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@MapKey(name = "orderNumber")
+	@Fetch(FetchMode.SELECT)
+	private Map<Integer, QuestionInQuizInformation> questions = new HashMap<Integer, QuestionInQuizInformation>();
+
+	public Map<Integer, QuestionInQuizInformation> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Map<Integer, QuestionInQuizInformation> questions) {
 		this.questions = questions;
 	}
 
@@ -108,6 +127,10 @@ public class Quiz implements Serializable {
 		this.creator = creator;
 	}
 
+	public void addQuestionInQuizInformation(QuestionInQuizInformation qinf) {
+		questions.put(questions.size(), qinf);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,6 +138,7 @@ public class Quiz implements Serializable {
 		result = prime * result + (activated ? 1231 : 1237);
 		result = prime * result
 				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result + ((idQuiz == null) ? 0 : idQuiz.hashCode());
 		result = prime * result
@@ -137,6 +161,11 @@ public class Quiz implements Serializable {
 			if (other.category != null)
 				return false;
 		} else if (!category.equals(other.category))
+			return false;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
 			return false;
 		if (creator == null) {
 			if (other.creator != null)

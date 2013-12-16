@@ -23,6 +23,7 @@ import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.dao.StatisticPictureDao;
 import hr.fer.ztel.domain.Question;
+import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.StatisticPicture;
 import hr.fer.ztel.domain.UserAnswer;
@@ -49,8 +50,10 @@ public class Statistic {
 
 	public void calculateStatisticForQuiz(Long idQuiz, int width, int height) {
 
-		for (Question question : quizDao.find(idQuiz).getQuestions()) {
-			createPieChart(idQuiz, question.getIdQuestion(), width, height);
+		for (Entry<Integer, QuestionInQuizInformation> question : quizDao
+				.find(idQuiz).getQuestions().entrySet()) {
+			createPieChart(idQuiz, question.getValue().getQuestion()
+					.getIdQuestion(), width, height);
 		}
 
 	}

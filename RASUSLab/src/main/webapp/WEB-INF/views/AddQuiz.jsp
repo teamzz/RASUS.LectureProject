@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/JavaScript">
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript">
 	var currentOptions = new Array();
 	var current;
 	function selectMultiple(s) {
@@ -27,54 +29,88 @@
 		for (var i = 0; i < currentOptions.length; i++)
 			s.options[currentOptions[i]].selected = true;
 	}
-	
-	function closeWindow()
-	{
+
+	function saveQuestion() {
+		var questionId = document.getElementById("questionId").value;
+		$.ajax({
+			url : "/ztel/AddQuiz/jax/addquestion",
+			type : 'POST',
+			dataType : 'json',
+			data : "{\"idQuestion\":\"" + questionId + "\"}",
+			contentType : 'application/json',
+			mimeType : 'application/json',
+			success : function(data) {
+				alert("saved");
+
+			},
+
+		});
+		
+		document.getElementById("selectQuestion" + questionId).disabled=true;
+		
+		var table = document.getElementById("selectedQuestionsTable");
+		  {
+		  var row = table.insertRow(-1);
+		  var cell1 = row.insertCell(0);
+		  cell1.innerHTML = questionId;
+		  }
+		  
+	}
+
+	function closeWindow() {
 		alert("Kviz je dodan.");
 		window.close();
 	}
+	
+	
 </script>
 
 <title>Dodaj kviz</title>
 </head>
 <body>
+	<table id = "selectedQuestionsTable">
+	</table>
+	
 	<form:form method="POST" modelAttribute="quizholder"
 		action="/ztel/AddQuiz/formsubmit">
-			<div>
-				<form:label path="quiz.quizName">Ime kviza</form:label>
-				<form:input path="quiz.quizName" />
-			</div>
-			<div>
-				<form:label path="quiz.quizName">Kod</form:label>
-				<form:input path="quiz.code" />
-			</div>
-			<div>
-			<form:input path="idProfessor" value="${idProfessor }" style="visibility: collapse;"></form:input>
-			</div>
-			<div>
-				<form:input path="idCategory" value="${idCategory}" style="visibility: collapse;"></form:input>
-			</div>
-			<div>
-			Odaberite pitanja za ovaj kviz
-			<br>
-			</div>
-			<div>
-			<c:if test="${questions.size() == 0 }"><b>Nemate napravljenih pitanja u ovoj kategoriji</b></c:if>
+		<div>
+			<form:label path="quiz.quizName">Ime kviza</form:label>
+			<form:input path="quiz.quizName" />
+		</div>
+		<div>
+			<form:label path="quiz.quizName">Kod</form:label>
+			<form:input path="quiz.code" />
+		</div>
+		<div>
+			<form:input path="idProfessor" value="${idProfessor }"
+				style="visibility: collapse;"></form:input>
+		</div>
+		<div>
+			<form:input path="idCategory" value="${idCategory}"
+				style="visibility: collapse;"></form:input>
+		</div>
+		<div>
+			Odaberite pitanja za ovaj kviz <br>
+		</div>
+		<div>
+			<c:if test="${questions.size() == 0 }">
+				<b>Nemate napravljenih pitanja u ovoj kategoriji</b>
+			</c:if>
 			<c:if test="${questions.size() > 0 }">
-				<form:select path="questionsIdList" multiple="multiple"
-						onclick="selectMultiple(this);" size="10">
-						<c:forEach items="${ questions }" var="question">
-							<option value="${question.idQuestion }">
-								${question.textQuestion}</option>
-						</c:forEach>
+				<select id="questionId" size="10">
+					<c:forEach items="${ questions }" var="question">
+						<option id="selectQuestion${question.idQuestion}" value="${question.idQuestion }">
+							${question.textQuestion}</option>
+					</c:forEach>
+				</select>
+				<button type="button" onclick="saveQuestion()">Save this
+					fucker!</button>
+	</c:if>
 
-					</form:select>
-					</c:if>
-			
-			</div>
-			<div>
-				<input type="submit" onclick="closeWindow()" value="Save" />
-			</div>
+	</div>
+	<div>
+		<input type="submit" onclick="closeWindow()" value="Save" />
+	</div>
 	</form:form>
 
 </body>
