@@ -53,6 +53,27 @@ function changeActiveQuiz(quizId) {
 	});
 	}
 	
+function deleteQuestion(questionId) {
+	$.ajax({
+	    url: "/ztel/Questions/jax/deletequestion", 
+	    type: 'POST', 
+	    dataType: 'json', 
+	    data: "{\"idQuestion\":\"" + questionId + "\"}", 
+	    contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(data) { 
+	    	
+	    	var x=document.getElementById("questionOfQuiz" + data.idQuestion);
+	    	x.innerHTML = "blob";
+	    	
+	    
+	    },
+	    error:function(data,status,er) { 
+	        alert("error: "+data+" status: "+status+" er:"+er);
+	    }
+	});
+	}
+	
 function showQuestions(quizId) {
 	var active  = document.getElementById("questionsQuizId" + quizId); 
 	var display = active.style.display;
@@ -170,10 +191,12 @@ Quizzes :
 				</tr>
 				<tr>
 				<c:forEach items="${quiz.questions }" var="question">
-						<tr bgcolor="#BBBBFF">
+						<tr bgcolor="#BBBBFF" id="questionOfQuiz${question.idQuestion }">
 							<td><c:out value="${question.idQuestion}" /></td>
 							<td><c:out value="${question.textQuestion}" /></td>
 							<td><c:out value="${question.category.categoryName}" /></td>
+							<td><button type="button"
+							onclick="deleteQuestion(${question.idQuestion})">Delete</button>
 						</tr>
 					</c:forEach>
 				<tr height="20dp"></tr>
