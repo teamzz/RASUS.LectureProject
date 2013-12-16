@@ -51,7 +51,7 @@ public class Statistic {
 	public void calculateStatisticForQuiz(Long idQuiz, int width, int height) {
 
 		for (Entry<Integer, QuestionInQuizInformation> question : quizDao
-				.find(idQuiz).getQuestions().entrySet()) {
+				.find(idQuiz).getQuestionsInformation().entrySet()) {
 			createPieChart(idQuiz, question.getValue().getQuestion()
 					.getIdQuestion(), width, height);
 		}

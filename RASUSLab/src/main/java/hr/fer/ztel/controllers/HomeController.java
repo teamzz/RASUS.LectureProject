@@ -126,21 +126,21 @@ public class HomeController {
 			stat.calculateStatisticForQuiz(quiz.getIdQuiz(), 600, 600);
 		}
 
-		for (Quiz quiz : b.list()) {
-
-			System.out.println(quiz.getQuizName());
-			for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
-					.getQuestions().entrySet()) {
-				System.out.println("Pitanja u kvizu------------------------");
-				System.err.println("Redni broj pitanja "
-						+ questioninfo.getKey()
-						+ " tekst pitanja= "
-						+ questioninfo.getValue().getQuestion()
-								.getTextQuestion() + " aktivno="
-						+ questioninfo.getValue().getActivated());
-			}
-
-		}
+//		for (Quiz quiz : b.list()) {
+//
+//			System.out.println(quiz.getQuizName());
+//			for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
+//					.getQuestions().entrySet()) {
+//				System.out.println("Pitanja u kvizu------------------------");
+//				System.err.println("Redni broj pitanja "
+//						+ questioninfo.getKey()
+//						+ " tekst pitanja= "
+//						+ questioninfo.getValue().getQuestion()
+//								.getTextQuestion() + " aktivno="
+//						+ questioninfo.getValue().getActivated());
+//			}
+//
+//		}
 
 		return "Index";
 	}

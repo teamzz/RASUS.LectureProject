@@ -1,9 +1,11 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +24,7 @@ import javax.persistence.MapKey;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
@@ -74,14 +77,32 @@ public class Quiz implements Serializable {
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@MapKey(name = "orderNumber")
 	@Fetch(FetchMode.SELECT)
-	private Map<Integer, QuestionInQuizInformation> questions = new HashMap<Integer, QuestionInQuizInformation>();
+	private Map<Integer, QuestionInQuizInformation> questionsInformation = new HashMap<Integer, QuestionInQuizInformation>();
 
-	public Map<Integer, QuestionInQuizInformation> getQuestions() {
-		return questions;
+	@Transient
+	private List<Question> questions;
+
+	public List<Question> getQuestions() {
+		List<Question> retval = new ArrayList<Question>(
+				questionsInformation.size());
+		for (Entry<Integer, QuestionInQuizInformation> question : questionsInformation
+				.entrySet()) {
+			retval.add(question.getKey(), question.getValue().getQuestion());
+		}
+		return retval;
 	}
 
-	public void setQuestions(Map<Integer, QuestionInQuizInformation> questions) {
-		this.questions = questions;
+	public Map<Integer, QuestionInQuizInformation> getQuestionsInformation() {
+		return questionsInformation;
+	}
+
+	public void setQuestionsInformation(
+			Map<Integer, QuestionInQuizInformation> questionsInformation) {
+		this.questionsInformation = questionsInformation;
+	}
+
+	public void setQuestion(List<Question> questionList) {
+		this.questions = questionList;
 	}
 
 	public Category getCategory() {
@@ -128,8 +149,8 @@ public class Quiz implements Serializable {
 	}
 
 	public void addQuestionInQuizInformation(QuestionInQuizInformation qinf) {
-		qinf.setOrderNumber(questions.size());
-		questions.put(questions.size(), qinf);
+		qinf.setOrderNumber(questionsInformation.size());
+		questionsInformation.put(questionsInformation.size(), qinf);
 	}
 
 	@Override
