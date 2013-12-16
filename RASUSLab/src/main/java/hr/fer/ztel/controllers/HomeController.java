@@ -145,10 +145,10 @@ public class HomeController {
 		Quiz a = b.find(new Long(21));
 		System.out.println(a.getQuestionsInformation().size());
 
-		a.getQuestionsInformation().remove(new Integer(1));
-		System.out.println(a.getQuestionsInformation().size());
-		a.setCode("222");
-		b.update(a);
+//		a.getQuestionsInformation().remove(new Integer(1));
+//		System.out.println(a.getQuestionsInformation().size());
+//		a.setCode("222");
+//		b.update(a);
 		return "Index";
 	}
 }
