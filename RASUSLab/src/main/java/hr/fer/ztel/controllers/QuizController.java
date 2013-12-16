@@ -17,6 +17,7 @@ import hr.fer.ztel.dao.UserAnswerDao;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
+import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
@@ -131,7 +132,12 @@ public class QuizController {
 			 * questionDao.find(questionId).getTextQuestion());
 			 */
 			System.out.println("dodajem pitanje kviza " + questionId);
-			questionsList.add(questionDao.find(questionId));
+		
+			QuestionInQuizInformation qqinfo = new QuestionInQuizInformation();
+			qqinfo.setQuestion(questionDao.find(questionId));
+			qqinfo.setActivated(false);
+			qqinfo.setQuiz(quiz);
+			quiz.addQuestionInQuizInformation(qqinfo);
 		}
 		for (Question q : questionsList) {
 			System.out.println(q);
@@ -141,7 +147,7 @@ public class QuizController {
 		for (Question q : questionDao.list()) {
 			System.out.println(q);
 		}
-		quiz.setQuestions(questionsList);
+		
 		quizDao.add(quiz);
 
 		model.addAttribute("quizes", quizDao.list());
