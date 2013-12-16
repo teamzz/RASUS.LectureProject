@@ -6,6 +6,14 @@
 
 <html>
 <head>
+<script type="text/javascript">
+function startQuiz()
+{
+	var code = document.getElementById("quizCode").value;
+	window.open("/ztel/SolveSimpleQuiz/" + code, "_self");
+	
+}
+</script>
 	<title>Sudjelovanje u nastavi</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="<c:url value="/resources/css/lookCss.css" />" type="text/css" rel="stylesheet">
@@ -30,10 +38,10 @@
 			</div>
 
 			<div id="innerDownerDIV">
-				<form action="/" method="POST">
-					Unesi kod: <input type="text" name="quizCode"/>
-					<input type="submit" value="Generiraj kviz"/>
-				</form>
+				
+					Unesi kod: <input type="text" id="quizCode"/>
+					<button onclick="startQuiz()" >Generiraj kviz</button>
+			
 				<br>
 				<br>
 				<br>
