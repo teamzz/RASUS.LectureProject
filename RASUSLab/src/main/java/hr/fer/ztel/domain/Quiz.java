@@ -128,6 +128,7 @@ public class Quiz implements Serializable {
 	}
 
 	public void addQuestionInQuizInformation(QuestionInQuizInformation qinf) {
+		qinf.setOrderNumber(questions.size());
 		questions.put(questions.size(), qinf);
 	}
 
