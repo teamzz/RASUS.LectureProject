@@ -5,10 +5,12 @@ import java.security.Principal;
 import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
+import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.QuestionHolder;
 import hr.fer.ztel.domain.CorrectAnswer;
@@ -21,14 +23,19 @@ import hr.fer.ztel.domain.Professor;
 
 
 
+import hr.fer.ztel.domain.Quiz;
+import hr.fer.ztel.domain.QuizHolder;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
@@ -47,6 +54,8 @@ public class QuestionController {
 	private CategoryDao categoryDao;
 	@Autowired
 	private ProfessorDao professorDao;
+	@Autowired
+	private QuizDao quizDao;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -134,5 +143,31 @@ public class QuestionController {
 
 		return "QuestionsAdded";
 	}
+	
+	@RequestMapping(value="/Questions/jax/", method = RequestMethod.GET)
+	  public @ResponseBody Question getQ(HttpServletResponse res) {
+		/*
+		   * Cat cat = new cat;
+		   * cat.setcatname
+		   * cat.setidcat;
+		   * ret cat
+		   */
+		Question q = new Question();
+		q.setIdQuestion(0);
+	      return q;
+	  }
+	
+	@RequestMapping(value = "/Questions/jax/deletequestion", method = RequestMethod.POST)
+	public @ResponseBody Question addQ(@RequestBody final Question question)
+	{
+	  System.out.println("u restu za brisanje pitanja sam");
+	  System.out.println(question.getIdQuestion());
+	  Quiz q = quizDao.find(Long.parseLong(question.getTextQuestion()));
+	  q.deleteQuestion(question.getIdQuestion());
+	  quizDao.update(q);
+	  System.out.println("pitanje obrisano");
+	  return question;
+	}
+	
 
 }

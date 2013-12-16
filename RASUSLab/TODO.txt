@@ -1,20 +1,8 @@
 TODO
 
-Sinkronizitrati REST kontroler sa smrekijem
+1. Aktivacija pojedinih pitanja u kvizu
 
-
-caja promjena
-
-
-promjena1
-
-promjenadsafsa2
-
-matijaprom
-xdsddsa
-promjenaMaster mat
-sda
-
-dada
-
-lolo
+2. Admin suèelje
+4. Brisanje pitanja
+5. Suèelje za upravljanje kvizom
+	-Statistka za svako pitanje i nakon svakog pitanja

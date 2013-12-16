@@ -1,6 +1,7 @@
 package hr.fer.ztel.dao;
 
 import hr.fer.ztel.domain.CorrectAnswer;
+import hr.fer.ztel.domain.IncorrectAnswer;
 
 import java.util.List;
 
@@ -12,35 +13,34 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class IncorrectAnswerDao {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void add(CorrectAnswer entity) {
+	public void add(IncorrectAnswer entity) {
 		sessionFactory.getCurrentSession().save(entity);
 	}
 
-	public void update(CorrectAnswer entity) {
+	public void update(IncorrectAnswer entity) {
 		sessionFactory.getCurrentSession().saveOrUpdate(entity);
 
 	}
 
-	public void remove(CorrectAnswer entity) {
+	public void remove(IncorrectAnswer entity) {
 		sessionFactory.getCurrentSession().delete(entity);
 
 	}
 
-	public CorrectAnswer find(Long key) {
-		return (CorrectAnswer) sessionFactory.getCurrentSession().get(
-				CorrectAnswer.class, key);
+	public IncorrectAnswer find(Long key) {
+		return (IncorrectAnswer) sessionFactory.getCurrentSession().get(
+				IncorrectAnswer.class, key);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<CorrectAnswer> list() {
+	public List<IncorrectAnswer> list() {
 
 		return sessionFactory.getCurrentSession()
-				.createCriteria(CorrectAnswer.class).list();
+				.createCriteria(IncorrectAnswer.class).list();
 	}
-
 
 }

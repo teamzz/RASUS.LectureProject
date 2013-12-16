@@ -6,14 +6,12 @@
 
 <html class="no-js">
 <head>
-<link href="<c:url value="/resources/css/foundation.css" />"
-	type="text/css" rel="stylesheet">
+<link href="<c:url value="/resources/css/foundation.css" />"type="text/css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link href="<c:url value="/resources/css/lookCss.css" />"
-	type="text/css" rel="stylesheet">
+<link href="<c:url value="/resources/css/lookCss.css" />" type="text/css" rel="stylesheet">
 <script src="/resources/js/modernizr.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <script type="text/javascript">
 	function startQuiz() {
