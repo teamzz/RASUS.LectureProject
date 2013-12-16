@@ -1,6 +1,8 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class QuizHolder implements Serializable {
 
@@ -11,7 +13,7 @@ public class QuizHolder implements Serializable {
 	private Quiz quiz;
 	private long idCategory;
 	private long idProfessor;
-	private long[] questionsIdList;
+	private List<Long> questionsIdList = new ArrayList<Long>();
 
 	public QuizHolder() {
 
@@ -41,11 +43,19 @@ public class QuizHolder implements Serializable {
 		this.idProfessor = idProfessor;
 	}
 
-	public long[] getQuestionsIdList() {
+	
+	
+	public void addQuestion(Long questionId)
+	{
+		System.out.println("dodajem pitanje");
+		questionsIdList.add(questionId);
+	}
+
+	public List<Long> getQuestionsIdList() {
 		return questionsIdList;
 	}
 
-	public void setQuestionsIdList(long[] questionsIdList) {
+	public void setQuestionsIdList(List<Long> questionsIdList) {
 		this.questionsIdList = questionsIdList;
 	}
 

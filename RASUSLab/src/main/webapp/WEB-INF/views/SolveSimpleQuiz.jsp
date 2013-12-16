@@ -12,6 +12,7 @@ function endQuiz()
 {
 	alert("Vaši odgovori su spremljeni.");
 }
+
 </script>
 <title>Kviz</title>
 </head>

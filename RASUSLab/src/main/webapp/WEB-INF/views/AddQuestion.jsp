@@ -52,19 +52,15 @@
 
 		}
 	}
+	
+
 </script>
 
 </head>
 <body>
 	<h1>Hello world!</h1>
 
-	<P>The number of IncorrectAnswer is
-		${question.numberOfIncorrectAnswers}. The number of CorrectAnswer is
-		${question.numberOfCorrectAnswers}.</P>
 
-	
-			CategoryID: ${chosenCategory}
-	---------------------------------
 	<form:form method="POST" action="/ztel/questionAdded" id="questionForm"
 		modelAttribute="questionHolder">
 		<table id="formTable">

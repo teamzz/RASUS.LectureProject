@@ -54,6 +54,17 @@
 			</div>
 
 			<div id="innerDownerDIV">
+				
+					Unesi kod: <input type="text" id="quizCode"/>
+					<button onclick="startQuiz()" >Generiraj kviz</button>
+			
+				<br>
+				<br>
+				<br>
+				
+				<p>
+					Administratorski ulaz
+				</p>
 
 				Unesi kod: <input type="text" id="quizCode" />
 				<button class="small button" onclick="startQuiz()">Generiraj

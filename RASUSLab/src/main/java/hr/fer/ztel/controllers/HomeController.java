@@ -10,6 +10,7 @@ import hr.fer.ztel.domain.CorrectAnswer;
 import hr.fer.ztel.domain.IncorrectAnswer;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
+import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.service.Statistic;
 
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -124,6 +126,29 @@ public class HomeController {
 			stat.calculateStatisticForQuiz(quiz.getIdQuiz(), 600, 600);
 		}
 
+		// for (Quiz quiz : b.list()) {
+		//
+		// System.out.println(quiz.getQuizName());
+		// for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
+		// .getQuestions().entrySet()) {
+		// System.out.println("Pitanja u kvizu------------------------");
+		// System.err.println("Redni broj pitanja "
+		// + questioninfo.getKey()
+		// + " tekst pitanja= "
+		// + questioninfo.getValue().getQuestion()
+		// .getTextQuestion() + " aktivno="
+		// + questioninfo.getValue().getActivated());
+		// }
+		//
+		// }
+
+		Quiz a = b.find(new Long(21));
+		System.out.println(a.getQuestionsInformation().size());
+
+//		a.getQuestionsInformation().remove(new Integer(1));
+//		System.out.println(a.getQuestionsInformation().size());
+//		a.setCode("222");
+//		b.update(a);
 		return "Index";
 	}
 }

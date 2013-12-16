@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.ProfessorDao;
@@ -16,6 +17,7 @@ import hr.fer.ztel.dao.UserAnswerDao;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
+import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
@@ -23,6 +25,7 @@ import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
 import hr.fer.ztel.service.QuizService;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +37,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes("quizholder")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class QuizController {
 
 	private static final Logger logger = LoggerFactory
@@ -66,16 +72,42 @@ public class QuizController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
+	
 	@RequestMapping(value = "/AddQuiz/{idCategory}", method = RequestMethod.GET)
 	public String home(@PathVariable("idCategory") Long categoryId, Model model, Principal principal) {
 		
-		
 		model.addAttribute("quizholder", new QuizHolder());
+		model.addAttribute("question", new Question());
 		model.addAttribute("idProfessor", professorDao.getProfessorByUsername(principal.getName()).getIdProfessor());
 		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
 		return "AddQuiz";
 	}
 
+	
+	@RequestMapping(value="/AddQuiz/jax/{idCategory}", method = RequestMethod.GET)
+	  public @ResponseBody Question getQ(HttpServletResponse res) {
+		/*
+		   * Cat cat = new cat;
+		   * cat.setcatname
+		   * cat.setidcat;
+		   * ret cat
+		   */
+		Question q = new Question();
+		q.setIdQuestion(0);
+	      return q;
+	  }
+	  
+	
+	  @RequestMapping(value = "/AddQuiz/jax/addquestion", method = RequestMethod.POST)
+		public @ResponseBody void addQ(@RequestBody final Question question, @ModelAttribute("quizholder") QuizHolder qh)
+		{
+		  System.out.println("u restu za dodavanje pitanja sam");
+			System.out.println(question.getIdQuestion());
+			qh.addQuestion(question.getIdQuestion());
+			System.out.println(qh.getQuestionsIdList().size());
+			
+		}
+	  
 	/**
 	 * Saves the edited person and display all persons again
 	 * 
@@ -85,7 +117,7 @@ public class QuizController {
 	public String saveEdit(@ModelAttribute("quizholder") QuizHolder quizHolder,
 			Model model) {
 		logger.debug("Received request to add quiz");
-
+		System.out.println("add quiz kontroler");
 		Quiz quiz = quizHolder.getQuiz();
 		System.out.println("id category je " + quizHolder.getIdCategory());
 		System.out.println("id professor je " + quizHolder.getIdProfessor());
@@ -99,17 +131,23 @@ public class QuizController {
 			 * System.out.println("question text je " +
 			 * questionDao.find(questionId).getTextQuestion());
 			 */
-			questionsList.add(questionDao.find(questionId));
+			System.out.println("dodajem pitanje kviza " + questionId);
+		
+			QuestionInQuizInformation qqinfo = new QuestionInQuizInformation();
+			qqinfo.setQuestion(questionDao.find(questionId));
+			qqinfo.setActivated(false);
+			qqinfo.setQuiz(quiz);
+			quiz.addQuestionInQuizInformation(qqinfo);
 		}
 		for (Question q : questionsList) {
 			System.out.println(q);
 		}
-		System.out.println("\n");
+		System.out.println("dodajem kviz\n");
 
 		for (Question q : questionDao.list()) {
 			System.out.println(q);
 		}
-		quiz.setQuestions(questionsList);
+		
 		quizDao.add(quiz);
 
 		model.addAttribute("quizes", quizDao.list());
