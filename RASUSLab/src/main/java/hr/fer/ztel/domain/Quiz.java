@@ -73,7 +73,7 @@ public class Quiz implements Serializable {
 	// this.questions = questions;
 	// }
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz", orphanRemoval = true)
 	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
 	@MapKey(name = "orderNumber")
 	@Fetch(FetchMode.SELECT)
@@ -151,6 +151,20 @@ public class Quiz implements Serializable {
 	public void addQuestionInQuizInformation(QuestionInQuizInformation qinf) {
 		qinf.setOrderNumber(questionsInformation.size());
 		questionsInformation.put(questionsInformation.size(), qinf);
+	}
+
+	public void deleteQuestion(Long questionId) {
+		Integer index=null;
+		for (Entry<Integer, QuestionInQuizInformation> quinfor : questionsInformation
+				.entrySet()) {
+			if (quinfor.getValue().getQuestion().getIdQuestion() == questionId) {
+				index = quinfor.getKey();
+				break;
+			}
+
+		}
+		questionsInformation.remove(index);
+
 	}
 
 	@Override

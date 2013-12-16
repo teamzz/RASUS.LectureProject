@@ -126,22 +126,29 @@ public class HomeController {
 			stat.calculateStatisticForQuiz(quiz.getIdQuiz(), 600, 600);
 		}
 
-//		for (Quiz quiz : b.list()) {
-//
-//			System.out.println(quiz.getQuizName());
-//			for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
-//					.getQuestions().entrySet()) {
-//				System.out.println("Pitanja u kvizu------------------------");
-//				System.err.println("Redni broj pitanja "
-//						+ questioninfo.getKey()
-//						+ " tekst pitanja= "
-//						+ questioninfo.getValue().getQuestion()
-//								.getTextQuestion() + " aktivno="
-//						+ questioninfo.getValue().getActivated());
-//			}
-//
-//		}
+		// for (Quiz quiz : b.list()) {
+		//
+		// System.out.println(quiz.getQuizName());
+		// for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
+		// .getQuestions().entrySet()) {
+		// System.out.println("Pitanja u kvizu------------------------");
+		// System.err.println("Redni broj pitanja "
+		// + questioninfo.getKey()
+		// + " tekst pitanja= "
+		// + questioninfo.getValue().getQuestion()
+		// .getTextQuestion() + " aktivno="
+		// + questioninfo.getValue().getActivated());
+		// }
+		//
+		// }
 
+		Quiz a = b.find(new Long(21));
+		System.out.println(a.getQuestionsInformation().size());
+
+//		a.getQuestionsInformation().remove(new Integer(1));
+//		System.out.println(a.getQuestionsInformation().size());
+//		a.setCode("222");
+//		b.update(a);
 		return "Index";
 	}
 }
