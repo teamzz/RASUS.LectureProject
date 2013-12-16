@@ -61,6 +61,28 @@ function changeActiveQuiz(quizId) {
 	});
 	}
 	
+//id pitanja se salje normalno pod idQuestion, id kviza pod textQuestion
+function deleteQuestion(questionId, quizId) {
+	$.ajax({
+	    url: "/ztel/Questions/jax/deletequestion", 
+	    type: 'POST', 
+	    dataType: 'json', 
+	    data: "{\"idQuestion\":\"" + questionId + "\", \"textQuestion\":\"" + quizId + "\"}", 
+	    contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(data) { 
+	    	
+	    	document.getElementById("questionOfQuiz"+questionId).remove();
+	    	
+	    
+	    },
+	    error:function(data,status,er) { 
+	        alert("error: "+data+" status: "+status+" er:"+er);
+	        document.getElementById("questionOfQuiz"+questionId).remove();
+	    }
+	});
+	}
+	
 function showQuestions(quizId) {
 	var active  = document.getElementById("questionsQuizId" + quizId); 
 	var display = active.style.display;
@@ -156,10 +178,11 @@ function sendCategoryToServer(categoryId,categoryName){
 					<div id="mainWindow">
 
 						<div id="controlMenu">
-							<p>Mogućnosti:</p> 
+							<p>Mogućnosti:</p>
 							<input type="button" class="alert button"
 								onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=700 height=500'); return false;"
-								value="Add new question" /> <input type="button" class="alert button"
+								value="Add new question" /> <input type="button"
+								class="alert button"
 								onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=500 height=500'); return false;"
 								value="Add new quiz" />
 						</div>
@@ -214,10 +237,12 @@ function sendCategoryToServer(categoryId,categoryName){
 								</tr>
 								<tr>
 									<c:forEach items="${quiz.questions }" var="question">
-										<tr bgcolor="#BBBBFF">
+										<tr bgcolor="#BBBBFF" id="questionOfQuiz${question.idQuestion }">
 											<td><c:out value="${question.idQuestion}" /></td>
 											<td><c:out value="${question.textQuestion}" /></td>
 											<td><c:out value="${question.category.categoryName}" /></td>
+											<td><button type="button"
+													onclick="deleteQuestion(${question.idQuestion}, ${quiz.idQuiz })">Delete</button>
 										</tr>
 									</c:forEach>
 								<tr height="20dp"></tr>
