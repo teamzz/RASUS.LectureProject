@@ -77,7 +77,7 @@ function deleteQuestion(questionId, quizId) {
 	    
 	    },
 	    error:function(data,status,er) { 
-	        alert("error: "+data+" status: "+status+" er:"+er);
+
 	        document.getElementById("questionOfQuiz"+questionId).remove();
 	    }
 	});
