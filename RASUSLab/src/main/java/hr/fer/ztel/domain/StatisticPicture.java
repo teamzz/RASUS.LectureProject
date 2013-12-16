@@ -1,32 +1,35 @@
 package hr.fer.ztel.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "chosen_answer")
-public class UserAnswer {
+@Table(name = "statistic_picture")
+public class StatisticPicture implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1471641816292409980L;
 
 	@Id
-	@GeneratedValue
-	@Column(name = "idchosen_answer")
-	private long idChosenAnswer;
-
 	@ManyToOne
 	@JoinColumn(name = "idquiz")
 	private Quiz quiz;
 
+	@Id
 	@ManyToOne
 	@JoinColumn(name = "idquestion")
 	private Question question;
 
-	@Column(name = "text_answer")
-	private String userAnswer;
+	@Column(name = "picture")
+	private byte[] picture;
 
 	public Quiz getQuiz() {
 		return quiz;
@@ -44,20 +47,12 @@ public class UserAnswer {
 		this.question = question;
 	}
 
-	public String getUserAnswer() {
-		return userAnswer;
+	public byte[] getPicture() {
+		return picture;
 	}
 
-	public void setUserAnswer(String userAnswer) {
-		this.userAnswer = userAnswer;
-	}
-
-	public long getIdChosenAnswer() {
-		return idChosenAnswer;
-	}
-
-	public void setIdChosenAnswer(long idChosenAnswer) {
-		this.idChosenAnswer = idChosenAnswer;
+	public void setPicture(byte[] picture) {
+		this.picture = picture;
 	}
 
 }

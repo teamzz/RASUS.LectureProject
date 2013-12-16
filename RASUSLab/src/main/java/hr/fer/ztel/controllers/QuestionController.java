@@ -18,6 +18,7 @@ import hr.fer.ztel.domain.Professor;
 
 
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +27,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
+@SessionAttributes({"chosenCategory"})
 public class QuestionController {
 
 	private static final Logger logger = LoggerFactory
@@ -48,8 +51,15 @@ public class QuestionController {
 	 */
 
 	@RequestMapping(value = "/NewQuestion", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model, HttpServletRequest request) {
 		model.addAttribute("question", new Question());
+		
+		String requestString = request.getQueryString();
+		String category = requestString.replaceAll("\\D+","");
+		Long cat = Long.parseLong(category);
+		model.addAttribute("chosenCategory",cat);
+		
+		
 		return "NewQuestion";
 	}
 
@@ -67,6 +77,8 @@ public class QuestionController {
 		}
 		model.addAttribute("questionHolder", holder);
 		model.addAttribute("categories",categoryDao.list());
+		
+		
 		return "AddQuestion";
 	}
 
@@ -89,7 +101,8 @@ public class QuestionController {
 		//System.out.println(holder.getQuestion().getCategory().getCategoryName() + " " + holder.getQuestion().getCategory().getIdCategory());
 		
 		//Set category name, found by id given by AddQuestion.jsp
-		holder.getQuestion().getCategory().setCategoryName(categoryDao.find(holder.getQuestion().getCategory().getIdCategory()).getCategoryName());
+		//holder.getQuestion().getCategory().setCategoryName(categoryDao.find(holder.getQuestion().getCategory().getIdCategory()).getCategoryName());
+		System.out.println("TEST: " + holder.getQuestion().getCategory().getIdCategory());
 		//Read username from session.		
 		Professor prof = professorDao.getProfessorByUsername("iivic");
 		/*

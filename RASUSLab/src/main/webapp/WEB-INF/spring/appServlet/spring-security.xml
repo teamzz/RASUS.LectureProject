@@ -8,9 +8,32 @@
 
 
 	<security:http auto-config="true">
-		<security:intercept-url pattern="/entry*" access="ROLE_ADMIN" />
-		<security:form-login login-page="/login" default-target-url="/Quizes"
-			authentication-failure-url="/loginfailed" />
+
+		<security:intercept-url pattern="/NewQuestion*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Quizes*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Categories*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/questionAdded*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/AddQuiz/formsubmit"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Quizes/jax"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Quizes/jax/activatequiz"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Categories/jax/getCategory"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Categories/jax"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Quizes/jax/changeactivequiz"
+			access="ROLE_ADMIN" />
+
+
+
+		<security:form-login login-page="/login"
+			default-target-url="/Quizes" authentication-failure-url="/loginfailed" />
 		<security:logout logout-success-url="/logout" />
 	</security:http>
 

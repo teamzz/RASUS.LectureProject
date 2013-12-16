@@ -1,6 +1,7 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -47,17 +48,20 @@ public class Quiz implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idcategory")
 	private Category category;
+	
+	@Column(name = "code")
+	private String code;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "quiz_has_question", joinColumns = { @JoinColumn(name = "idquiz") }, inverseJoinColumns = { @JoinColumn(name = "idquestion") })
 	@Fetch(FetchMode.SELECT)
-	private Set<Question> questions;
+	private List<Question> questions;
 
-	public Set<Question> getQuestions() {
+	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<Question> questions) {
+	public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}
 
@@ -150,6 +154,14 @@ public class Quiz implements Serializable {
 		} else if (!quizName.equals(other.quizName))
 			return false;
 		return true;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
