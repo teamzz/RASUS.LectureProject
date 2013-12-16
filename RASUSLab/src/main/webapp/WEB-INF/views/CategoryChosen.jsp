@@ -53,23 +53,24 @@ function changeActiveQuiz(quizId) {
 	});
 	}
 	
-function deleteQuestion(questionId) {
+//id pitanja se salje normalno pod idQuestion, id kviza pod textQuestion
+function deleteQuestion(questionId, quizId) {
 	$.ajax({
 	    url: "/ztel/Questions/jax/deletequestion", 
 	    type: 'POST', 
 	    dataType: 'json', 
-	    data: "{\"idQuestion\":\"" + questionId + "\"}", 
+	    data: "{\"idQuestion\":\"" + questionId + "\", \"textQuestion\":\"" + quizId + "\"}", 
 	    contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(data) { 
 	    	
-	    	var x=document.getElementById("questionOfQuiz" + data.idQuestion);
-	    	x.innerHTML = "blob";
+	    	document.getElementById("questionOfQuiz"+questionId).remove();
 	    	
 	    
 	    },
 	    error:function(data,status,er) { 
-	        alert("error: "+data+" status: "+status+" er:"+er);
+
+	    	document.getElementById("questionOfQuiz"+questionId).remove();
 	    }
 	});
 	}
@@ -196,7 +197,7 @@ Quizzes :
 							<td><c:out value="${question.textQuestion}" /></td>
 							<td><c:out value="${question.category.categoryName}" /></td>
 							<td><button type="button"
-							onclick="deleteQuestion(${question.idQuestion})">Delete</button>
+							onclick="deleteQuestion(${question.idQuestion}, ${quiz.idQuiz })">Delete</button>
 						</tr>
 					</c:forEach>
 				<tr height="20dp"></tr>
