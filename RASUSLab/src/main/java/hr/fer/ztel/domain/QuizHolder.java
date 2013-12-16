@@ -46,6 +46,7 @@ public class QuizHolder implements Serializable {
 	}
 
 	public void setQuestionsIdList(long[] questionsIdList) {
+		System.out.println("doda");
 		this.questionsIdList = questionsIdList;
 	}
 

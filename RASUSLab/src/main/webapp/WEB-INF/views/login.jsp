@@ -8,57 +8,67 @@
 <head>
 <title>Sudjelovanje u nastavi</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link href="<c:url value="/resources/css/foundation.css" />"
+	type="text/css" rel="stylesheet">
 <link href="<c:url value="/resources/css/lookCss.css" />"
 	type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="/resources/js/modernizr.js"></script>
 </head>
 
 <body>
-	<div id="outerDIV">
-		<div id="headerDIV">
-			<h2>Sudjelovanje u nastavi</h2>
+	<div class="row">
+		<div class="twelve columns">
+			<h1>Sudjelovanje u nastavi</h1>
+			<hr>
 		</div>
-
-		<div id="coreDIV">
-			<div id="innerUpperDIV"></div>
-
-			<div id="innerDownerDIV">
-				<h3>Unesite korisničke podatke</h3>
-
-				<c:if test="${not empty error}">
-					<div class="errorblock">
-						Your login attempt was not successful, try again.<br /> Caused :
-						${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
-					</div>
-				</c:if>
-
-				<form id="loginForm" name='f' action="<c:url value='j_spring_security_check' />"
-					method='POST'>
-
-					<table>
-						<tr>
-							<td>User:</td>
-							<td><input type='text' name='j_username' value=''></td>
-						</tr>
-						<tr>
-							<td>Password:</td>
-							<td><input type='password' name='j_password' /></td>
-						</tr>
-						<tr>
-							<td colspan='2'><input name="submit" type="submit"
-								value="Salji" /></td>
-						</tr>
-						<tr>
-							<td colspan='2'><input name="reset" type="reset"
-								value="Resetiraj" /></td>
-						</tr>
-					</table>
-
-				</form>
-			</div>
-		</div>
-
-		<div id="footerDIV">@ TeamZ</div>
 	</div>
+	<div class="row">
+		<div class="twelve columns">
+			<div class="panel">Unesite korisničke podatke.</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve column">
+			<c:if test="${not empty error}">
+				<div data-alert class="alert-box warning">
+					Your login attempt was not successful, try again.<br /> Caused :
+					${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} <a
+						href="#" class="close">&times;</a>
+				</div>
+			</c:if>
+		</div>
+	</div>
+	<div class="row" id = "bouterContainer">
+		<div class="twelve column">
+			<form id="loginForm" name='f'
+				action="<c:url value='j_spring_security_check' />" method='POST'>
+
+				<label>User:</label> <input type='text' name='j_username' value=''>
+
+				<label>Password:</label> <input type='password' name='j_password' />
+
+				<input  name="submit" class="small button" type="submit"
+					value="Pošalji" /> <input  name="reset" class="small button"
+					type="reset" value="Obriši" />
+
+
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="twelve columns">
+		<hr>
+			@TeamZ
+		</div>
+	</div>
+
+	<script src="/resources/js/jquery.js"></script>
+	<script src="/resources/js/foundation.min.js"></script>
+	<script>
+		$(document).foundation();
+	</script>
 </body>
 
 </html>

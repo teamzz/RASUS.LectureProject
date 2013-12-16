@@ -138,12 +138,15 @@ public class QuizController {
 		UserAnswerHolder uah = new UserAnswerHolder();
 		
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
+		if (playQuiz!=null){
 		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
 		uah.setIdQuiz(playQuiz.getIdQuiz());
 		model.addAttribute("quizCode", codeQuiz);
 		model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz()).getQuestions());
 		model.addAttribute("ansOfQuestions", uah);
 		return "SolveSimpleQuiz";
+		}
+		else return null;
 	}
 
 	/**
