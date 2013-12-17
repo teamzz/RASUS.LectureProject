@@ -8,5 +8,10 @@
 </head>
 <body>
 	<P>The time on the server is ${serverTime}.</P>
+
+
+	<img src="/ztel/getStatistic/63/23" height="400" width="400">
+
+
 </body>
 </html>
