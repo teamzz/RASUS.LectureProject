@@ -68,7 +68,7 @@ public class QuestionController {
 		String requestString = request.getQueryString();
 		String category = requestString.replaceAll("\\D+","");
 		Long cat = Long.parseLong(category);
-		model.addAttribute("chosenCategory",cat);
+		model.addAttribute("category", categoryDao.find(cat));
 		
 		
 
