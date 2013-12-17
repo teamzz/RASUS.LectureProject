@@ -1,31 +1,57 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
+
 <head>
-<title>Add new user</title>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<c:url value="/resources/css/foundation.css" />"
+	type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="/resources/js/modernizr.js"></script>
+<title>Sudjelovanje u nastavi</title>
+<link href="<c:url value="/resources/css/lookCss.css" />"
+	type="text/css" rel="stylesheet">
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <!-- dodati provjeru da li username vec postoji -->
-	
-<form:form method="POST" action="/ztel/categoryAdded" id="categoryForm"
-		modelAttribute="newCategory">
-		<table id="formTable">
-			<tr>
-				<td><label>First name: </label></td>
-				<td><input name="categoryName" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Submit" /></td>
-				<td><input type="reset" value="Reset" /></td>
-			</tr>
+</head>
 
+<body>
+	<div class="row">
+		<div class="twelve columns">
+			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<hr>
+		</div>
 
-		</table>
-</form:form>
+	</div>
+	<br>
+	<br>
 
+	<div class="row" id="bouterContainer">
+		<div class="twelve columns">
+			<p>Please enter number of answers to your new question.</p>
+			<br> <br>
+			<div class="row" id="bouterContainer">
+				<div class="twelve columns"></div>
+				<form:form method="POST" action="/ztel/categoryAdded"
+					id="categoryForm" modelAttribute="newCategory">
+					<tr>
+						<td><form:label path="">Naziv kategorije: </form:label></td>
+					</tr>
+					<tr>
+						<td><form:input name="categoryName" path=""></form:input></td>
+					</tr>
+					<tr>
+						<td><input class="small button" type="submit" value="Submit" /></td>
+						<td><input class="small button" type="reset" value="Reset" /></td>
+					</tr>
+				</form:form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
