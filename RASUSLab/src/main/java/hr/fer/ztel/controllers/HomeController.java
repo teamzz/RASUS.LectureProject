@@ -173,14 +173,5 @@ public class HomeController {
 		return "Index";
 	}
 
-	@RequestMapping("/getStatistic/{idQuestion}/{idQuiz}")
-	public @ResponseBody
-	byte[] getPhoto(@PathVariable("idQuestion") final Long idQuestion,
-			@PathVariable("idQuiz") final Long idQuiz) throws IOException {
-
-		byte[] imageBytes = stat.createPieChartForQuestionInQuiz(idQuiz,
-				idQuestion, 600, 400).getPicture();
-
-		return imageBytes;
-	}
+	
 }
