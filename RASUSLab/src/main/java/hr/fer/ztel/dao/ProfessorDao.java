@@ -51,10 +51,18 @@ public class ProfessorDao {
 		// .list();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Professor getProfessorByUsername(String username) {
 
-		return (Professor) sessionFactory.getCurrentSession()
+		Professor retVal;
+		List<Professor> list = sessionFactory.getCurrentSession()
 				.createCriteria(Professor.class)
-				.add(Restrictions.eq("username", username)).list().get(0);
+				.add(Restrictions.eq("username", username)).list();
+		if (list.size() == 0) {
+			retVal = null;
+		} else {
+			retVal = list.get(0);
+		}
+		return retVal;
 	}
 }

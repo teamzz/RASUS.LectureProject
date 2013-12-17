@@ -42,7 +42,7 @@
 						</tr>
 						<br>
 						<tr>
-							<td><input class="small button" type="submit" value="Next"/></td>
+							<td><input class="button" type="submit" value="Next"/></td>
 						</tr>
 					</form:form>
 			</div>

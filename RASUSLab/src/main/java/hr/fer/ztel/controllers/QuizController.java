@@ -87,6 +87,7 @@ public class QuizController {
 
 		model.addAttribute("quizholder", new QuizHolder());
 		model.addAttribute("question", new Question());
+		model.addAttribute("category",categoryDao.find(categoryId));
 		model.addAttribute("idProfessor",
 				professorDao.getProfessorByUsername(principal.getName())
 						.getIdProfessor());
@@ -163,7 +164,7 @@ public class QuizController {
 		quizDao.add(quiz);
 
 		model.addAttribute("quizes", quizDao.list());
-		return "Quizes";
+		return "closer";
 	}
 
 	// manage quiz

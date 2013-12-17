@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({"chosenCategory"})
+@SessionAttributes({"categories","category"})
 public class QuestionController {
 
 	private static final Logger logger = LoggerFactory
@@ -68,15 +68,13 @@ public class QuestionController {
 	@RequestMapping(value = "/NewQuestion", method = RequestMethod.GET)
 	public String home(Model model, HttpServletRequest request) {
 		model.addAttribute("question", new Question());
-		
 		String requestString = request.getQueryString();
 		String category = requestString.replaceAll("\\D+","");
 		Long cat = Long.parseLong(category);
+
 		model.addAttribute("category", categoryDao.find(cat));
 		
-		
-
-		return "NewQuestion";
+				return "NewQuestion";
 	}
 
 	@RequestMapping(value = "/formsubmit", method = RequestMethod.POST)
@@ -145,7 +143,7 @@ public class QuestionController {
 
 		questionDao.add(holder.getQuestion());
 
-		return "QuestionsAdded";
+		return "closer";
 	}
 	
 	@RequestMapping(value="/Questions/jax/", method = RequestMethod.GET)
