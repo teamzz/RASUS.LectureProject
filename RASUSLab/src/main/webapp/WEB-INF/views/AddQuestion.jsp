@@ -72,6 +72,7 @@
 	<br>
 	<br>
 
+
 	<div class="row">
 		<div class="twelve columns">
 			<p>Please enter number of answers to your new question.</p>

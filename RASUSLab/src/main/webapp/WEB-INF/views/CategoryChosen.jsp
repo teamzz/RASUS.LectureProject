@@ -20,6 +20,7 @@
 
 
 
+
 <script type="text/javascript">
 
 function startQuiz(quizId)
@@ -237,12 +238,7 @@ function newQuiz(){
 
 	<hr>
 
-	<script src="/resources/js/jquery.js"></script>
-	<script src="/resources/js/foundation.min.js"></script>
-	<script type="text/javascript">
-		$(document).foundation();
-		
-	</script>
+
 
 </body>
 

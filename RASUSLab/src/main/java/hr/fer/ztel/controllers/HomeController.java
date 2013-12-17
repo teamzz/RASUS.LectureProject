@@ -64,6 +64,7 @@ public class HomeController {
 
 	@Autowired
 	private CorrectAnswerDao cad;
+	
 
 	@Autowired
 	private ProfessorDao p;
@@ -172,6 +173,4 @@ public class HomeController {
 		// b.update(a);
 		return "Index";
 	}
-
-	
 }

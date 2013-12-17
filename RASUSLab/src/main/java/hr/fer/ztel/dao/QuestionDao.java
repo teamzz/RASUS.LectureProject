@@ -39,22 +39,9 @@ public class QuestionDao {
 	@SuppressWarnings("unchecked")
 	public List<Question> list() {
 
-		// return
-		// sessionFactory.getCurrentSession().createQuery("from Question")
-		// .list();
-
-		 return sessionFactory.getCurrentSession()
-		 .createCriteria(Question.class).list();
+		return sessionFactory.getCurrentSession()
+				.createCriteria(Question.class).list();
 
 	}
-
-	// public void quer(Category cat) {
-	//
-	// Criteria cr = sessionFactory.getCurrentSession()
-	// .createCriteria(Question.class)
-	// .add(Restrictions.eq("category", cat));
-	//
-	// System.out.print(cr.list());
-	// }
 
 }

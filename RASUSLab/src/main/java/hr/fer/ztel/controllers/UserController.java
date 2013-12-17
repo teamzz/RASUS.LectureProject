@@ -1,5 +1,7 @@
 package hr.fer.ztel.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
@@ -28,5 +30,14 @@ public class UserController {
 	public String userAdded(Model model,@ModelAttribute("newProfessor") Professor prof){
 		professorDao.add(prof);
 		return "AddUser";
+	}
+	
+	@RequestMapping(value = "/checkForUser", method = RequestMethod.GET)
+	public String checkForUser(Model model, HttpServletRequest request){
+		String[] parts = request.getQueryString().split("=");
+		if (professorDao.getProfessorByUsername(parts[1])!=null){
+			return null;
+		}
+		return "closer";
 	}
 }

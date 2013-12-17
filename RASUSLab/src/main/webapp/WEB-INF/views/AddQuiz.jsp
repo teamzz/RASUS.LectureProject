@@ -63,10 +63,6 @@
 
 	}
 
-	function closeWindow() {
-		alert("Kviz je dodan.");
-		window.close();
-	}
 </script>
 
 <title>Sudjelovanje u nastavi</title>
@@ -126,7 +122,7 @@
 				<br>	
 				</div>
 					<div>
-						<input class="small button" type="submit" onclick="closeWindow()" value="Spremi kviz" />
+						<input class="small button" type="submit" value="Spremi kviz" />
 					</div>
 			</form:form>
 		</div>
