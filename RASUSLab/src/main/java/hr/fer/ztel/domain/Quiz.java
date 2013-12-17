@@ -92,6 +92,17 @@ public class Quiz implements Serializable {
 		return retval;
 	}
 
+	public Question getNextNotactivatedQuestion() {
+		QuestionInQuizInformation quinftemp;
+		for (int i = 0; i < questionsInformation.size(); i++) {
+			quinftemp = questionsInformation.get(new Integer(i));
+			if (!quinftemp.getActivated()) {
+				return quinftemp.getQuestion();
+			}
+		}
+		return null;
+	}
+
 	public Map<Integer, QuestionInQuizInformation> getQuestionsInformation() {
 		return questionsInformation;
 	}
@@ -154,7 +165,7 @@ public class Quiz implements Serializable {
 	}
 
 	public void deleteQuestion(Long questionId) {
-		Integer index=null;
+		Integer index = null;
 		for (Entry<Integer, QuestionInQuizInformation> quinfor : questionsInformation
 				.entrySet()) {
 			if (quinfor.getValue().getQuestion().getIdQuestion() == questionId) {
