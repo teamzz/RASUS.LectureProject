@@ -48,20 +48,33 @@ public class CategoryController {
 	@RequestMapping(value = "/Categories", method = RequestMethod.GET)
 	public String categoriesHome(Model model, Principal pr){
 		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
-		System.out.println((professorDao.getProfessorByUsername(pr.getName()).getCategories()).getClass());
 		model.addAttribute("selectedCategory", "none");
-		System.out.println("/Categories model: " + model.toString());
 		return "CategoryView";
 	}
 	
 	@RequestMapping(value = "/Category", method = RequestMethod.POST)
 	public String categoryChosen(Model model, Principal pr,@ModelAttribute("selectedCategory") String cc){
 		Category selectedCategory = categoryDao.find(Long.parseLong(cc));
-		//System.out.println(selectedCategory.getCategoryName());
 		model.addAttribute("selectedCategoryName",selectedCategory.getCategoryName());
 		model.addAttribute("quizesByUser", professorService.getQuizMadeByProfessorInCategory(pr.getName(),Long.parseLong(cc)));
 		return "CategoryChosen";
 	}
+	
+	@RequestMapping(value = "/AddCategory", method = RequestMethod.GET)
+	public String addCategory(Model model){
+		model.addAttribute("newCategory",new Category());
+		return "AddCategory";
+		
+	}
+	@RequestMapping(value = "/categoryAdded", method = RequestMethod.POST)
+	public String categoryAdded(Model model, @ModelAttribute("newCategory") Category cat, Principal pr){
+		categoryDao.add(cat);
+		Professor prof = professorDao.getProfessorByUsername(pr.getName());
+		prof.addCategory(cat);
+		professorDao.update(prof);
+		return "AddCategory";
+	}
+	
 
 
 

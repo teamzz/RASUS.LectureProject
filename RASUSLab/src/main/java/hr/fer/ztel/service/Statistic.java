@@ -52,14 +52,14 @@ public class Statistic {
 
 		for (Entry<Integer, QuestionInQuizInformation> question : quizDao
 				.find(idQuiz).getQuestionsInformation().entrySet()) {
-			createPieChart(idQuiz, question.getValue().getQuestion()
-					.getIdQuestion(), width, height);
+			createPieChartForQuestionInQuiz(idQuiz, question.getValue()
+					.getQuestion().getIdQuestion(), width, height);
 		}
 
 	}
 
-	public StatisticPicture createPieChart(Long idQuiz, Long idQuestion,
-			int width, int height) {
+	public StatisticPicture createPieChartForQuestionInQuiz(Long idQuiz,
+			Long idQuestion, int width, int height) {
 
 		Question question = questionDao.find(idQuestion);
 		Quiz quiz = quizDao.find(idQuiz);

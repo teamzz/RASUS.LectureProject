@@ -32,6 +32,17 @@ public class QuestionInQuizInformation implements Serializable {
 	@Column(name = "activated")
 	private Boolean activated;
 
+	@Column(name = "finished")
+	private Boolean finished;
+
+	public Boolean getFinished() {
+		return finished;
+	}
+
+	public void setFinished(Boolean finished) {
+		this.finished = finished;
+	}
+
 	@Transient
 	public Quiz getQuiz() {
 		return pk.getQuiz();

@@ -6,14 +6,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href="<c:url value="/resources/css/foundation.css" />" type="text/css" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<script src="/resources/js/modernizr.js"></script>
-	<title>Insert title here</title>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
-	<script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<c:url value="/resources/css/foundation.css" />"
+	type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="/resources/js/modernizr.js"></script>
+<title>Insert title here</title>
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script>
 	function sendCategoryToServer(categoryId, categoryName) {
 		$
 				.ajax({
@@ -49,49 +51,62 @@
 					}
 				});
 	}
-	</script>
+</script>
 </head>
 
 <body>
 
-	<div class="row" >
-		<div class="twelve columns" >
+	<div class="row">
+		<div class="twelve columns">
 			<h2>Sudjelovanje u nastavi</h2>
-			<hr>	
+			<hr>
 		</div>
-		
+
 	</div>
-	
+
 	<div class="row">
 		<div class="twelve columns">
 			<div class="row" id="fouterContainer">
 				<div class="larger-12 columns" id="buttonContainer">
 					<form:form action="/ztel/Category" method="POST">
 						<c:forEach items="${categories}" var="category" varStatus="status">
-							<button id="BButtons" name="selectedCategory" value="${category.idCategory }">${category.categoryName}</button>
+							<button id="BButtons" name="selectedCategory"
+								value="${category.idCategory }">${category.categoryName}</button>
 						</c:forEach>
 					</form:form>
 				</div>
 			</div>
 			<div class="row" id="souterContainer">
-				<div class="larger-12 columns" id="CContent">
-					JEbebebe nsafsfsa fsakfposkafokafo pskacpodkspao kdoskakvd aoskvd poakvso dkvaodkv saokdposakvdo pakvdosakv o pdksavpod ksovakds
-					dskapvkdsop akvdpokvodav dkspaovkdsop vkadpokvapod dksapovkdpos akvpodkavpod dopskapc okdspaovk
-				</div>
+				<div class="larger-12 columns" id="CContent">JEbebebe nsafsfsa
+					fsakfposkafokafo pskacpodkspao kdoskakvd aoskvd poakvso dkvaodkv
+					saokdposakvdo pakvdosakv o pdksavpod ksovakds dskapvkdsop
+					akvdpokvodav dkspaovkdsop vkadpokvapod dksapovkdpos akvpodkavpod
+					dopskapc okdspaovk</div>
 			</div>
 		</div>
 	</div>
-	
-	<!-- 
-	<div id="controlMenu">
-		Controls: <input type="button"
-			onclick="window.open('/ztel/NewQuestion','newwindow','width=700 height=500'); return false;"
-			value="Add new question" /> <input type="button"
-			onclick="window.open('/ztel/AddQuiz','newwindow','width=500 height=500'); return false;"
-			value="Add new quiz" />
 
+	<div class="row" id="souterContainer">
+		<div class="larger-12 columns" id="CContent">
+			<div id="mainWindow">
+				<div id="controlMenu">
+					<p>Mogućnosti:</p>
+					<input type="button" class="alert button"
+						onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=500 height=500'); return false;"
+						value="Add new question" /> <input type="button"
+						class="alert button"
+						onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=400 height=400'); return false;"
+						value="Add new quiz" /> <input type="button" class="alert button"
+						onclick="window.open('/ztel/AddCategory','newwindow','width=300 height=100'); return false;"
+						value="Add new category" /> <input type="button"
+						class="alert button"
+						onclick="window.open('/ztel/AddUser','newwindow','width=300 height=300'); return false;"
+						value="Add new user" />
+				</div>
+				<br> <br> <br>
+			</div>
+		</div>
 	</div>
-	-->
 
 	<script src="/resources/js/jquery.js"></script>
 	<script src="/resources/js/foundation.min.js"></script>
