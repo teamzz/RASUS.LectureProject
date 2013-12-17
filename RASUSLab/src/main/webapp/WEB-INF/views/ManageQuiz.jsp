@@ -17,6 +17,11 @@ function nextQuestion()
 	location.reload();
 }
 
+function showStatistic(questionId, quizId)
+{
+	window.open("/ztel/Question/stats/" + quizId + "/" + questionId, '_blank','width=500 height=500');
+}
+
 function activateQuestion(questionId, quizId) {
 	var active  = document.getElementById("qActive" + questionId);
 	$.ajax({
@@ -89,7 +94,7 @@ function activateQuestion(questionId, quizId) {
 		<br>
 		<div style="background-color: #A0B0C0">
 		<button id="activateButton" onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })"><c:out value="${questionInQuiz.activated eq false ? 'Activate': 'Deactivate'}" /></button>
-		<button>Statistika</button>
+		<button onclick="showStatistic(${questionInQuiz.question.idQuestion}, ${idQuiz })">Statistika</button>
 		<button onclick="nextQuestion()">Dalje</button>
 		</div>
 </body>
