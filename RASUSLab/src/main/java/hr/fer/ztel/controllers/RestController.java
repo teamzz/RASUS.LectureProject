@@ -7,8 +7,11 @@ import java.util.List;
 import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
+import hr.fer.ztel.domain.AjaxQuizQuestionTransport;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Question;
+import hr.fer.ztel.domain.QuestionInQuizId;
+import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.service.ProfessorService;
@@ -119,7 +122,28 @@ public class RestController {
 		
 	  }
 	  
+	  @RequestMapping(value="/ManageQuiz/jax", method = RequestMethod.GET)
+	  public @ResponseBody AjaxQuizQuestionTransport getManageQuiz(HttpServletResponse res) {
+		/*
+		   * Cat cat = new cat;
+		   * cat.setcatname
+		   * cat.setidcat;
+		   * ret cat
+		   */
+		  AjaxQuizQuestionTransport q = new AjaxQuizQuestionTransport();
+		
+	      return q;
+	  }
 	  
 	  
+	  @RequestMapping(value = "/ManageQuiz/jax/changeactivequestion", method = RequestMethod.POST)
+		public @ResponseBody AjaxQuizQuestionTransport activateQ(@RequestBody final AjaxQuizQuestionTransport qQuiz)
+		{
+		  System.out.println("u kotrnoleru sa");
+		  System.out.println(qQuiz.getIdQuestion() + " " + qQuiz.getIdQuiz() + " " + qQuiz.isActivated());
+		  return qQuiz;
+		  
+		  
+		}
 	
 }

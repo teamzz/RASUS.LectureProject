@@ -213,18 +213,17 @@ public class QuizController {
 
 	}
 	
-	@RequestMapping(value = "/SolveSimpleQuiz/{idQuiz}", method = RequestMethod.GET)
+	@RequestMapping(value = "/ManageQuiz/{idQuiz}", method = RequestMethod.GET)
 	public String manageQuiz(@PathVariable ("idQuiz") Long idQuiz, Model model) {
-		UserAnswerHolder uah = new UserAnswerHolder();
 		
 		Quiz manageQuiz = quizDao.find(idQuiz);
 		if (manageQuiz!=null){
 		System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
-		uah.setIdQuiz(manageQuiz.getIdQuiz());
+		
 		model.addAttribute("idQuiz", idQuiz);
-		model.addAttribute("question", quizDao.find(manageQuiz.getIdQuiz()).getQuestions());
-		model.addAttribute("ansOfQuestions", uah);
-		return "SolveSimpleQuiz";
+		model.addAttribute("questionInQuiz", manageQuiz.getNextNotactivatedQuestion());
+		model.addAttribute("ansOfQuestion", manageQuiz.getNextNotactivatedQuestion().getQuestion().getAnswers());
+		return "ManageQuiz";
 		}
 		else return null;
 	}
