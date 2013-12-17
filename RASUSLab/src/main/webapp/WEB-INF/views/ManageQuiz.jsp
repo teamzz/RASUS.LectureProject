@@ -5,9 +5,16 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
 
+<head>
+<title>Sudjelovanje u nastavi</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<c:url value="/resources/css/foundation.css" />"
+	type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="/resources/js/modernizr.js"></script>
+<link href="<c:url value="/resources/css/lookCss.css" />"
+	type="text/css" rel="stylesheet">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -53,44 +60,66 @@ function activateQuestion(questionId, quizId) {
 	});
 	}
 </script>
-
-<title>Upravljanje kvizom</title>
 </head>
-<body>
-	<h2>KOD: ${quizCode }</h2>
-	
-	<form:input path="idQuiz" value="${idQuiz}" style="visibility:collapse;"></form:input>
 
-	<div style="background-color: #A0B0C0">
-			<c:out value="${questionInQuiz.question.textQuestion}"/>
-			
+<body>
+	<div class="row">
+		<div class="twelve columns">
+			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<hr>
+		</div>
 	</div>
 	<br>
+	<br>
 
-<div>
-			<c:if test="${questionInQuiz.question.answers.size() != 1 }">
-				<table>
-				
-					<c:forEach items="${questionInQuiz.question.answers }" var="answer">
-						<tr>
-						<td>
-						${answer}
-						</td>
-						</tr>
-					</c:forEach>
-				
-				</table>
-			</c:if>
-			<c:if test="${questionInQuiz.question.answers.size() == 1 }">
-				<input value="Nadopunite!" disabled="disabled"/>
-			</c:if>
-		<input id="qActive${questionInQuiz.question.idQuestion }" value="${questionInQuiz.activated }" style="visibility:collapse;"/>
+	<div class="row">
+		<div class="twelve columns">
+			<p>Upravljanje kvizom:</p>
+			<br> <br>
+			<div class="row" id="bouterContainer">
+				<div class="twelve columns"></div>
+				<h4>Kod kviza: ${quizCode }</h4>
+
+				<form:input path="idQuiz" value="${idQuiz}"
+					style="visibility:collapse;"></form:input>
+
+				<div>
+					<b><c:out value="${questionInQuiz.question.textQuestion}" /></b>
+				</div>
+				<br>
+
+				<div class="panel" style="text-align: center">
+					<div style="text-align: left">
+					<c:if test="${questionInQuiz.question.answers.size() != 1 }">
+							<c:forEach items="${questionInQuiz.question.answers }"
+								var="answer">
+								<li>
+									${answer}
+								</li>
+							</c:forEach>
+					</c:if>
+					</div>
+					<c:if test="${questionInQuiz.question.answers.size() == 1 }">
+						<input value="Nadopunite!" disabled="disabled" />
+					</c:if>
+					<input id="qActive${questionInQuiz.question.idQuestion }"
+						value="${questionInQuiz.activated }" style="visibility: collapse;" />
+				</div>
+				<br>
+				<br>
+				<br>
+				<div>
+					<button id="activateButton"
+						onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })">
+						<c:out
+							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
+					</button>
+					<button>Statistika</button>
+					<button onclick="nextQuestion()">Dalje</button>
+				</div>
+			</div>
 		</div>
-		<br>
-		<div style="background-color: #A0B0C0">
-		<button id="activateButton" onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })"><c:out value="${questionInQuiz.activated eq false ? 'Activate': 'Deactivate'}" /></button>
-		<button>Statistika</button>
-		<button onclick="nextQuestion()">Dalje</button>
-		</div>
+	</div>
+
 </body>
 </html>
