@@ -220,7 +220,7 @@ public class QuizController {
 		Quiz manageQuiz = quizDao.find(idQuiz);
 		if (manageQuiz!=null){
 		System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
-		
+		model.addAttribute("quizCode", manageQuiz.getCode());
 		model.addAttribute("idQuiz", idQuiz);
 		if (manageQuiz.getNextNotactivatedQuestion() != null)
 		{
