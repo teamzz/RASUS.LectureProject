@@ -180,11 +180,17 @@ function sendCategoryToServer(categoryId,categoryName){
 						<div id="controlMenu">
 							<p>Mogućnosti:</p>
 							<input type="button" class="alert button"
-								onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=700 height=500'); return false;"
+								onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=500 height=500'); return false;"
 								value="Add new question" /> <input type="button"
 								class="alert button"
-								onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=500 height=500'); return false;"
-								value="Add new quiz" />
+								onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=400 height=400'); return false;"
+								value="Add new quiz" /> <input type="button"
+								class="alert button"
+								onclick="window.open('/ztel/AddCategory','newwindow','width=300 height=100'); return false;"
+								value="Add new category" /> <input type="button"
+								class="alert button"
+								onclick="window.open('/ztel/AddUser','newwindow','width=300 height=300'); return false;"
+								value="Add new user" />
 						</div>
 						<br> <br> <br>
 
@@ -237,7 +243,8 @@ function sendCategoryToServer(categoryId,categoryName){
 								</tr>
 								<tr>
 									<c:forEach items="${quiz.questions }" var="question">
-										<tr bgcolor="#BBBBFF" id="questionOfQuiz${question.idQuestion }">
+										<tr bgcolor="#BBBBFF"
+											id="questionOfQuiz${question.idQuestion }">
 											<td><c:out value="${question.idQuestion}" /></td>
 											<td><c:out value="${question.textQuestion}" /></td>
 											<td><c:out value="${question.category.categoryName}" /></td>

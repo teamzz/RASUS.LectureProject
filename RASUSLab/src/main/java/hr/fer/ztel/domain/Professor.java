@@ -71,6 +71,13 @@ public class Professor implements Serializable {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+	
+	public void addCategory(Category category) {
+		categories.add(category);
+	}
+	public void removeCategory(Category category) {
+		categories.remove(category);
+	}
 
 	public Professor() {
 
