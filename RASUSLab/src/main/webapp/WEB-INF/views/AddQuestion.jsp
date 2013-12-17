@@ -80,7 +80,7 @@
 				<div class="twelve columns"></div>
 				<form:form method="POST" action="/ztel/questionAdded"
 					id="questionForm" modelAttribute="questionHolder">
-					<form:input path="" type="hidden" name="question.category.idCategory" value="${chosenCategory}"></form:input>
+					<form:input path="" type="hidden" name="question.category.idCategory" value="${category.idCategory}"></form:input>
 					<tr>
 						<td><form:label path="">Question: </form:label></td>
 						<td><form:input path="" name="question.textQuestion" /></td>

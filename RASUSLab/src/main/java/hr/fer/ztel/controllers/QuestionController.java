@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({"chosenCategory"})
+@SessionAttributes({"categories","category"})
 public class QuestionController {
 
 	private static final Logger logger = LoggerFactory
