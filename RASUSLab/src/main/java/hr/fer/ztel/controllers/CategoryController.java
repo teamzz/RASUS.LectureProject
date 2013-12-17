@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +45,24 @@ public class CategoryController {
 	private ProfessorService professorService;
 	
 	
+	@RequestMapping(value = "/Categories", method = RequestMethod.GET)
+	public String categoriesHome(Model model, Principal pr, HttpServletRequest request){
+		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
+		System.out.println("quer " + request.getQueryString());
+		if (request.getQueryString()!=null && request.getQueryString()!=""){
+			String str = request.getQueryString().replaceAll("\\D+","");
+			long cc = Long.parseLong(str);
+			Category selectedCategory = categoryDao.find(cc);
+			if (professorDao.getProfessorByUsername(pr.getName()).getCategories().contains(selectedCategory) ){
+				model.addAttribute("selectedCategory",selectedCategory);
+				model.addAttribute("quizesByUser", professorService.getQuizMadeByProfessorInCategory(pr.getName(),cc));}
+		}
+		
+		return "CategoryChosen";
+	}
 	
 	
+	/*
 	@RequestMapping(value = "/Categories", method = RequestMethod.GET)
 	public String categoriesHome(Model model, Principal pr){
 		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
@@ -59,7 +77,7 @@ public class CategoryController {
 		model.addAttribute("quizesByUser", professorService.getQuizMadeByProfessorInCategory(pr.getName(),Long.parseLong(cc)));
 		return "CategoryChosen";
 	}
-	
+	*/
 	@RequestMapping(value = "/AddCategory", method = RequestMethod.GET)
 	public String addCategory(Model model){
 		model.addAttribute("newCategory",new Category());

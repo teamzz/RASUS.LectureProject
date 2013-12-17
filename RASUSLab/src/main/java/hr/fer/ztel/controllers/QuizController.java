@@ -136,6 +136,7 @@ public class QuizController {
 			QuestionInQuizInformation qqinfo = new QuestionInQuizInformation();
 			qqinfo.setQuestion(questionDao.find(questionId));
 			qqinfo.setActivated(false);
+			qqinfo.setFinished(false);
 			qqinfo.setQuiz(quiz);
 			quiz.addQuestionInQuizInformation(qqinfo);
 		}
