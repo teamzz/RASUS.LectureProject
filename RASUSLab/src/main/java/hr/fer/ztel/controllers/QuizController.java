@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -31,6 +33,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -181,7 +184,7 @@ public class QuizController {
 	 */
 
 	@RequestMapping(value = "/SolveQuiz/{codeQuiz}", method = RequestMethod.GET)
-	public String solveQ(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
+	public String solveQ(@PathVariable ("codeQuiz") String codeQuiz, Model model, HttpServletResponse response) {
 		UserAnswerHolder uah = new UserAnswerHolder();
 		
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
@@ -190,10 +193,12 @@ public class QuizController {
 		uah.setIdQuiz(playQuiz.getIdQuiz());
 		model.addAttribute("quizCode", codeQuiz);
 		model.addAttribute("idQuiz", playQuiz.getIdQuiz());
-		
-		if (playQuiz.getNextNotactivatedQuestion() != null)
+		if (playQuiz.getActivatedQuestion() != null)
 		{
-		model.addAttribute("questionInQuiz", playQuiz.getNextNotactivatedQuestion());
+			System.out.println("question id " + playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion());
+		//response.addCookie(new Cookie("id_question", String.valueOf(playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion())));
+		model.addAttribute("questionInQuiz", playQuiz.getActivatedQuestion());
+		model.addAttribute("idQuestionCook", playQuiz.getActivatedQuestion().getQuestion().getIdQuestion());
 		return "SolveQuiz";
 		}
 		else

@@ -102,6 +102,18 @@ public class Quiz implements Serializable {
 		}
 		return null;
 	}
+	
+	public QuestionInQuizInformation getActivatedQuestion() {
+		QuestionInQuizInformation quinftemp;
+		for (int i = 0; i < questionsInformation.size(); i++) {
+			quinftemp = questionsInformation.get(new Integer(i));
+			if (quinftemp.getActivated()) {
+				return quinftemp;
+			}
+		}
+		return null;
+	}
+	
 
 	public Map<Integer, QuestionInQuizInformation> getQuestionsInformation() {
 		return questionsInformation;

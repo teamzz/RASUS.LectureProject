@@ -59,6 +59,12 @@ function activateQuestion(questionId, quizId) {
 	    }
 	});
 	}
+	
+	function showStat(questionId, quizId)
+	{
+		alert("show stats " + questionId + " " + quizId);
+		window.open("/ztel/Question/stats/"+quizId + "/" +  questionId , "_blank", 'width=800 height=500');
+	}
 </script>
 </head>
 
@@ -114,7 +120,7 @@ function activateQuestion(questionId, quizId) {
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
 					</button>
-					<button>Statistika</button>
+					<button onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})">Statistika</button>
 					<button onclick="nextQuestion()">Dalje</button>
 				</div>
 			</div>
