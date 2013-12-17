@@ -173,7 +173,6 @@ public class Question implements Serializable {
 
 		while (i < numberOfQuestion) {
 			j = ranGen.nextInt(incorrectAnswers.size());
-			System.out.println(j);
 			if (!usedIncorectIndex.contains(j)) {
 				usedIncorectIndex.add(j);
 				answers.add(i, incorrectAnswers.get(j.intValue())
