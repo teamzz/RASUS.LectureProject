@@ -56,6 +56,7 @@ public class HomeController {
 
 	@Autowired
 	private CorrectAnswerDao cad;
+	
 
 	@Autowired
 	private ProfessorDao p;
@@ -151,5 +152,11 @@ public class HomeController {
 		// a.setCode("222");
 		// b.update(a);
 		return "Index";
+	}
+	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(ModelMap model) {
+		
+		return "test";
 	}
 }

@@ -14,7 +14,6 @@
 <link href="<c:url value="/resources/css/foundation.css" />"
 	type="text/css" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script src="/resources/js/modernizr.js"></script>
 <title>Insert title here</title>
 
 
@@ -315,12 +314,7 @@ function newQuiz(){
 
 	-->
 
-	<script src="/resources/js/jquery.js"></script>
-	<script src="/resources/js/foundation.min.js"></script>
-	<script type="text/javascript">
-		$(document).foundation();
-		
-	</script>
+
 
 </body>
 

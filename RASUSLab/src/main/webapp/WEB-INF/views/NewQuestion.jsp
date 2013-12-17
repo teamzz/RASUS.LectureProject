@@ -16,7 +16,7 @@
 <body>
 	<h1>Please enter number of answers to your new question.</h1><hr>
 
-
+	${category.categoryName}
 
 	<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
 		<table id = "formTable">

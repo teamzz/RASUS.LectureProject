@@ -90,7 +90,7 @@ public class CategoryController {
 		Professor prof = professorDao.getProfessorByUsername(pr.getName());
 		prof.addCategory(cat);
 		professorDao.update(prof);
-		return "AddCategory";
+		return "closer";
 	}
 	
 

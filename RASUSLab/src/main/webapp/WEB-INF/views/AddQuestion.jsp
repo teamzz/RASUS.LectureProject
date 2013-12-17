@@ -64,7 +64,7 @@
 	<form:form method="POST" action="/ztel/questionAdded" id="questionForm"
 		modelAttribute="questionHolder">
 		<table id="formTable">
-			<input type="hidden" name="question.category.idCategory" value="${chosenCategory}"></input>
+			<input type="hidden" name="question.category.idCategory" value="${category.idCategory}"></input>
 			<tr>
 				<td><label name="question.textQuestion">Question: </label></td>
 				<td><input name="question.textQuestion" /></td>
