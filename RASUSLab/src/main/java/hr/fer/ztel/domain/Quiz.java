@@ -92,12 +92,12 @@ public class Quiz implements Serializable {
 		return retval;
 	}
 
-	public Question getNextNotactivatedQuestion() {
+	public QuestionInQuizInformation getNextNotactivatedQuestion() {
 		QuestionInQuizInformation quinftemp;
 		for (int i = 0; i < questionsInformation.size(); i++) {
 			quinftemp = questionsInformation.get(new Integer(i));
 			if (!quinftemp.getActivated()) {
-				return quinftemp.getQuestion();
+				return quinftemp;
 			}
 		}
 		return null;
