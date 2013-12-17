@@ -163,12 +163,17 @@ public class Question implements Serializable {
 		// dodavanje toènog odgovora
 		answers.add(getCorrectAnswers().get(0).getTextAnswer());
 
+		if (numberOfQuestion > (incorrectAnswers.size() + correctAnswers.size())) {
+			numberOfQuestion = incorrectAnswers.size() + correctAnswers.size();
+		}
 		Set<Integer> usedIncorectIndex = new HashSet<Integer>();
 		int i = 1;
 		Integer j;
-		Random ranGen = new Random(System.nanoTime());
+		Random ranGen = new Random();
+
 		while (i < numberOfQuestion) {
 			j = ranGen.nextInt(incorrectAnswers.size());
+			System.out.println(j);
 			if (!usedIncorectIndex.contains(j)) {
 				usedIncorectIndex.add(j);
 				answers.add(i, incorrectAnswers.get(j.intValue())
@@ -177,7 +182,7 @@ public class Question implements Serializable {
 			}
 		}
 
-		Collections.shuffle(answers, new Random(System.nanoTime()));
+		Collections.shuffle(answers, new Random());
 		return answers;
 	}
 
