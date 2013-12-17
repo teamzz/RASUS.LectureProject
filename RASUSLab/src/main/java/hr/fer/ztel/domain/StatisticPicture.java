@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.jfree.xml.util.Base64;
+
 @Entity
 @Table(name = "statistic_picture")
 public class StatisticPicture implements Serializable {
@@ -32,19 +34,6 @@ public class StatisticPicture implements Serializable {
 
 	@Column(name = "picture")
 	private byte[] picture;
-
-	@Transient
-	private String pictureToShow;
-
-	public String getPictureToShow() {
-		if (pictureToShow == null)
-			pictureToShow = new String(picture);
-		return pictureToShow;
-	}
-
-	public void setPictureToShow(String pictureToShow) {
-		this.pictureToShow = pictureToShow;
-	}
 
 	public Quiz getQuiz() {
 		return quiz;

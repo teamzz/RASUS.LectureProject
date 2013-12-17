@@ -19,7 +19,6 @@ function nextQuestion()
 
 function activateQuestion(questionId, quizId) {
 	var active  = document.getElementById("qActive" + questionId);
-	alert(active.value);
 	$.ajax({
 	    url: "/ztel/ManageQuiz/jax/changeactivequestion", 
 	    type: 'POST', 
@@ -58,6 +57,8 @@ function activateQuestion(questionId, quizId) {
 <title>Upravljanje kvizom</title>
 </head>
 <body>
+	<h2>KOD: ${quizCode }</h2>
+	
 	<form:input path="idQuiz" value="${idQuiz}" style="visibility:collapse;"></form:input>
 
 	<div style="background-color: #A0B0C0">
