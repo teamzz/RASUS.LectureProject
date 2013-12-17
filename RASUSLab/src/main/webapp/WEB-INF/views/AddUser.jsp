@@ -70,10 +70,10 @@
 						</tr>
 
 						<tr>
-							<td><form:input path="" class="small button" type="submit" value="Pošalji" /></td>
+							<td><form:input path="" class="button" type="submit" value="Pošalji" /></td>
 						</tr>
 						<tr>
-							<td><form:input path="" class="small button" type="reset" value="Resetiraj" /></td>
+							<td><form:input path="" class="button" type="reset" value="Resetiraj" /></td>
 						</tr>
 
 				</form:form>
