@@ -32,6 +32,17 @@ public class QuestionInQuizInformation implements Serializable {
 	@Column(name = "activated")
 	private Boolean activated;
 
+	@Column(name = "finished")
+	private Boolean finished;
+
+	public Boolean getFinished() {
+		return finished;
+	}
+
+	public void setFinished(Boolean finished) {
+		this.finished = finished;
+	}
+
 	@Transient
 	public Quiz getQuiz() {
 		return pk.getQuiz();
@@ -81,6 +92,8 @@ public class QuestionInQuizInformation implements Serializable {
 		result = prime * result
 				+ ((activated == null) ? 0 : activated.hashCode());
 		result = prime * result
+				+ ((finished == null) ? 0 : finished.hashCode());
+		result = prime * result
 				+ ((orderNumber == null) ? 0 : orderNumber.hashCode());
 		result = prime * result + ((pk == null) ? 0 : pk.hashCode());
 		return result;
@@ -99,6 +112,11 @@ public class QuestionInQuizInformation implements Serializable {
 			if (other.activated != null)
 				return false;
 		} else if (!activated.equals(other.activated))
+			return false;
+		if (finished == null) {
+			if (other.finished != null)
+				return false;
+		} else if (!finished.equals(other.finished))
 			return false;
 		if (orderNumber == null) {
 			if (other.orderNumber != null)
