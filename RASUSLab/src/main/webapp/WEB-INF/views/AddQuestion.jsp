@@ -105,7 +105,7 @@
 						</c:if>
 						<br>
 						<tr>
-							<td colspan="2"><form:input path="" class="button" type="submit" value="Next" /></td>
+							<td colspan="2"><form:input path="" class="small button" type="submit" value="Next" /></td>
 						</tr>
 				</form:form>
 			</div>

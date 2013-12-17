@@ -109,13 +109,13 @@ function activateQuestion(questionId, quizId) {
 				<br>
 				<br>
 				<div>
-					<button id="activateButton"
+					<button class="small button" id="activateButton"
 						onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })">
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
 					</button>
-					<button>Statistika</button>
-					<button onclick="nextQuestion()">Dalje</button>
+					<button class="small button">Statistika</button>
+					<button class="small button" onclick="nextQuestion()">Dalje</button>
 				</div>
 			</div>
 		</div>

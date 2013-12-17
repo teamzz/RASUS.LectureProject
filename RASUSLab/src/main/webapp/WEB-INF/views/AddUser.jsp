@@ -23,7 +23,7 @@
 <body>
 	<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<h2>Sudjelovanje u nastavi</h2>
 			<hr>
 		</div>
 	</div>
@@ -70,10 +70,10 @@
 						</tr>
 
 						<tr>
-							<td><form:input path="" class="button" type="submit" value="Pošalji" /></td>
+							<td><form:input path="" class="small button" type="submit" value="Pošalji" /></td>
 						</tr>
 						<tr>
-							<td><form:input path="" class="button" type="reset" value="Resetiraj" /></td>
+							<td><form:input path="" class="small button" type="reset" value="Resetiraj" /></td>
 						</tr>
 
 				</form:form>

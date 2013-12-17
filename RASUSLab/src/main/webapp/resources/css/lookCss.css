@@ -10,3 +10,31 @@
 {
 	text-align: center;
 }
+
+  /* our part of css*/
+  #BButtons
+  {
+  	min-width: 185px;
+  	max-width: 1000px;
+  }
+  
+  #CContent
+  {
+  	margin: auto;
+  }
+  
+  #fouterContainer
+  {
+  	text-align: center;
+  }
+  
+  #souterContainer
+  {
+  	padding: 3%;
+  }
+  
+  #mogucnostBtn
+  {
+  	min-width: 250px;
+  	max-width: 1000px;
+  }
