@@ -59,7 +59,7 @@ function changeActiveQuiz(quizId) {
 	        alert("error: "+data+" status: "+status+" er:"+er);
 	    }
 	});
-	}
+	};
 	
 //id pitanja se salje normalno pod idQuestion, id kviza pod textQuestion
 function deleteQuestion(questionId, quizId) {
@@ -81,7 +81,7 @@ function deleteQuestion(questionId, quizId) {
 	        document.getElementById("questionOfQuiz"+questionId).remove();
 	    }
 	});
-	}
+	};
 	
 function showQuestions(quizId) {
 	var active  = document.getElementById("questionsQuizId" + quizId); 
@@ -94,41 +94,28 @@ function showQuestions(quizId) {
 		{
 		active.style.display = 'table';
 		}
-	}
+	};
 	
-</script>
-<script>
-function sendCategoryToServer(categoryId,categoryName){
-	$.ajax({ 
-	    url: "/ztel/Categories/jax/getCategory", 
-	    type: 'POST', 
-	    dataType: 'json', 
-	    data: "{\"categoryName\":\""+ categoryName+"\",\"idCategory\":"+categoryId+"}", 
-	    contentType: 'application/json',
-	    mimeType: 'application/json',
-	    success: function(data) { //add quizes to quizesDiv
-	    	var quizRows ="";
-	    	var newHTML = "Current category:" +categoryName+"</br><table id='quizesTable'><tr><th>ID</th><th>Quiz Name</th><th>Status</th></tr>";
-	    	
-	    	for (index = 0; index < data.length; index++){ 
-	    		var quizRow = "<tr><td>"+ data[index].idQuiz +"</td><td>"+data[index].quizName+"</td><td>"+data[index].activated+"</td></tr>"
-	    		quizRows = quizRows+quizRow;
-	    	}
-	    	newHTML = newHTML + quizRows +"</table>";
-	        document.getElementById("mainWindow").innerHTML=newHTML;
-	    },
-	    error:function(data,status,er) { 
-	        alert("error: "+data+" status: "+status+" er:"+er);
-	        alert("{\"categoryName\":"+ categoryName+"\",\"idCategory\":"+categoryId+"}");
-
-	  }
-	});
-
+function newQuestion(){
+	var sc="${selectedCategory.idCategory}";
+	if (sc==""){
+		alert("Please select category first!");
+	}
+	else{
+		window.open('/ztel/NewQuestion?idCategory=${selectedCategory.idCategory}','newwindow','width=500 height=500');
+	}
 }
-
-
-
+function newQuiz(){
+	var sc="${selectedCategory.idCategory}";
+	if (sc==""){
+		alert("Please select category first!");
+	}
+	else{
+		window.open('/ztel/AddQuiz/${selectedCategory.idCategory}','newwindow','width=400 height=400');
+	}
+}
 </script>
+
 </head>
 <body>
 	<!--  
@@ -154,7 +141,7 @@ function sendCategoryToServer(categoryId,categoryName){
 
 	<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi</h2>
+			<h2>Sudjelovanje u nastavi #${selectedCategory.categoryName}</h2>
 			<hr>
 		</div>
 
@@ -164,9 +151,9 @@ function sendCategoryToServer(categoryId,categoryName){
 		<div class="twelve columns">
 			<div class="row" id="fouterContainer">
 				<div class="larger-12 columns" id="buttonContainer">
-					<form:form action="/ztel/Category" method="POST">
+					<form:form action="/ztel/Categories" method="GET">
 						<c:forEach items="${categories}" var="category" varStatus="status">
-							<button id="BButtons" name="selectedCategory"
+							<button id="BButtons" name="idCategory"
 								value="${category.idCategory }">${category.categoryName}</button>
 						</c:forEach>
 					</form:form>
@@ -180,10 +167,10 @@ function sendCategoryToServer(categoryId,categoryName){
 						<div id="controlMenu">
 							<p>Mogućnosti:</p>
 							<input type="button" class="alert button"
-								onclick="window.open('/ztel/NewQuestion?idCategory=${selectedCategory}','newwindow','width=500 height=500'); return false;"
+								onclick="newQuestion()"
 								value="Add new question" /> <input type="button"
 								class="alert button"
-								onclick="window.open('/ztel/AddQuiz/${selectedCategory}','newwindow','width=400 height=400'); return false;"
+								onclick="newQuiz()"
 								value="Add new quiz" /> <input type="button"
 								class="alert button"
 								onclick="window.open('/ztel/AddCategory','newwindow','width=300 height=100'); return false;"
@@ -193,7 +180,6 @@ function sendCategoryToServer(categoryId,categoryName){
 								value="Add new user" />
 						</div>
 						<br> <br> <br>
-
 
 						<h4>Raspoloživi kvizevi:</h4>
 
@@ -331,8 +317,9 @@ function sendCategoryToServer(categoryId,categoryName){
 
 	<script src="/resources/js/jquery.js"></script>
 	<script src="/resources/js/foundation.min.js"></script>
-	<script>
+	<script type="text/javascript">
 		$(document).foundation();
+		
 	</script>
 
 </body>
