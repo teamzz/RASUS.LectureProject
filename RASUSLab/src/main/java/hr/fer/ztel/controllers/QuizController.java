@@ -1,5 +1,6 @@
 package hr.fer.ztel.controllers;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,6 +25,7 @@ import hr.fer.ztel.domain.UserAnswer;
 import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
 import hr.fer.ztel.service.QuizService;
+import hr.fer.ztel.service.Statistic;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.slf4j.Logger;
@@ -61,53 +63,59 @@ public class QuizController {
 
 	@Autowired
 	private UserAnswerDao userAnsDao;
-	
+
 	@Autowired
 	private ProfessorService professorService;
-	
+
 	@Autowired
 	private QuizService qs;
+
+	@Autowired
+	private Statistic statService;
 
 	// add quiz
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	
+
 	@RequestMapping(value = "/AddQuiz/{idCategory}", method = RequestMethod.GET)
-	public String home(@PathVariable("idCategory") Long categoryId, Model model, Principal principal) {
-		
+	public String home(@PathVariable("idCategory") Long categoryId,
+			Model model, Principal principal) {
+
 		model.addAttribute("quizholder", new QuizHolder());
 		model.addAttribute("question", new Question());
-		model.addAttribute("idProfessor", professorDao.getProfessorByUsername(principal.getName()).getIdProfessor());
-		model.addAttribute("questions", professorService.getQuestionMadeByProfessorInCategory(principal.getName(), categoryId));
+		model.addAttribute("idProfessor",
+				professorDao.getProfessorByUsername(principal.getName())
+						.getIdProfessor());
+		model.addAttribute(
+				"questions",
+				professorService.getQuestionMadeByProfessorInCategory(
+						principal.getName(), categoryId));
 		return "AddQuiz";
 	}
 
-	
-	@RequestMapping(value="/AddQuiz/jax/{idCategory}", method = RequestMethod.GET)
-	  public @ResponseBody Question getQ(HttpServletResponse res) {
+	@RequestMapping(value = "/AddQuiz/jax/{idCategory}", method = RequestMethod.GET)
+	public @ResponseBody
+	Question getQ(HttpServletResponse res) {
 		/*
-		   * Cat cat = new cat;
-		   * cat.setcatname
-		   * cat.setidcat;
-		   * ret cat
-		   */
+		 * Cat cat = new cat; cat.setcatname cat.setidcat; ret cat
+		 */
 		Question q = new Question();
 		q.setIdQuestion(0);
-	      return q;
-	  }
-	  
-	
-	  @RequestMapping(value = "/AddQuiz/jax/addquestion", method = RequestMethod.POST)
-		public @ResponseBody void addQ(@RequestBody final Question question, @ModelAttribute("quizholder") QuizHolder qh)
-		{
-		  System.out.println("u restu za dodavanje pitanja sam");
-			System.out.println(question.getIdQuestion());
-			qh.addQuestion(question.getIdQuestion());
-			System.out.println(qh.getQuestionsIdList().size());
-			
-		}
-	  
+		return q;
+	}
+
+	@RequestMapping(value = "/AddQuiz/jax/addquestion", method = RequestMethod.POST)
+	public @ResponseBody
+	void addQ(@RequestBody final Question question,
+			@ModelAttribute("quizholder") QuizHolder qh) {
+		System.out.println("u restu za dodavanje pitanja sam");
+		System.out.println(question.getIdQuestion());
+		qh.addQuestion(question.getIdQuestion());
+		System.out.println(qh.getQuestionsIdList().size());
+
+	}
+
 	/**
 	 * Saves the edited person and display all persons again
 	 * 
@@ -132,10 +140,11 @@ public class QuizController {
 			 * questionDao.find(questionId).getTextQuestion());
 			 */
 			System.out.println("dodajem pitanje kviza " + questionId);
-		
+
 			QuestionInQuizInformation qqinfo = new QuestionInQuizInformation();
 			qqinfo.setQuestion(questionDao.find(questionId));
 			qqinfo.setActivated(false);
+			qqinfo.setFinished(false);
 			qqinfo.setQuiz(quiz);
 			quiz.addQuestionInQuizInformation(qqinfo);
 		}
@@ -147,7 +156,7 @@ public class QuizController {
 		for (Question q : questionDao.list()) {
 			System.out.println(q);
 		}
-		
+
 		quizDao.add(quiz);
 
 		model.addAttribute("quizes", quizDao.list());
@@ -162,7 +171,7 @@ public class QuizController {
 
 	@RequestMapping(value = "/Quizes", method = RequestMethod.GET)
 	public String homeQuizes(Model model) {
-		
+
 		model.addAttribute("quizes", quizDao.list());
 		return "Quizes";
 	}
@@ -171,8 +180,8 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
-	public String solveQuiz(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
+	@RequestMapping(value = "/SolveQuiz/{codeQuiz}", method = RequestMethod.GET)
+	public String solveQ(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
 		UserAnswerHolder uah = new UserAnswerHolder();
 		
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
@@ -180,11 +189,43 @@ public class QuizController {
 		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
 		uah.setIdQuiz(playQuiz.getIdQuiz());
 		model.addAttribute("quizCode", codeQuiz);
-		model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz()).getQuestions());
-		model.addAttribute("ansOfQuestions", uah);
-		return "SolveSimpleQuiz";
+		model.addAttribute("idQuiz", playQuiz.getIdQuiz());
+		
+		if (playQuiz.getNextNotactivatedQuestion() != null)
+		{
+		model.addAttribute("questionInQuiz", playQuiz.getNextNotactivatedQuestion());
+		return "SolveQuiz";
+		}
+		else
+		{
+			return "home";
+		}
 		}
 		else return null;
+		
+	
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+
+	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
+	public String solveQuiz(@PathVariable("codeQuiz") String codeQuiz,
+			Model model) {
+		UserAnswerHolder uah = new UserAnswerHolder();
+
+		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
+		if (playQuiz != null) {
+			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+			uah.setIdQuiz(playQuiz.getIdQuiz());
+			model.addAttribute("quizCode", codeQuiz);
+			model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz())
+					.getQuestions());
+			model.addAttribute("ansOfQuestions", uah);
+			return "SolveSimpleQuiz";
+		} else
+			return null;
 	}
 
 	/**
@@ -197,7 +238,7 @@ public class QuizController {
 			Model model) {
 
 		int numOfQuestions = ansToQuestions.getQuestionsId().size();
-		
+
 		for (int i = 0; i < numOfQuestions; i++) {
 			String answer = ansToQuestions.getUserAnswers().get(i);
 			UserAnswer ua = new UserAnswer();
@@ -212,20 +253,40 @@ public class QuizController {
 		return "entry";
 
 	}
-	
+
 	@RequestMapping(value = "/ManageQuiz/{idQuiz}", method = RequestMethod.GET)
-	public String manageQuiz(@PathVariable ("idQuiz") Long idQuiz, Model model) {
-		
+	public String manageQuiz(@PathVariable("idQuiz") Long idQuiz, Model model) {
+
 		Quiz manageQuiz = quizDao.find(idQuiz);
-		if (manageQuiz!=null){
-		System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
-		
-		model.addAttribute("idQuiz", idQuiz);
-		model.addAttribute("questionInQuiz", manageQuiz.getNextNotactivatedQuestion());
-		model.addAttribute("ansOfQuestion", manageQuiz.getNextNotactivatedQuestion().getQuestion().getAnswers());
-		return "ManageQuiz";
-		}
-		else return null;
+		if (manageQuiz != null) {
+			System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
+			model.addAttribute("quizCode", manageQuiz.getCode());
+			model.addAttribute("idQuiz", idQuiz);
+			if (manageQuiz.getNextNotactivatedQuestion() != null) {
+				model.addAttribute("questionInQuiz",
+						manageQuiz.getNextNotactivatedQuestion());
+				model.addAttribute("ansOfQuestion", manageQuiz
+						.getNextNotactivatedQuestion().getQuestion()
+						.getAnswers());
+				return "ManageQuiz";
+			} else {
+				manageQuiz.setActivated(true);
+				quizDao.update(manageQuiz);
+				return "EndQuizInfo";
+			}
+		} else
+			return null;
 	}
-	
+
+	@RequestMapping("/getStatistic/{idQuestion}/{idQuiz}")
+	public @ResponseBody
+	byte[] getPhoto(@PathVariable("idQuestion") final Long idQuestion,
+			@PathVariable("idQuiz") final Long idQuiz) throws IOException {
+
+		byte[] imageBytes = statService.createPieChartForQuestionInQuiz(idQuiz,
+				idQuestion, 600, 600).getPicture();
+
+		return imageBytes;
+	}
+
 }

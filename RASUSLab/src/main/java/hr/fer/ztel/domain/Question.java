@@ -2,7 +2,11 @@ package hr.fer.ztel.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +44,7 @@ public class Question implements Serializable {
 	private String textQuestion;
 
 	@ManyToOne
-	//@Cascade(CascadeType.SAVE_UPDATE)
+	// @Cascade(CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "idcategory")
 	private Category category;
 
@@ -65,10 +69,10 @@ public class Question implements Serializable {
 	private int numberOfCorrectAnswers;
 	@Transient
 	private int numberOfIncorrectAnswers;
-	
+
 	@Transient
 	private List<String> answers;
-	
+
 	public Question() {
 
 	}
@@ -154,25 +158,36 @@ public class Question implements Serializable {
 
 	private List<String> createAnswers(int numberOfQuestion) {
 
-		List<String> answers = new ArrayList<String>();
+		List<String> answers = new ArrayList<String>(numberOfQuestion);
 
+		// dodavanje toènog odgovora
 		answers.add(getCorrectAnswers().get(0).getTextAnswer());
 
+		if (numberOfQuestion > (incorrectAnswers.size() + correctAnswers.size())) {
+			numberOfQuestion = incorrectAnswers.size() + correctAnswers.size();
+		}
+		Set<Integer> usedIncorectIndex = new HashSet<Integer>();
 		int i = 1;
-		for (IncorrectAnswer incorrectAnswer : getIncorrectAnswers()) {
-			if (i >= numberOfQuestion)
-				break;
-			answers.add(incorrectAnswer.getTextAnswer());
-			i++;
+		Integer j;
+		Random ranGen = new Random();
+
+		while (i < numberOfQuestion) {
+			j = ranGen.nextInt(incorrectAnswers.size());
+			if (!usedIncorectIndex.contains(j)) {
+				usedIncorectIndex.add(j);
+				answers.add(i, incorrectAnswers.get(j.intValue())
+						.getTextAnswer());
+				i++;
+			}
 		}
 
+		Collections.shuffle(answers, new Random());
 		return answers;
 	}
 
 	public List<String> getAnswers() {
-		if(answers==null)
-			answers=createAnswers(4);
-		System.out.println("creating ans");
+		if (answers == null)
+			answers = createAnswers(4);
 		return answers;
 	}
 

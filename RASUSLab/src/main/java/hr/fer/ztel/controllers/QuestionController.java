@@ -11,6 +11,7 @@ import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
+import hr.fer.ztel.dao.StatisticPictureDao;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.QuestionHolder;
 import hr.fer.ztel.domain.CorrectAnswer;
@@ -25,6 +26,7 @@ import hr.fer.ztel.domain.Professor;
 
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
+import hr.fer.ztel.service.Statistic;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,7 +59,8 @@ public class QuestionController {
 	private ProfessorDao professorDao;
 	@Autowired
 	private QuizDao quizDao;
-
+	@Autowired
+	private Statistic statServis;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -67,8 +71,10 @@ public class QuestionController {
 		String requestString = request.getQueryString();
 		String category = requestString.replaceAll("\\D+","");
 		Long cat = Long.parseLong(category);
-		model.addAttribute("category",categoryDao.find(cat));
-		return "NewQuestion";
+
+		model.addAttribute("category", categoryDao.find(cat));
+		
+				return "NewQuestion";
 	}
 
 	@RequestMapping(value = "/formsubmit", method = RequestMethod.POST)
@@ -137,7 +143,7 @@ public class QuestionController {
 
 		questionDao.add(holder.getQuestion());
 
-		return "QuestionsAdded";
+		return "closer";
 	}
 	
 	@RequestMapping(value="/Questions/jax/", method = RequestMethod.GET)
@@ -165,5 +171,13 @@ public class QuestionController {
 	  return question;
 	}
 	
+	
+	@RequestMapping(value = "/Question/stats/{idQuiz}/{idQuestion}", method = RequestMethod.GET)
+	public String getQuestionStats(@PathVariable ("idQuestion") Long idQuestion, @PathVariable ("idQuiz") Long idQuiz, Model model) {
+		
+		model.addAttribute("idQuestion", idQuestion);
+		model.addAttribute("idQuiz", idQuiz);
+		return "SingleStatistic";
+	}
 
 }

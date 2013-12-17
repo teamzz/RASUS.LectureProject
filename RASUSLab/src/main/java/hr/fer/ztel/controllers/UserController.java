@@ -35,11 +35,9 @@ public class UserController {
 	@RequestMapping(value = "/checkForUser", method = RequestMethod.GET)
 	public String checkForUser(Model model, HttpServletRequest request){
 		String[] parts = request.getQueryString().split("=");
-		try{
-		if(professorDao.getProfessorByUsername(parts[1])!=null) {System.out.println("username postoji u bazi");return null;}}
-		catch(Exception e){
-			System.out.println("username ne postoji u bazi");
-			return "closer";}
-		return null;
+		if (professorDao.getProfessorByUsername(parts[1])!=null){
+			return null;
+		}
+		return "closer";
 	}
 }

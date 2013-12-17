@@ -19,6 +19,12 @@
 
 
 <script type="text/javascript">
+
+function startQuiz(quizId)
+{
+	window.open("/ztel/ManageQuiz/" + quizId, '_blank','width=800 height=500');
+}
+
 function changeActiveQuiz(quizId) {
 	var active  = document.getElementById("qActive" + quizId); 
 	$.ajax({
@@ -190,7 +196,7 @@ function newQuiz(){
 									<td>Ime</td>
 									<td>Kategorija</td>
 									<td>Akcija</td>
-									<td>Stanje</td>
+									
 									<td>KOD</td>
 								<tr>
 								<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
@@ -199,22 +205,14 @@ function newQuiz(){
 									<td><c:out value="${quiz.category.categoryName}" /></td>
 									<c:set value="${quiz.activated }" var="active" />
 									<td><button id="activateBtn${quiz.idQuiz}" type="button"
-											onclick="changeActiveQuiz(${quiz.idQuiz})"
-											<c:if test="${quiz.activated == true }">disabled="disabled"</c:if>>
-
-											<c:out value="${active eq false ? 'Activate': 'No Action'}" />
+											onclick="startQuiz(${quiz.idQuiz})">
+										Pokreni
 										</button>
-									<td><div id="Q${quiz.idQuiz }">
-											<c:out
-												value="${active eq false ? 'Not active yet': 'Already activated'}" />
-										</div>
-										<div id="qActive${quiz.idQuiz }" style="visibility: collapse;">
-											<c:out value="${quiz.activated}" />
-										</div></td>
-									<td><c:if test="${quiz.activated == true }">
-											<div>${quiz.code }</div>
-										</c:if>
-										<div id="quizCode${quiz.idQuiz }"></div></td>
+										</td>
+										<td>${quiz.code}
+										</td>
+										
+									
 								</tr>
 							</table>
 							<!--  jebene makni ovo -->

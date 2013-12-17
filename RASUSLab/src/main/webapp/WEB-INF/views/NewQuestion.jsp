@@ -5,35 +5,48 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta  >
-<title>Insert title here</title>
-
-
-
+<link href="<c:url value="/resources/css/foundation.css" />" type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="/resources/js/modernizr.js"></script>
+<link href="<c:url value="/resources/css/lookCss.css" />" type="text/css" rel="stylesheet">
+<title>Sudjelovanje u nastavi</title>
 </head>
+
+
 <body>
-	<h1>Please enter number of answers to your new question.</h1><hr>
-
-	${category.categoryName}
-
-	<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
-		<table id = "formTable">
-			<tr>
-				<!-- <td><form:label path="questionType">Question Type (A/B)</form:label></td>
-				<td><form:input path="questionType" /></td> -->
-				<td><form:label path="numberOfIncorrectAnswers">Number of incorrect answers</form:label></td>
-				<td><form:input path="numberOfIncorrectAnswers" /></td>
-				<!-- <td><form:label path="numberOfCorrectAnswers">Number of correct answers</form:label></td>
-				<td><form:input path="numberOfCorrectAnswers" /></td> -->
-				
-			</tr>
-
-			<tr>
-				<td colspan="2"><input type="submit" value="Next"/></td>
-			</tr>
-		</table>
-	</form:form>
+	<div class="row">
+		<div class="twelve columns">
+			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<hr>
+		</div>
+	</div>
+	<br>
+	<br>
+	
+	<div class="row">
+		<div class="twelve columns">
+			<p>Please enter number of answers to your new question.</p>
+			<br>
+			<br>
+			<div class="row" id="bouterContainer">
+				<div class="twelve columns"></div>
+					<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
+						<tr>
+							<td><form:label path="numberOfIncorrectAnswers">Number of incorrect answers:</form:label></td>
+						</tr>
+						<tr>
+							<td><form:input path="numberOfIncorrectAnswers" /></td>	
+						</tr>
+						<br>
+						<tr>
+							<td><input class="button" type="submit" value="Next"/></td>
+						</tr>
+					</form:form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -33,7 +33,7 @@
 	<div class="row">
 		<div class="twelve column">
 			<c:if test="${not empty error}">
-				<div data-alert class="alert-box warning">
+				<div class="alert-box warning">
 					Your login attempt was not successful, try again.<br /> Caused :
 					${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message} <a
 						href="#" class="close">&times;</a>
