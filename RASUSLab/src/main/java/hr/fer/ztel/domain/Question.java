@@ -2,7 +2,9 @@ package hr.fer.ztel.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +42,7 @@ public class Question implements Serializable {
 	private String textQuestion;
 
 	@ManyToOne
-	//@Cascade(CascadeType.SAVE_UPDATE)
+	// @Cascade(CascadeType.SAVE_UPDATE)
 	@JoinColumn(name = "idcategory")
 	private Category category;
 
@@ -65,10 +67,10 @@ public class Question implements Serializable {
 	private int numberOfCorrectAnswers;
 	@Transient
 	private int numberOfIncorrectAnswers;
-	
+
 	@Transient
 	private List<String> answers;
-	
+
 	public Question() {
 
 	}
@@ -154,8 +156,7 @@ public class Question implements Serializable {
 
 	private List<String> createAnswers(int numberOfQuestion) {
 
-		List<String> answers = new ArrayList<String>();
-
+		List<String> answers = new ArrayList<String>(numberOfQuestion);
 		answers.add(getCorrectAnswers().get(0).getTextAnswer());
 
 		int i = 1;
@@ -165,14 +166,13 @@ public class Question implements Serializable {
 			answers.add(incorrectAnswer.getTextAnswer());
 			i++;
 		}
-
+		Collections.shuffle(answers, new Random(System.nanoTime()));
 		return answers;
 	}
 
 	public List<String> getAnswers() {
-		if(answers==null)
-			answers=createAnswers(4);
-		System.out.println("creating ans");
+		if (answers == null)
+			answers = createAnswers(4);
 		return answers;
 	}
 
