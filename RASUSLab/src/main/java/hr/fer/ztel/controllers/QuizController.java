@@ -221,9 +221,18 @@ public class QuizController {
 		System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
 		
 		model.addAttribute("idQuiz", idQuiz);
+		if (manageQuiz.getNextNotactivatedQuestion() != null)
+		{
 		model.addAttribute("questionInQuiz", manageQuiz.getNextNotactivatedQuestion());
 		model.addAttribute("ansOfQuestion", manageQuiz.getNextNotactivatedQuestion().getQuestion().getAnswers());
 		return "ManageQuiz";
+		}
+		else
+		{
+			manageQuiz.setActivated(true);
+			quizDao.update(manageQuiz);
+			return "EndQuizInfo";
+		}
 		}
 		else return null;
 	}

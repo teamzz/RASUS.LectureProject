@@ -12,6 +12,11 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
 <script type="text/javascript">
+function nextQuestion()
+{
+	location.reload();
+}
+
 function activateQuestion(questionId, quizId) {
 	var active  = document.getElementById("qActive" + questionId);
 	alert(active.value);
@@ -29,21 +34,18 @@ function activateQuestion(questionId, quizId) {
 	    		{
 	    		state = "Activated";
 	    		btnTxt = "Deactivate";
-	    		var code = document.getElementById("quizCode" + data.idQuiz);
-	    		code.innerHTML = "" + data.code;
+	    		var code = document.getElementById("activateButton");
+	    		code.innerHTML = btnTxt;
 	    		}
 	    	else{
 	    		state = "Deactivated";
-	    		btnTxt = "Activate";
+	    		btnTxt = "No action";
 	    		var y = document.getElementById("activateButton");
 		    	y.disabled = 'disabled';
 	    	}
 	    	
     	
-	    	var y = document.getElementById("activateButton");
-	    	y.innerHTML = btnTxt;
-	    	var z = document.getElementById("qActive" + data.idQuiz);
-	    	z.innerHTML = data.activated;
+	    	
 	    
 	    },
 	    error:function(data,status,er) { 
@@ -79,15 +81,15 @@ function activateQuestion(questionId, quizId) {
 				</table>
 			</c:if>
 			<c:if test="${questionInQuiz.question.answers.size() == 1 }">
-				<input />
+				<input value="Nadopunite!" disabled="disabled"/>
 			</c:if>
-		<input id="qActive${questionInQuiz.question.idQuestion }" value="${questionInQuiz.activated }"/>
+		<input id="qActive${questionInQuiz.question.idQuestion }" value="${questionInQuiz.activated }" style="visibility:collapse;"/>
 		</div>
 		<br>
 		<div style="background-color: #A0B0C0">
-		<button id="activateButton" onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })">Activate</button>
+		<button id="activateButton" onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })"><c:out value="${questionInQuiz.activated eq false ? 'Activate': 'Deactivate'}" /></button>
 		<button>Statistika</button>
-		<button>Dalje</button>
+		<button onclick="nextQuestion()">Dalje</button>
 		</div>
 </body>
 </html>
