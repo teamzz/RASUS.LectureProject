@@ -3,8 +3,10 @@ package hr.fer.ztel.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -157,15 +159,24 @@ public class Question implements Serializable {
 	private List<String> createAnswers(int numberOfQuestion) {
 
 		List<String> answers = new ArrayList<String>(numberOfQuestion);
+
+		// dodavanje toènog odgovora
 		answers.add(getCorrectAnswers().get(0).getTextAnswer());
 
+		Set<Integer> usedIncorectIndex = new HashSet<Integer>();
 		int i = 1;
-		for (IncorrectAnswer incorrectAnswer : getIncorrectAnswers()) {
-			if (i >= numberOfQuestion)
-				break;
-			answers.add(incorrectAnswer.getTextAnswer());
-			i++;
+		Integer j;
+		Random ranGen = new Random(System.nanoTime());
+		while (i < numberOfQuestion) {
+			j = ranGen.nextInt(incorrectAnswers.size());
+			if (!usedIncorectIndex.contains(j)) {
+				usedIncorectIndex.add(j);
+				answers.add(i, incorrectAnswers.get(j.intValue())
+						.getTextAnswer());
+				i++;
+			}
 		}
+
 		Collections.shuffle(answers, new Random(System.nanoTime()));
 		return answers;
 	}

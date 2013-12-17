@@ -8,6 +8,8 @@ import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuestionInQuizInformationDAO;
 import hr.fer.ztel.dao.QuizDao;
+import hr.fer.ztel.dao.UserAnswerDao;
+import hr.fer.ztel.domain.AjaxQuestionSubmit;
 import hr.fer.ztel.domain.AjaxQuizQuestionTransport;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Question;
@@ -15,6 +17,8 @@ import hr.fer.ztel.domain.QuestionInQuizId;
 import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
+import hr.fer.ztel.domain.UserAnswer;
+import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
 
 import javax.persistence.Access;
@@ -41,9 +45,10 @@ public class RestController {
 	QuizDao quizDao;
 	@Autowired
 	QuestionInQuizInformationDAO qiqDao;
-
 	@Autowired
 	ProfessorService profSer;
+	@Autowired
+	UserAnswerDao userAnswerDao;
 
 	public RestController() {
 		System.out.println("init RestController");
@@ -150,6 +155,37 @@ public class RestController {
 		}
 		qiqDao.update(qif);
 		return qQuiz;
+		
+	}
+	
+	@RequestMapping(value = "/SolveQuiz/jax", method = RequestMethod.GET)
+	public @ResponseBody
+	AjaxQuestionSubmit getSolveQuiz(HttpServletResponse res) {
+		/*
+		 * Cat cat = new cat; cat.setcatname cat.setidcat; ret cat
+		 */
+		AjaxQuestionSubmit q = new AjaxQuestionSubmit();
+
+		return q;
+	}
+	
+	@RequestMapping(value = "/SolveQuiz/jax/submitanswer", method = RequestMethod.POST)
+	public @ResponseBody
+	AjaxQuestionSubmit submitAnswer(
+			@RequestBody final AjaxQuestionSubmit uah) {
+		System.out.println("submitam odgovor");
+		
+		Quiz quiz = quizDao.find(uah.getIdQuiz());
+		Question question = questionDao.find(uah.getIdQuestion());
+		String answer = uah.getAnswer();
+		UserAnswer uAnswer = new UserAnswer();
+		uAnswer.setQuestion(question);
+		uAnswer.setQuiz(quiz);
+		uAnswer.setUserAnswer(answer);
+		
+		userAnswerDao.add(uAnswer);
+		
+		return uah;
 		
 	}
 

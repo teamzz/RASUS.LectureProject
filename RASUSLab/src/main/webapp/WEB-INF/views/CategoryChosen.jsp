@@ -23,7 +23,7 @@
 
 function startQuiz(quizId)
 {
-	window.open("/ztel/ManageQuiz/" + quizId, 'newwindow','width=800 height=500');
+	window.open("/ztel/ManageQuiz/" + quizId, '_blank','width=800 height=500');
 }
 
 function changeActiveQuiz(quizId) {

@@ -180,6 +180,36 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
+	@RequestMapping(value = "/SolveQuiz/{codeQuiz}", method = RequestMethod.GET)
+	public String solveQ(@PathVariable ("codeQuiz") String codeQuiz, Model model) {
+		UserAnswerHolder uah = new UserAnswerHolder();
+		
+		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
+		if (playQuiz!=null){
+		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+		uah.setIdQuiz(playQuiz.getIdQuiz());
+		model.addAttribute("quizCode", codeQuiz);
+		model.addAttribute("idQuiz", playQuiz.getIdQuiz());
+		
+		if (playQuiz.getNextNotactivatedQuestion() != null)
+		{
+		model.addAttribute("questionInQuiz", playQuiz.getNextNotactivatedQuestion());
+		return "SolveQuiz";
+		}
+		else
+		{
+			return "home";
+		}
+		}
+		else return null;
+		
+	
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+
 	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
 	public String solveQuiz(@PathVariable("codeQuiz") String codeQuiz,
 			Model model) {
