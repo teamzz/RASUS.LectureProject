@@ -181,7 +181,6 @@ public class QuestionController {
 		List<Question> questions = professorDao.getProfessorByUsername(
 				(pr.getName())).getQuestions();
 		model.addAttribute("questions", questions);
-		System.out.println(questions);
 		return "QuestionsOverview";
 	}
 

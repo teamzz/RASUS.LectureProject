@@ -8,7 +8,8 @@
 <head>
 <title>Done!</title>
 <script>
-window.close()
+window.close();
+window.open('','_self').close();
 </script>
 </head>
 </html>

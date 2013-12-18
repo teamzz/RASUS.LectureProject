@@ -183,6 +183,14 @@ function newQuiz(){
 								class="alert button"
 								onclick="window.open('/ztel/AddUser','newwindow','width=300 height=300'); return false;"
 								value="Add new user" />
+								<input type="button"
+								class="alert button"
+								onclick="window.open('/ztel/Categories/overview','newwindow','width=300 height=300'); return false;"
+								value="Categories delete" />
+								<input type="button"
+								class="alert button"
+								onclick="window.open('/ztel/Questions/overview','newwindow','width=300 height=300'); return false;"
+								value="Questions delete" />
 						</div>
 						<br> <br> <br>
 

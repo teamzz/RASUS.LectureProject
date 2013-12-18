@@ -22,6 +22,7 @@ import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Professor;
+import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.service.ProfessorService;
 
 
@@ -49,6 +50,7 @@ public class CategoryController {
 	public String categoriesHome(Model model, Principal pr, HttpServletRequest request){
 		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
 		System.out.println("quer " + request.getQueryString());
+		
 		if (request.getQueryString()!=null && request.getQueryString()!=""){
 			String str = request.getQueryString().replaceAll("\\D+","");
 			long cc = Long.parseLong(str);
@@ -93,13 +95,27 @@ public class CategoryController {
 		return "closer";
 	}
 	
-	@RequestMapping(value = "/Categories/delete", method = RequestMethod.GET)
-	public String deleteCategory(Model model, @ModelAttribute("newCategory") Category cat, Principal pr){
-		categoryDao.add(cat);
-		Professor prof = professorDao.getProfessorByUsername(pr.getName());
-		prof.addCategory(cat);
-		professorDao.update(prof);
-		return "closer";
+	@RequestMapping(value = "/Categories/overview", method = RequestMethod.GET)
+	public String categoriesOverview(Model model, Principal pr){
+		List<Category> categories = professorDao.getProfessorByUsername(
+				(pr.getName())).getCategories();
+		model.addAttribute("categories", categories);
+		return "CategoriesOverview";
+	}
+	
+	@RequestMapping(value = "/Categories/overview/delete", method = RequestMethod.GET)
+	public String deleteCategory(Model model, HttpServletRequest request, Principal pr ){
+		String requestString = request.getQueryString();
+		String categoryId = requestString.replaceAll("\\D+", "");
+		Professor user = professorDao.getProfessorByUsername(pr.getName());
+		List<Category> categories = user.getCategories();
+		Category deletingCategory = categoryDao.find(Long.parseLong(categoryId));
+		if (categories.contains(deletingCategory))
+			categoryDao.remove(deletingCategory);
+		categories = professorDao.getProfessorByUsername(
+				(pr.getName())).getCategories();
+		model.addAttribute("categories", categories);
+		return "CategoriesOverview";
 	}
 	
 
