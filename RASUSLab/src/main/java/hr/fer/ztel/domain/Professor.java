@@ -1,7 +1,12 @@
 package hr.fer.ztel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -71,10 +77,11 @@ public class Professor implements Serializable {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
-	
+
 	public void addCategory(Category category) {
 		categories.add(category);
 	}
+
 	public void removeCategory(Category category) {
 		categories.remove(category);
 	}
@@ -145,6 +152,33 @@ public class Professor implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Question> getNotusedQuestion(Long idCategory) {
+
+		Map<Question, Integer> questionEvidency = new HashMap<Question, Integer>();
+		for (Question ques : questions) {
+			if (ques.getCategory().getIdCategory() == idCategory)
+				questionEvidency.put(ques, new Integer(0));
+		}
+		Integer tempCount;
+		for (Quiz quiz : quizes) {
+			for (Question tempQuest : quiz.getQuestions()) {
+				if (tempQuest.getCategory().getIdCategory() == idCategory) {
+
+					tempCount = questionEvidency.get(tempQuest) + 1;
+					questionEvidency.put(tempQuest, tempCount);
+				}
+			}
+		}
+
+		List<Question> retval = new ArrayList<Question>();
+		for (Entry<Question, Integer> quest : questionEvidency.entrySet()) {
+
+			if (quest.getValue() == 0)
+				retval.add(quest.getKey());
+		}
+		return retval;
 	}
 
 	@Override

@@ -94,9 +94,12 @@ public class HomeController {
 
 		System.out.println(model.get("serverTime"));
 
-//		Quiz tem = b.find(new Long(38));
-//		System.out.println("brisemo kviz" + tem);
-//		b.remove(tem);
+		// Quiz tem = b.find(new Long(38));
+		// System.out.println("brisemo kviz" + tem);
+		// b.remove(tem);
+
+		Professor prof = p.getProfessorByUsername("filippm");
+		System.out.println(prof.getNotusedQuestion(new Long(39)));
 		return "Index";
 	}
 }
