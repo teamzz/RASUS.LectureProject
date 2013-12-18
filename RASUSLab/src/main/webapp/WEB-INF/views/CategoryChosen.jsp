@@ -146,6 +146,16 @@ function deleteQuiz(quizId) {
 	});
 	};
 	
+	function showStatistics(quizCode)
+	{
+		alert(quizCode);
+		window.open("/ztel/SolveQuiz/"+quizCode);
+	}
+	
+	function reactivateQuiz(quizId)
+	{
+		window.open("/ztel/ReactivateQuiz/" + quizId, "_blank", "width=300 height=200");
+	}
 </script>
 </head>
 
@@ -213,10 +223,9 @@ function deleteQuiz(quizId) {
 									<td>ID</td>
 									<td>Ime</td>
 									<td>Kategorija</td>
-									<td>Akcija</td>
-
 									<td>KOD</td>
-
+									<td></td>
+									<td></td>
 									<tr>
 								
 								<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
@@ -224,12 +233,24 @@ function deleteQuiz(quizId) {
 									<td><c:out value="${quiz.quizName}" /></td>
 									<td><c:out value="${quiz.category.categoryName}" /></td>
 									<c:set value="${quiz.activated }" var="active" />
+									<td>${quiz.code}
+										</td>
 									<td><button id="activateBtn${quiz.idQuiz}" type="button"
-											onclick="startQuiz(${quiz.idQuiz})">
+											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${quiz.activated }">disabled="disabled"</c:if>>
 										Upravljaj
 										</button>
 										</td>
-										<td>${quiz.code}
+										<td>
+										
+										<button type="button"
+											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${!quiz.activated }">disabled="disabled"</c:if>>
+										Statistike
+										</button>
+										</td>
+										<td><button type="button"
+											onclick="reactivateQuiz(${quiz.idQuiz})">
+										Reaktivacija
+										</button>
 										</td>
 										<td><button type="button"
 											onclick="deleteQuiz(${quiz.idQuiz})">
