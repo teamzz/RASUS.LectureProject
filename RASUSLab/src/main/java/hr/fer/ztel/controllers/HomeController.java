@@ -48,7 +48,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({ "serverTime", "picture" })
+@SessionAttributes({ "serverTime" })
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory
@@ -64,7 +64,6 @@ public class HomeController {
 
 	@Autowired
 	private CorrectAnswerDao cad;
-	
 
 	@Autowired
 	private ProfessorDao p;
@@ -83,94 +82,21 @@ public class HomeController {
 	public String home(Locale locale, ModelMap model,
 			HttpServletResponse response) throws IOException {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		Question qu = a.find(new Long(63));
-		Quiz qvuiz = b.find(new Long(23));
 
-		StatisticPicture picture = statdao.find(qvuiz, qu);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
 		System.out.println(model.get("serverTime"));
 		String formattedDate = dateFormat.format(date);
-		// System.out.println("cajaaaa");
+
 		model.addAttribute("serverTime", formattedDate
 				+ "Ja sam index a ti nisi");
-		model.addAttribute("picture", picture);
+
 		System.out.println(model.get("serverTime"));
 
-		// response.setContentType("image/jpeg");
-		// response.getOutputStream().write(picture.getPicture());
-		// System.out.println(a);
-		// System.out.println(b);
-		// model.addAttribute("broj", new Integer(0));
-		//
-		// System.out.println(p.find(new Long("26")).getQuestions());
-		// System.out.println(p.find(new Long("27")).getQuestions());
-		//
-		// for (Question q : a.list()) {
-		// System.out.println(q);
-		//
-		// }
-		//
-		// for (Professor prof : p.list()) {
-		// System.out.println(prof.getQuestions());
-		// }
-		//
-		// for (Quiz qu : b.list()) {
-		// System.out.println(qu);
-		// System.out.println(qu.getCreator() + " "
-		// + qu.getCreator().getName());
-		// }
-		//
-		// System.out.println(cad.list().size());
-		// for (CorrectAnswer cc : cad.list()) {
-		// System.out.println(cc);
-		// }
-		//
-		// System.out.println(cd.list().size());
-		//
-		// Quiz a1 = new Quiz();
-		// a1.setCreator(p.find(new Long(24)));
-		// a1.setCategory(cd.find(new Long(32)));
-		// a1.setQuizName("lalal");
-		//
-		// for (Question question : p.find(new Long(27)).getQuestions()) {
-		// System.out.println(question);
-		// }
-		//
-		// for (Question question : a.list()) {
-		// System.out.println(question);
-		// }
-		//
-
-		// for (Quiz quiz : b.list()) {
-		// stat.calculateStatisticForQuiz(quiz.getIdQuiz(), 600, 600);
-		// }
-
-		// for (Quiz quiz : b.list()) {
-		//
-		// System.out.println(quiz.getQuizName());
-		// for (Entry<Integer, QuestionInQuizInformation> questioninfo : quiz
-		// .getQuestions().entrySet()) {
-		// System.out.println("Pitanja u kvizu------------------------");
-		// System.err.println("Redni broj pitanja "
-		// + questioninfo.getKey()
-		// + " tekst pitanja= "
-		// + questioninfo.getValue().getQuestion()
-		// .getTextQuestion() + " aktivno="
-		// + questioninfo.getValue().getActivated());
-		// }
-		//
-		// }
-
-		// Quiz a = b.find(new Long(23));
-		// System.out.println(a.getQuestionsInformation().get(new Integer(1))
-		// .getFinished());
-
-		// a.getQuestionsInformation().remove(new Integer(1));
-		// System.out.println(a.getQuestionsInformation().size());
-		// a.setCode("222");
-		// b.update(a);
+//		Quiz tem = b.find(new Long(38));
+//		System.out.println("brisemo kviz" + tem);
+//		b.remove(tem);
 		return "Index";
 	}
 }

@@ -74,7 +74,7 @@ public class Quiz implements Serializable {
 	// }
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz", orphanRemoval = true)
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@MapKey(name = "orderNumber")
 	@Fetch(FetchMode.SELECT)
 	private Map<Integer, QuestionInQuizInformation> questionsInformation = new HashMap<Integer, QuestionInQuizInformation>();
