@@ -52,14 +52,16 @@
 
 		});
 
-		document.getElementById("selectQuestion" + questionId).remove();
-		
 		var table = document.getElementById("selectedQuestionsTable");
 		{
 			var row = table.insertRow(-1);
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = questionId;
+			cell1.innerHTML = document.getElementById("questionId").textContent;
 		}
+		
+		document.getElementById("selectQuestion" + questionId).remove();
+		
+		
 
 	}
 
@@ -102,6 +104,8 @@
 				<p>
 					Odaberite pitanja za ovaj kviz <br>
 				</p>
+				<table id="selectedQuestionsTable">
+				</table>
 				<div>
 					<c:if test="${questions.size() == 0 }">
 						<b>Nemate napravljenih pitanja u ovoj kategoriji</b>
