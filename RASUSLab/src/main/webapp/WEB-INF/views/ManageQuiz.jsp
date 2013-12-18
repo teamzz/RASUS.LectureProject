@@ -48,6 +48,10 @@ function activateQuestion(questionId, quizId) {
 	    		btnTxt = "No action";
 	    		var y = document.getElementById("activateButton");
 		    	y.disabled = 'disabled';
+		    	var statBut = document.getElementById("statisticButton");
+		    	statBut.disabled = false;
+		    	var nextBut = document.getElementById("nextButton");
+		    	nextBut.disabled = false;
 	    	}
 	    	
     	
@@ -62,7 +66,6 @@ function activateQuestion(questionId, quizId) {
 	
 	function showStat(questionId, quizId)
 	{
-		alert("show stats " + questionId + " " + quizId);
 		window.open("/ztel/Question/stats/"+quizId + "/" +  questionId , "_blank", 'width=800 height=500');
 	}
 </script>
@@ -120,12 +123,11 @@ function activateQuestion(questionId, quizId) {
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
 					</button>
-					<button onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})">Statistika</button>
-					<button onclick="nextQuestion()">Dalje</button>
+					<button id="statisticButton" class="small button" onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})" <c:if test="${!questionInQuiz.finished }">disabled="disabled"</c:if>>Statistika</button>
+					<button id="nextButton" class="small button" onclick="nextQuestion()" <c:if test="${!questionInQuiz.finished }">disabled="disabled"</c:if>>Dalje</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

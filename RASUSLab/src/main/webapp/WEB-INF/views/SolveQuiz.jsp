@@ -82,7 +82,9 @@ function submitAnswer(questionId, quizId) {
 
 	
 	<c:choose>
-	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.</c:when>
+	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.
+	<button id="refresh" onclick="refresh()">Osvježi</button>
+	</c:when>
 	<c:otherwise>
 	
 	<%
