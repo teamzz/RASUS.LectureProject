@@ -209,7 +209,7 @@ function deleteQuiz(quizId) {
 								value="Pregled kategorija" />
 								<input type="button"
 								class="alert button"
-								onclick="window.open('/ztel/Questions/overview','newwindow','width=500 height=500'); return false;"
+								onclick="window.open('/ztel/Questions/overview?idCategory=${selectedCategory.idCategory}','newwindow','width=500 height=500'); return false;"
 								value="Pregled pitanja" />
 						</div>
 						<br> <br> <br>

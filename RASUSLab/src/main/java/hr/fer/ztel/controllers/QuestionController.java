@@ -14,12 +14,12 @@ import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.dao.StatisticPictureDao;
+import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.QuestionHolder;
 import hr.fer.ztel.domain.CorrectAnswer;
 import hr.fer.ztel.domain.IncorrectAnswer;
 import hr.fer.ztel.domain.Professor;
-
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.service.Statistic;
@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({ "categories", "category" })
+@SessionAttributes({ "categories", "category", "workingCategory" })
 public class QuestionController {
 
 	private static final Logger logger = LoggerFactory
@@ -177,23 +177,33 @@ public class QuestionController {
 	}
 
 	@RequestMapping(value = "/Questions/overview", method = RequestMethod.GET)
-	public String questionsOverview(Model model, Principal pr) {
+	public String questionsOverview(Model model, Principal pr, HttpServletRequest request) {
+		String requestString = request.getQueryString();
+		String category = requestString.replaceAll("\\D+", "");
+		Long cat = Long.parseLong(category);
+		model.addAttribute("workingCategory",category);
 		List<Question> questions = professorDao.getProfessorByUsername(
-				(pr.getName())).getQuestions();
-		model.addAttribute("questions", questions);
+				(pr.getName())).getNotusedQuestion(cat);
+		if (!questions.isEmpty())
+			model.addAttribute("questions", questions);
+		System.out.println("cat: " + cat + " questions: " + questions);
 		return "QuestionsOverview";
 	}
 
 	@RequestMapping(value = "/Questions/overview/delete", method = RequestMethod.GET)
 	public String questionDeleted(Model model, Principal pr,
-			HttpServletRequest request) {
+			HttpServletRequest request, @ModelAttribute("workingCategory") String cat) {
 		String requestString = request.getQueryString();
 		String questionId = requestString.replaceAll("\\D+", "");
-		Question deletingQuestion = questionDao.find(Long.parseLong(questionId));
+		
+		Long que = Long.parseLong(questionId);
+		
+		Question deletingQuestion = questionDao.find(que);
 		questionDao.remove(deletingQuestion);
 		List<Question> questions = professorDao.getProfessorByUsername(
-				(pr.getName())).getQuestions();
-		model.addAttribute("questions", questions);
+				(pr.getName())).getNotusedQuestion(Long.parseLong(cat));
+		if (!questions.isEmpty())
+			model.addAttribute("questions", questions);
 		return "QuestionsOverview";
 	}
 
