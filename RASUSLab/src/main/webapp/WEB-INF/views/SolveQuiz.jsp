@@ -71,7 +71,6 @@ function submitAnswer(questionId, quizId) {
 	
 	function disableSave()
 	{
-		alert("blabla");
 		document.getElementById("save").disabled = "disabled";
 	}
 </script>
@@ -82,7 +81,9 @@ function submitAnswer(questionId, quizId) {
 
 	
 	<c:choose>
-	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.</c:when>
+	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.
+	<button id="refresh" onclick="refresh()">Osvježi</button>
+	</c:when>
 	<c:otherwise>
 	
 	<%
@@ -133,7 +134,8 @@ function submitAnswer(questionId, quizId) {
 
 			<input id="send" type="button" class="small button"
 				onclick="submitAnswer(${questionInQuiz.question.idQuestion },${idQuiz})"
-				value="Save" id="save" /> <input id="refresh" type="button"
+				value="Save" id="save" /> 
+				<input id="refresh" type="button"
 				class="small button" onclick="refresh()" value="Refresh" />
 
 		</div>
