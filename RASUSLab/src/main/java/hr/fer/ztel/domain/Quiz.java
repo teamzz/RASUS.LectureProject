@@ -73,8 +73,7 @@ public class Quiz implements Serializable {
 	// this.questions = questions;
 	// }
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz", orphanRemoval = true)
-	@Cascade(org.hibernate.annotations.CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz", orphanRemoval = true, cascade = CascadeType.ALL)
 	@MapKey(name = "orderNumber")
 	@Fetch(FetchMode.SELECT)
 	private Map<Integer, QuestionInQuizInformation> questionsInformation = new HashMap<Integer, QuestionInQuizInformation>();
@@ -217,6 +216,27 @@ public class Quiz implements Serializable {
 		result = prime * result
 				+ ((quizName == null) ? 0 : quizName.hashCode());
 		return result;
+	}
+
+	public Quiz clone(String quizCode) {
+		Quiz newQuiz = new Quiz();
+		newQuiz.setActivated(false);
+		newQuiz.setCategory(this.category);
+		newQuiz.setCreator(this.creator);
+		QuestionInQuizInformation tempQuinf;
+		for (Integer i = 0; i < questionsInformation.size(); i++) {
+			tempQuinf=new QuestionInQuizInformation();
+			tempQuinf.setActivated(false);
+			tempQuinf.setFinished(false);
+			tempQuinf.setQuestion(questionsInformation.get(i).getQuestion());
+			tempQuinf.setQuiz(newQuiz);			
+			newQuiz.addQuestionInQuizInformation(tempQuinf);
+		}
+		newQuiz.setQuizName(quizName);
+		newQuiz.setCode(quizCode);
+
+		return newQuiz;
+
 	}
 
 	@Override

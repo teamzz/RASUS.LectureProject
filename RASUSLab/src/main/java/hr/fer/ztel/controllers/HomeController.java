@@ -98,8 +98,7 @@ public class HomeController {
 		// System.out.println("brisemo kviz" + tem);
 		// b.remove(tem);
 
-		Professor prof = p.getProfessorByUsername("filippm");
-		System.out.println(prof.getNotusedQuestion(new Long(39)));
+//		b.add(b.find(new Long(42)).clone("novikod"));
 		return "Index";
 	}
 }
