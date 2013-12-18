@@ -10,6 +10,10 @@
 <title>Statistika kviza</title>
 </head>
 <body>
-Gotovo je, gotovo!!!
+
+<c:forEach items="${quiz.questions}" var="question">
+<img src="/ztel/getStatistic/${question.idQuestion}/${quiz.idQuiz}"/>
+</c:forEach>
+
 </body>
 </html>
