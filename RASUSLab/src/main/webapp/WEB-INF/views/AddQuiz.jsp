@@ -56,7 +56,7 @@
 		{
 			var row = table.insertRow(-1);
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = document.getElementById("questionId").textContent;
+			cell1.innerHTML = document.getElementById("selectQuestion" + questionId).textContent;
 		}
 		
 		document.getElementById("selectQuestion" + questionId).remove();
