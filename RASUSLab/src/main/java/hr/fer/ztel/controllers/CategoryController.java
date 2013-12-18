@@ -93,6 +93,15 @@ public class CategoryController {
 		return "closer";
 	}
 	
+	@RequestMapping(value = "/Categories/delete", method = RequestMethod.GET)
+	public String deleteCategory(Model model, @ModelAttribute("newCategory") Category cat, Principal pr){
+		categoryDao.add(cat);
+		Professor prof = professorDao.getProfessorByUsername(pr.getName());
+		prof.addCategory(cat);
+		professorDao.update(prof);
+		return "closer";
+	}
+	
 
 
 
