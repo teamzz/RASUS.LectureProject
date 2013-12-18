@@ -74,7 +74,7 @@ public class Quiz implements Serializable {
 	// }
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.quiz", orphanRemoval = true)
-	@Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@MapKey(name = "orderNumber")
 	@Fetch(FetchMode.SELECT)
 	private Map<Integer, QuestionInQuizInformation> questionsInformation = new HashMap<Integer, QuestionInQuizInformation>();
@@ -83,6 +83,12 @@ public class Quiz implements Serializable {
 	private List<Question> questions;
 
 	public List<Question> getQuestions() {
+		this.setQuestions(createQuestionList());
+		return questions;
+	}
+
+	private List<Question> createQuestionList() {
+
 		List<Question> retval = new ArrayList<Question>(
 				questionsInformation.size());
 		for (Entry<Integer, QuestionInQuizInformation> question : questionsInformation
@@ -102,7 +108,7 @@ public class Quiz implements Serializable {
 		}
 		return null;
 	}
-	
+
 	public QuestionInQuizInformation getActivatedQuestion() {
 		QuestionInQuizInformation quinftemp;
 		for (int i = 0; i < questionsInformation.size(); i++) {
@@ -113,7 +119,6 @@ public class Quiz implements Serializable {
 		}
 		return null;
 	}
-	
 
 	public Map<Integer, QuestionInQuizInformation> getQuestionsInformation() {
 		return questionsInformation;
@@ -124,7 +129,7 @@ public class Quiz implements Serializable {
 		this.questionsInformation = questionsInformation;
 	}
 
-	public void setQuestion(List<Question> questionList) {
+	public void setQuestions(List<Question> questionList) {
 		this.questions = questionList;
 	}
 
@@ -187,6 +192,15 @@ public class Quiz implements Serializable {
 
 		}
 		questionsInformation.remove(index);
+
+		for (Entry<Integer, QuestionInQuizInformation> quinfor : questionsInformation
+				.entrySet()) {
+			if (quinfor.getKey() > index) {
+				quinfor.getValue().setOrderNumber(
+						quinfor.getValue().getOrderNumber() - 1);
+			}
+
+		}
 
 	}
 

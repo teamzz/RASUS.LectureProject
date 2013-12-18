@@ -87,7 +87,7 @@ public class QuizController {
 
 		model.addAttribute("quizholder", new QuizHolder());
 		model.addAttribute("question", new Question());
-		model.addAttribute("category",categoryDao.find(categoryId));
+		model.addAttribute("category", categoryDao.find(categoryId));
 		model.addAttribute("idProfessor",
 				professorDao.getProfessorByUsername(principal.getName())
 						.getIdProfessor());
@@ -128,6 +128,9 @@ public class QuizController {
 	@RequestMapping(value = "/AddQuiz/formsubmit", method = RequestMethod.POST)
 	public String saveEdit(@ModelAttribute("quizholder") QuizHolder quizHolder,
 			Model model) {
+		if (quizHolder == null) {
+			return "entry";
+		}
 		logger.debug("Received request to add quiz");
 		System.out.println("add quiz kontroler");
 		Quiz quiz = quizHolder.getQuiz();
@@ -173,45 +176,54 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
+	/*
 	@RequestMapping(value = "/Quizes", method = RequestMethod.GET)
 	public String homeQuizes(Model model) {
 
 		model.addAttribute("quizes", quizDao.list());
 		return "Quizes";
 	}
+	*/
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 
 	@RequestMapping(value = "/SolveQuiz/{codeQuiz}", method = RequestMethod.GET)
-	public String solveQ(@PathVariable ("codeQuiz") String codeQuiz, Model model, HttpServletResponse response) {
+	public String solveQ(@PathVariable("codeQuiz") String codeQuiz,
+			Model model, HttpServletResponse response) {
 		UserAnswerHolder uah = new UserAnswerHolder();
-		
+
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
-		if (playQuiz!=null){
-		System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
-		uah.setIdQuiz(playQuiz.getIdQuiz());
-		model.addAttribute("quizCode", codeQuiz);
-		model.addAttribute("idQuiz", playQuiz.getIdQuiz());
-		if (playQuiz.getActivatedQuestion() != null)
-		{
-			System.out.println("question id " + playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion());
-		//response.addCookie(new Cookie("id_question", String.valueOf(playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion())));
-		model.addAttribute("questionInQuiz", playQuiz.getActivatedQuestion());
-		model.addAttribute("idQuestionCook", playQuiz.getActivatedQuestion().getQuestion().getIdQuestion());
-		return "SolveQuiz";
-		}
-		else
-		{
-			return "home";
-		}
-		}
-		else return null;
-		
-	
+		if (playQuiz != null) {
+			if (playQuiz.isActivated())
+			{
+				model.addAttribute("quiz", playQuiz);
+				return "EndQuizInfo";
+			}
+			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+			uah.setIdQuiz(playQuiz.getIdQuiz());
+			model.addAttribute("quizCode", codeQuiz);
+			model.addAttribute("idQuiz", playQuiz.getIdQuiz());
+			if (playQuiz.getActivatedQuestion() != null) {
+				System.out.println("question id "
+						+ playQuiz.getNextNotactivatedQuestion().getQuestion()
+								.getIdQuestion());
+				// response.addCookie(new Cookie("id_question",
+				// String.valueOf(playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion())));
+				model.addAttribute("questionInQuiz",
+						playQuiz.getActivatedQuestion());
+				model.addAttribute("idQuestionCook", playQuiz
+						.getActivatedQuestion().getQuestion().getIdQuestion());
+				return "SolveQuiz";
+			} else {
+				return "home";
+			}
+		} else
+			return null;
+
 	}
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -276,6 +288,7 @@ public class QuizController {
 						.getAnswers());
 				return "ManageQuiz";
 			} else {
+				model.addAttribute("quiz", manageQuiz);
 				manageQuiz.setActivated(true);
 				quizDao.update(manageQuiz);
 				return "EndQuizInfo";

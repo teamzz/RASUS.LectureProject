@@ -50,7 +50,7 @@ public class CategoryController {
 	public String categoriesHome(Model model, Principal pr, HttpServletRequest request){
 		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
 		System.out.println("quer " + request.getQueryString());
-		
+		model.addAttribute("userName", pr.getName());
 		if (request.getQueryString()!=null && request.getQueryString()!=""){
 			String str = request.getQueryString().replaceAll("\\D+","");
 			long cc = Long.parseLong(str);

@@ -65,7 +65,7 @@
 <body>
 	<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<h1>Sudjelovanje u nastavi #${category.categoryName}</h1>
 			<hr>
 		</div>
 	</div>
@@ -106,7 +106,7 @@
 						</c:if>
 						<br>
 						<tr>
-							<td colspan="2"><form:input path="" class="button" type="submit" value="Next" /></td>
+							<td colspan="2"><form:input path="" class="small button" type="submit" value="Next" /></td>
 						</tr>
 				</form:form>
 			</div>

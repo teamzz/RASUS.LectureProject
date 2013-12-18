@@ -25,6 +25,8 @@
 			<hr>
 		</div>
 	</div>
+	<br>
+	<br>
 	<div class="row">
 		<div class="twelve columns">
 			<div class="panel">Unesite korisničke podatke.</div>

@@ -11,8 +11,6 @@
 
 		<security:intercept-url pattern="/NewQuestion*"
 			access="ROLE_ADMIN" />
-		<security:intercept-url pattern="/Quizes*"
-			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/Categories*"
 			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/questionAdded*"
@@ -29,11 +27,31 @@
 			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/Quizes/jax/changeactivequiz"
 			access="ROLE_ADMIN" />
-
-
+		<security:intercept-url pattern="/categoryAdded"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/questionAdded"
+			access="ROLE_ADMIN" />	
+		<security:intercept-url pattern="/userAdded"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/checkForUser*"
+			access="ROLE_ADMIN" />			
+		<security:intercept-url pattern="/ManageQuiz/*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Quizes/jax/changeactivequiz*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Questions/jax/deletequestion*"
+			access="ROLE_ADMIN" />	
+		<security:intercept-url pattern="/NewQuestion?idCategory*"
+			access="ROLE_ADMIN" /> 
+		<security:intercept-url pattern="/AddQuiz/*"
+			access="ROLE_ADMIN" />	
+		<security:intercept-url pattern="/ManageQuiz/jax/changeactivequestion*"
+			access="ROLE_ADMIN" />	
+			
 
 		<security:form-login login-page="/login"
-			default-target-url="/Quizes" authentication-failure-url="/loginfailed" />
+			always-use-default-target="true"
+			default-target-url="/Categories" authentication-failure-url="/loginfailed" />
 		<security:logout logout-success-url="/logout" />
 	</security:http>
 

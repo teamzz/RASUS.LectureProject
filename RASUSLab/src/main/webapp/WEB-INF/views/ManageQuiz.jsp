@@ -71,7 +71,7 @@ function activateQuestion(questionId, quizId) {
 <body>
 	<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<h1>Sudjelovanje u nastavi #${category.categoryName}</h1>
 			<hr>
 		</div>
 	</div>
@@ -115,7 +115,7 @@ function activateQuestion(questionId, quizId) {
 				<br>
 				<br>
 				<div>
-					<button id="activateButton"
+					<button class="small button" id="activateButton"
 						onclick="activateQuestion(${questionInQuiz.question.idQuestion}, ${idQuiz })">
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
