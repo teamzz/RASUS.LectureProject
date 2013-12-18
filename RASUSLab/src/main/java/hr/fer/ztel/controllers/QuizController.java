@@ -217,8 +217,8 @@ public class QuizController {
 						.getActivatedQuestion().getQuestion().getIdQuestion());
 				return "SolveQuiz";
 			} else {
-				
-				return null;
+				System.out.println("null vracam");
+				return "SolveQuiz";
 			}
 		} else
 			return "entry";

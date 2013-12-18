@@ -32,7 +32,6 @@ function refresh()
 
 function submitAnswer(questionId, quizId) {
 	var answer = document.getElementById("userAnswer");
-	alert(questionId + " " + quizId + " " + answer.value);
 	$.ajax({
 	    url: "/ztel/SolveQuiz/jax/submitanswer", 
 	    type: 'POST', 
@@ -81,6 +80,11 @@ function submitAnswer(questionId, quizId) {
 </head>
 <body>
 
+	
+	<c:choose>
+	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.</c:when>
+	<c:otherwise>
+	
 	<%
 		if (request.getCookies() != null)
 			{
@@ -103,8 +107,6 @@ function submitAnswer(questionId, quizId) {
 		}
 	%>
 	
-	<c:if test="${questionInQuiz == null }">Trenutno nema aktivnog pitanja.</c:if>
-
 	<div class="row">
 		<div class="panel">
 
@@ -136,6 +138,8 @@ function submitAnswer(questionId, quizId) {
 
 		</div>
 	</div>
+	</c:otherwise>
+	</c:choose>
 	<script src="/resources/js/jquery.js"></script>
 	<script src="/resources/js/foundation.min.js"></script>
 	<script>
