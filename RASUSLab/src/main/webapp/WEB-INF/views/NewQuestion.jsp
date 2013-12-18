@@ -17,9 +17,9 @@
 
 
 <body>
-	<div class="row">
+<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi #${category.categoryName}</h2>
+			<h1>Sudjelovanje u nastavi #${category.categoryName}</h1>
 			<hr>
 		</div>
 	</div>

@@ -20,7 +20,6 @@
 
 
 
-
 <script type="text/javascript">
 
 function startQuiz(quizId)
@@ -119,7 +118,7 @@ function newQuiz(){
 		alert("Please select category first!");
 	}
 	else{
-		window.open('/ztel/AddQuiz/${selectedCategory.idCategory}','newwindow','width=400 height=400');
+		window.open('/ztel/AddQuiz/${selectedCategory.idCategory}','newwindow','width=500 height=500');
 	}
 }
 </script>
@@ -127,11 +126,13 @@ function newQuiz(){
 
 <body>
 	<div class="row">
-		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi #${selectedCategory.categoryName}</h2>
-			<hr>
+		<div class="large-10 columns">
+			<h1>Sudjelovanje u nastavi #${selectedCategory.categoryName}</h1>
 		</div>
-
+		<div class="small-2 columns">
+			<h5 id="logout">${userName} |<a href="<c:url value="/j_spring_security_logout" />" > Logout</a></h5>
+		</div>
+		<hr>
 	</div>
 
 	<div class="row">
@@ -162,10 +163,10 @@ function newQuiz(){
 									value="Dodaj kviz" />
 							</c:if>
 							<input id="mogucnostBtn" type="button" class="alert button"
-								onclick="window.open('/ztel/AddCategory','newwindow','width=450 height=300'); return false;"
+								onclick="window.open('/ztel/AddCategory','newwindow','width=500 height=500'); return false;"
 								value="Dodaj kategoriju" /> <input id="mogucnostBtn" type="button"
 								class="alert button"
-								onclick="window.open('/ztel/AddUser','newwindow','width=450 height=300'); return false;"
+								onclick="window.open('/ztel/AddUser','newwindow','width=500 height=500'); return false;"
 								value="Dodaj korisnika" />
 						</div>
 						<br> <br> <br>

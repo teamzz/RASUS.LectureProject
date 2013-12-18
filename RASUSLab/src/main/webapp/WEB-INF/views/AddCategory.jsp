@@ -23,10 +23,9 @@
 <body>
 	<div class="row">
 		<div class="twelve columns">
-			<h2>Sudjelovanje u nastavi</h2>
+			<h1>Sudjelovanje u nastavi</h1>
 			<hr>
 		</div>
-
 	</div>
 	<br>
 	<br>

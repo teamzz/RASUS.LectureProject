@@ -21,7 +21,7 @@
 				type : 'GET',
 				url : "/ztel/SolveSimpleQuiz/" + code,
 				success : function() {
-					window.open("/ztel/SolveSimpleQuiz/" + code, "_self");
+					window.open("/ztel/SolveQuiz/" + code, "_self");
 				},
 				error : function() {
 					alert("Wrong quiz code!");
@@ -42,6 +42,8 @@
 		<hr>
 		</div>
 	</div>
+	<br>
+	<br>
 
 	
 	<div class="row">

@@ -125,6 +125,9 @@ public class QuizController {
 	@RequestMapping(value = "/AddQuiz/formsubmit", method = RequestMethod.POST)
 	public String saveEdit(@ModelAttribute("quizholder") QuizHolder quizHolder,
 			Model model) {
+		if (quizHolder == null) {
+			return "entry";
+		}
 		logger.debug("Received request to add quiz");
 		System.out.println("add quiz kontroler");
 		Quiz quiz = quizHolder.getQuiz();
@@ -170,12 +173,14 @@ public class QuizController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
+	/*
 	@RequestMapping(value = "/Quizes", method = RequestMethod.GET)
 	public String homeQuizes(Model model) {
 
 		model.addAttribute("quizes", quizDao.list());
 		return "Quizes";
 	}
+	*/
 
 	/**
 	 * Simply selects the home view to render by returning its name.
