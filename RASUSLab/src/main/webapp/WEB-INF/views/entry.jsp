@@ -19,9 +19,10 @@
 		if (code != "") {
 			$.ajax({
 				type : 'GET',
-				url : "/ztel/SolveSimpleQuiz/" + code,
-				success : function() {
-					window.open("/ztel/SolveQuiz/" + code, "_self");
+				url : "/ztel/SolveQuiz/" + code,
+				success : function(data) {
+					if (data == null) alert("novi alert");
+					else window.open("/ztel/SolveQuiz/" + code, "_self");
 				},
 				error : function() {
 					alert("Wrong quiz code!");

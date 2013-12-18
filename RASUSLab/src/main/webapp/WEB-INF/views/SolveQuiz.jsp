@@ -82,17 +82,28 @@ function submitAnswer(questionId, quizId) {
 <body>
 
 	<%
-	if (request.getCookies() != null)
-	{
-		Long id_quest = (Long) request.getAttribute("idQuestionCook");
-		if(id_quest == Long.parseLong(request.getCookies()[0].getValue()))
+		if (request.getCookies() != null)
+			{
+			Long id_quest = (Long) request.getAttribute("idQuestionCook");
+			Cookie[] cookies = request.getCookies();
+			for (Cookie c : cookies)
+			{
+		if (c.getName().equals("id_question"))
+		{
+			
+		
+			 	if(id_quest == Long.parseLong(c.getValue()))
 		{
 			out.print("Već ste rješavali ovo pitanje!");
 			out.print("<script>disableSave();<script>");
-			
+		
 		}
-	}
+		}
+			}
+		}
 	%>
+	
+	<c:if test="${questionInQuiz == null }">Trenutno nema aktivnog pitanja.</c:if>
 
 	<div class="row">
 		<div class="panel">
@@ -120,7 +131,7 @@ function submitAnswer(questionId, quizId) {
 
 			<input id="send" type="button" class="small button"
 				onclick="submitAnswer(${questionInQuiz.question.idQuestion },${idQuiz})"
-				value="Save" id="save"/> <input id="refresh" type="button"
+				value="Save" id="save" /> <input id="refresh" type="button"
 				class="small button" onclick="refresh()" value="Refresh" />
 
 		</div>

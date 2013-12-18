@@ -52,8 +52,8 @@
 
 		});
 
-		document.getElementById("selectQuestion" + questionId).disabled = true;
-
+		document.getElementById("selectQuestion" + questionId).remove();
+		
 		var table = document.getElementById("selectedQuestionsTable");
 		{
 			var row = table.insertRow(-1);

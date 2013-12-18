@@ -217,10 +217,11 @@ public class QuizController {
 						.getActivatedQuestion().getQuestion().getIdQuestion());
 				return "SolveQuiz";
 			} else {
-				return "home";
+				
+				return null;
 			}
 		} else
-			return null;
+			return "entry";
 
 	}
 
