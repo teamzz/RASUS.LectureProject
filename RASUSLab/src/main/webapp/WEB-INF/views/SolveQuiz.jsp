@@ -21,6 +21,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link href="<c:url value="/resources/css/foundation.css" />"
+	type="text/css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="<c:url value="/resources/css/lookCss.css" />"
+	type="text/css" rel="stylesheet">
 
 <script type="text/javascript">
 
@@ -79,41 +84,54 @@ function submitAnswer(questionId, quizId) {
 
 <title>Rješavanje kviza</title>
 </head>
+
+
 <body>
 
-	<%
-		if (request.getCookies() != null)
-			{
-			Long id_quest = (Long) request.getAttribute("idQuestionCook");
-			Cookie[] cookies = request.getCookies();
-			for (Cookie c : cookies)
-			{
-		if (c.getName().equals("id_question"))
-		{
-			
-		
-			 	if(id_quest == Long.parseLong(c.getValue()))
-		{
-			out.print("Već ste rješavali ovo pitanje!");
-			out.print("<script>disableSave();<script>");
-		
-		}
-		}
-			}
-		}
-	%>
-	
-	<c:if test="${questionInQuiz == null }">Trenutno nema aktivnog pitanja.</c:if>
+	<div class="row">
+		<div class="twelve columns">
+			<h1>Sudjelovanje u nastavi</h1>
+			<hr>
+		</div>
+	</div>
+	<br>
+	<br>
+
+
 
 	<div class="row">
 		<div class="panel">
+
+			<%
+				if (request.getCookies() != null)
+				{
+				Long id_quest = (Long) request.getAttribute("idQuestionCook");
+				Cookie[] cookies = request.getCookies();
+				for (Cookie c : cookies)
+				{
+					if (c.getName().equals("id_question"))
+					{
+				
+					
+				 	if(id_quest == Long.parseLong(c.getValue()))
+					{
+				out.print("Već ste rješavali ovo pitanje!");
+				out.print("<script>disableSave();<script>");
+					
+					}
+					}
+				}
+					}
+			%>
+
+			<c:if test="${questionInQuiz == null }">Trenutno nema aktivnog pitanja.</c:if>
 
 			<form:input path="idQuiz" style="visibility:collapse;" />
 
 			<div>
 				<label>${questionInQuiz.question.textQuestion}</label> <input
 					value="${questionInQuiz.question.idQuestion}"
-					style="display: none;" />
+					style="display: none;" /> <br>
 				<c:if test="${questionInQuiz.question.answers.size() != 1 }">
 					<select id="userAnswer">
 						<c:forEach items="${questionInQuiz.question.answers }"
@@ -128,11 +146,10 @@ function submitAnswer(questionId, quizId) {
 					<input id="userAnswer" />
 				</c:if>
 			</div>
-
-			<input id="send" type="button" class="small button"
+			<br> <input id="send" type="button" class="small button"
 				onclick="submitAnswer(${questionInQuiz.question.idQuestion },${idQuiz})"
-				value="Save" id="save" /> <input id="refresh" type="button"
-				class="small button" onclick="refresh()" value="Refresh" />
+				value="Spremi" id="save" /> <input id="refresh" type="button"
+				class="small button" onclick="refresh()" value="Osvježi" />
 
 		</div>
 	</div>

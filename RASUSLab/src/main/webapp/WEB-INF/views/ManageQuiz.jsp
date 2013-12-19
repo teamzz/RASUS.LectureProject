@@ -38,8 +38,8 @@ function activateQuestion(questionId, quizId) {
 	    	var btnTxt = "";
 	    	if (data.activated)
 	    		{
-	    		state = "Activated";
-	    		btnTxt = "Deactivate";
+	    		state = "Aktivirano";
+	    		btnTxt = "Deaktivirano";
 	    		var code = document.getElementById("activateButton");
 	    		code.innerHTML = btnTxt;
 	    		}
@@ -120,8 +120,8 @@ function activateQuestion(questionId, quizId) {
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
 					</button>
-					<button onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})">Statistika</button>
-					<button onclick="nextQuestion()">Dalje</button>
+					<button class="small button" onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})">Statistika</button>
+					<button class="small button" onclick="nextQuestion()">Dalje</button>
 				</div>
 			</div>
 		</div>

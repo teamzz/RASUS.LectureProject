@@ -43,3 +43,18 @@
   {
   	margin-top:22px;
   }
+  
+  #questionOverviewBtn
+  {
+  	margin-top: 75px;
+  }
+  
+  #correctAnswers
+  {
+  	padding-left: 30px;
+  }
+  
+  #incorrectAnswers
+  {
+  	padding-left: 30px;
+  }

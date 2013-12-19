@@ -14,29 +14,69 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="<c:url value="/resources/css/lookCss.css" />"
 	type="text/css" rel="stylesheet">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
+
 <script>
 function deleteQuestion(questionId){
 	window.open("/ztel/Questions/overview/delete?id="+questionId,'_self',false);
 }
 </script>
-	
+
 </head>
+
 <body>
-<c:forEach items="${questions}" var="question" varStatus="status">
-	${question.textQuestion}<br>
-	<c:forEach items="${question.correctAnswers}" var="correctAnswer" varStatus="status">
-		- ${correctAnswer.textAnswer} (correct)<br>
-	</c:forEach>
-	<c:forEach items="${question.incorrectAnswers}" var="incorrectAnswer" varStatus="status">
-		- ${incorrectAnswer.textAnswer} (incorrect)<br>
-	</c:forEach> 
-	<input type="button" name="idQuestion" onclick="deleteQuestion(${question.idQuestion})" value="Delete"/>
-	
-	<hr>
-</c:forEach>
+
+	<div class="row">
+		<div class="twelve columns">
+			<h1>Sudjelovanje u nastavi #${category.categoryName}</h1>
+			<hr>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+		<div class="twelve columns">
+			<p>Popis neiskorištenih pitanja kategorije.</p>
+			<br> <br>
+			<div class="row">
+				<div class="twelve columns"></div>
+				<c:forEach items="${questions}" var="question" varStatus="status">
+				<div class="row">
+					<div class="large-10 columns">
+						<b>Pitanje: ${question.textQuestion}
+						</b><br>
+						<br>
+						<div class="panel">
+						Točni odgovori:
+						<br>
+						<div id="correctAnswers">
+						<c:forEach items="${question.correctAnswers}" var="correctAnswer"
+							varStatus="status">
+								 ${correctAnswer.textAnswer}<br>
+						</c:forEach>
+						<br>
+						</div>
+						Netočni odgovori:
+						<br>
+						<div id="incorrectAnswers">
+						<c:forEach items="${question.incorrectAnswers}"
+							var="incorrectAnswer" varStatus="status">
+								${incorrectAnswer.textAnswer}<br>
+						</c:forEach>
+						</div>
+						</div>
+					</div>
+					<div class="small-2 columns">
+						<input id="questionOverviewBtn" class="small button" type="button" name="idQuestion"
+							onclick="deleteQuestion(${question.idQuestion})" value="Obriši" />
+					</div>
+				</div>
+				<hr>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+
 
 </body>
 </html>

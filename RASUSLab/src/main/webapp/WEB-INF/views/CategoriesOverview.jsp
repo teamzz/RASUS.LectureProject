@@ -14,22 +14,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="<c:url value="/resources/css/lookCss.css" />"
 	type="text/css" rel="stylesheet">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	
+
+
 <script>
 function deleteCategory(categoryId){
 	window.open("/ztel/Categories/overview/delete?id="+categoryId,'_self',false);
 }
 </script>
-	
+
 </head>
+
 <body>
-<c:forEach items="${categories}" var="category" varStatus="status">
-	${category.categoryName}<br>
-	<input type="button" onclick="deleteCategory(${category.idCategory})" value="Delete"/>
-	<hr>
-</c:forEach>
+
+	<div class="row">
+		<div class="twelve columns">
+			<h1>Sudjelovanje u nastavi</h1>
+			<hr>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+		<div class="twelve columns">
+			<p>Popis svih kategorija:</p>
+			<br> <br>
+			<div class="row">
+				<div class="twelve columns">
+					<div class="row" id="bouterContainer">
+						<c:forEach 
+							items="${categories}" var="category" varStatus="status">
+							<div class="large-10 columns">
+							${category.categoryName}
+							</div>
+							<div class="small-2 columns">
+							<input class="small button" type="button"
+								onclick="deleteCategory(${category.idCategory})" value="Obriši" />
+							</div>
+							<hr>
+						</c:forEach>
+					</div>
+					</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
