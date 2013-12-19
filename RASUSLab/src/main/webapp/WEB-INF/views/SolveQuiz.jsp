@@ -37,7 +37,6 @@ function refresh()
 
 function submitAnswer(questionId, quizId) {
 	var answer = document.getElementById("userAnswer");
-	alert(questionId + " " + quizId + " " + answer.value);
 	$.ajax({
 	    url: "/ztel/SolveQuiz/jax/submitanswer", 
 	    type: 'POST', 
@@ -77,7 +76,6 @@ function submitAnswer(questionId, quizId) {
 	
 	function disableSave()
 	{
-		alert("blabla");
 		document.getElementById("save").disabled = "disabled";
 	}
 </script>
@@ -97,8 +95,36 @@ function submitAnswer(questionId, quizId) {
 	<br>
 	<br>
 
-
-
+	
+	<c:choose>
+	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.
+	<button id="refresh" onclick="refresh()">Osvježi</button>
+	</c:when>
+	<c:otherwise>
+	
+	<%
+		if (request.getCookies() != null)
+			{
+			Long id_quest = (Long) request.getAttribute("idQuestionCook");
+			Cookie[] cookies = request.getCookies();
+			for (Cookie c : cookies)
+			{
+		if (c.getName().equals("id_question"))
+		{
+			
+		
+			 	if(id_quest == Long.parseLong(c.getValue()))
+		{
+			out.print("Već ste rješavali ovo pitanje!");
+			out.print("<script>disableSave();<script>");
+		
+		}
+		}
+			}
+		}
+	%>
+	
+>>>>>>> branch 'master' of https://github.com/teamzz/RASUS.LectureProject
 	<div class="row">
 		<div class="panel">
 
@@ -153,6 +179,8 @@ function submitAnswer(questionId, quizId) {
 
 		</div>
 	</div>
+	</c:otherwise>
+	</c:choose>
 	<script src="/resources/js/jquery.js"></script>
 	<script src="/resources/js/foundation.min.js"></script>
 	<script>

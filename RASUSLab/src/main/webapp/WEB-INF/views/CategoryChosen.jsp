@@ -121,6 +121,41 @@ function newQuiz(){
 		window.open('/ztel/AddQuiz/${selectedCategory.idCategory}','newwindow','width=500 height=500');
 	}
 }
+
+function deleteQuiz(quizId) {
+	$.ajax({
+	    url: "/ztel/Quiz/jax/deletequiz", 
+	    type: 'POST', 
+	    dataType: 'json', 
+	    data: "{\"idQuiz\":\"" + quizId + "\"}", 
+	    contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(data) { 
+	    	
+	    	document.getElementById("questionsQuizId"+quizId).remove();
+	    	document.getElementById("quizTable"+quizId).remove();
+	    	document.getElementById("btnShowQuestions"+quizId).remove();
+	    
+	    },
+	    error:function(data,status,er) { 
+
+	    	document.getElementById("questionsQuizId"+quizId).remove();
+	    	document.getElementById("quizTable"+quizId).remove();
+	    	document.getElementById("btnShowQuestions"+quizId).remove();
+	    }
+	});
+	};
+	
+	function showStatistics(quizCode)
+	{
+		alert(quizCode);
+		window.open("/ztel/SolveQuiz/"+quizCode);
+	}
+	
+	function reactivateQuiz(quizId)
+	{
+		window.open("/ztel/ReactivateQuiz/" + quizId, "_blank", "width=300 height=200");
+	}
 </script>
 </head>
 
@@ -174,7 +209,7 @@ function newQuiz(){
 								value="Pregled kategorija" />
 								<input type="button"
 								class="alert button"
-								onclick="window.open('/ztel/Questions/overview','newwindow','width=500 height=500'); return false;"
+								onclick="window.open('/ztel/Questions/overview?idCategory=${selectedCategory.idCategory}','newwindow','width=500 height=500'); return false;"
 								value="Pregled pitanja" />
 						</div>
 						<br> <br> <br>
@@ -183,15 +218,14 @@ function newQuiz(){
 
 
 						<c:forEach items="${quizesByUser }" var="quiz">
-							<table>
+							<table id="quizTable${quiz.idQuiz }">
 								<tr bgcolor="#FFBBBB">
 									<td>ID</td>
 									<td>Ime</td>
 									<td>Kategorija</td>
-									<td>Akcija</td>
-
 									<td>KOD</td>
-
+									<td></td>
+									<td></td>
 									<tr>
 								
 								<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
@@ -199,19 +233,36 @@ function newQuiz(){
 									<td><c:out value="${quiz.quizName}" /></td>
 									<td><c:out value="${quiz.category.categoryName}" /></td>
 									<c:set value="${quiz.activated }" var="active" />
+									<td>${quiz.code}
+										</td>
 									<td><button id="activateBtn${quiz.idQuiz}" type="button"
-											onclick="startQuiz(${quiz.idQuiz})">
-										Pokreni
+											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${quiz.activated }">disabled="disabled"</c:if>>
+										Upravljaj
 										</button>
 										</td>
-										<td>${quiz.code}
+										<td>
+										
+										<button type="button"
+											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${!quiz.activated }">disabled="disabled"</c:if>>
+										Statistike
+										</button>
+										</td>
+										<td><button type="button"
+											onclick="reactivateQuiz(${quiz.idQuiz})">
+										Reaktivacija
+										</button>
+										</td>
+										<td><button type="button"
+											onclick="deleteQuiz(${quiz.idQuiz})">
+										Izbriši
+										</button>
 										</td>
 										
 									
 								</tr>
 							</table>
 							<!--  jebene makni ovo -->
-						<button onclick="showQuestions(${quiz.idQuiz})">+</button>
+						<button id="btnShowQuestions${quiz.idQuiz }" onclick="showQuestions(${quiz.idQuiz})">+</button>
 
 									<table id="questionsQuizId${quiz.idQuiz }"
 										style="display: none;">

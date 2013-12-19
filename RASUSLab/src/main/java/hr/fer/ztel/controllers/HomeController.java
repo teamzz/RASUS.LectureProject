@@ -94,9 +94,11 @@ public class HomeController {
 
 		System.out.println(model.get("serverTime"));
 
-//		Quiz tem = b.find(new Long(38));
-//		System.out.println("brisemo kviz" + tem);
-//		b.remove(tem);
+		// Quiz tem = b.find(new Long(38));
+		// System.out.println("brisemo kviz" + tem);
+		// b.remove(tem);
+
+//		b.add(b.find(new Long(42)).clone("novikod"));
 		return "Index";
 	}
 }

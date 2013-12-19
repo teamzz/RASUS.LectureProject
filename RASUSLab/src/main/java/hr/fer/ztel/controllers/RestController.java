@@ -188,5 +188,19 @@ public class RestController {
 		return uah;
 		
 	}
+	
+	
+	
+	@RequestMapping(value = "/Quiz/jax/deletequiz", method = RequestMethod.POST)
+	public @ResponseBody
+	Quiz deleteQuiz(
+			@RequestBody final Quiz uah) {
+		System.out.println("brisem kviz");
+		
+		Quiz quiz = quizDao.find(uah.getIdQuiz());
+		quizDao.remove(quiz);
+		return uah;
+		
+	}
 
 }

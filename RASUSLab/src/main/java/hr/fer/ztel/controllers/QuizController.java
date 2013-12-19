@@ -217,8 +217,8 @@ public class QuizController {
 						.getActivatedQuestion().getQuestion().getIdQuestion());
 				return "SolveQuiz";
 			} else {
-				
-				return null;
+				System.out.println("null vracam");
+				return "SolveQuiz";
 			}
 		} else
 			return "entry";
@@ -309,4 +309,26 @@ public class QuizController {
 		return imageBytes;
 	}
 
+	@RequestMapping(value = "/ReactivateQuiz/{idQuiz}", method = RequestMethod.GET)
+	public String reactivateQuiz(@PathVariable("idQuiz") Long quizId,
+			Model model) {
+		model.addAttribute("quiz", quizDao.find(quizId));
+		
+		return "ReactivateQuiz";
+	}
+	
+	@RequestMapping(value = "/ReactivateQuiz/formsubmit", method = RequestMethod.POST)
+	public String saveReactivQuiz(@ModelAttribute("quiz") Quiz quiz,
+			Model model) {
+		if (quiz == null) {
+			return "entry";
+		}
+		System.out.println("Reaktivacija kviza");
+		Quiz getQuiz = quizDao.find(quiz.getIdQuiz());
+		Quiz qnew = getQuiz.clone(quiz.getCode());
+		quizDao.add(qnew);
+
+		return "closer";
+	}
+	
 }

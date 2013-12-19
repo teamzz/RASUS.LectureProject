@@ -201,9 +201,14 @@ public class Question implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((category == null) ? 0 : category.hashCode());
+		result = prime * result
+				+ ((correctAnswers == null) ? 0 : correctAnswers.hashCode());
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result
 				+ ((idQuestion == null) ? 0 : idQuestion.hashCode());
+		result = prime
+				* result
+				+ ((incorrectAnswers == null) ? 0 : incorrectAnswers.hashCode());
 		result = prime * result
 				+ ((textQuestion == null) ? 0 : textQuestion.hashCode());
 		return result;
@@ -223,6 +228,11 @@ public class Question implements Serializable {
 				return false;
 		} else if (!category.equals(other.category))
 			return false;
+		if (correctAnswers == null) {
+			if (other.correctAnswers != null)
+				return false;
+		} else if (!correctAnswers.equals(other.correctAnswers))
+			return false;
 		if (creator == null) {
 			if (other.creator != null)
 				return false;
@@ -233,6 +243,11 @@ public class Question implements Serializable {
 				return false;
 		} else if (!idQuestion.equals(other.idQuestion))
 			return false;
+		if (incorrectAnswers == null) {
+			if (other.incorrectAnswers != null)
+				return false;
+		} else if (!incorrectAnswers.equals(other.incorrectAnswers))
+			return false;
 		if (textQuestion == null) {
 			if (other.textQuestion != null)
 				return false;
@@ -241,4 +256,5 @@ public class Question implements Serializable {
 		return true;
 	}
 
+	
 }

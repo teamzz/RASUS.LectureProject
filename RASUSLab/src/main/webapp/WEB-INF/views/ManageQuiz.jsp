@@ -48,6 +48,10 @@ function activateQuestion(questionId, quizId) {
 	    		btnTxt = "No action";
 	    		var y = document.getElementById("activateButton");
 		    	y.disabled = 'disabled';
+		    	var statBut = document.getElementById("statisticButton");
+		    	statBut.disabled = false;
+		    	var nextBut = document.getElementById("nextButton");
+		    	nextBut.disabled = false;
 	    	}
 	    	
     	
@@ -62,7 +66,6 @@ function activateQuestion(questionId, quizId) {
 	
 	function showStat(questionId, quizId)
 	{
-		alert("show stats " + questionId + " " + quizId);
 		window.open("/ztel/Question/stats/"+quizId + "/" +  questionId , "_blank", 'width=800 height=500');
 	}
 </script>
@@ -126,6 +129,5 @@ function activateQuestion(questionId, quizId) {
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>

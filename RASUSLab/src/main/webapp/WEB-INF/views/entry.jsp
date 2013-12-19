@@ -21,7 +21,7 @@
 				type : 'GET',
 				url : "/ztel/SolveQuiz/" + code,
 				success : function(data) {
-					if (data == null) alert("novi alert");
+					if (data == "") alert("novi alert");
 					else window.open("/ztel/SolveQuiz/" + code, "_self");
 				},
 				error : function() {
