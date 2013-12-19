@@ -123,8 +123,10 @@ function activateQuestion(questionId, quizId) {
 						<c:out
 							value="${questionInQuiz.activated eq false ? 'Aktiviraj': 'Deaktiviraj'}" />
 					</button>
-					<button class="small button" onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})">Statistika</button>
-					<button class="small button" onclick="nextQuestion()">Dalje</button>
+
+					<button id="statisticButton" class="small button" onclick="showStat(${questionInQuiz.question.idQuestion}, ${idQuiz})" <c:if test="${!questionInQuiz.finished }">disabled="disabled"</c:if>>Statistika</button>
+					<button id="nextButton" class="small button" onclick="nextQuestion()" <c:if test="${!questionInQuiz.finished }">disabled="disabled"</c:if>>Dalje</button>
+					
 				</div>
 			</div>
 		</div>

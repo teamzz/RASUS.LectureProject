@@ -60,12 +60,6 @@
 			</form>
 		</div>
 	</div>
-	<div class="row">
-		<div class="twelve columns">
-		<hr>
-			@TeamZ
-		</div>
-	</div>
 
 	<script src="/resources/js/jquery.js"></script>
 	<script src="/resources/js/foundation.min.js"></script>

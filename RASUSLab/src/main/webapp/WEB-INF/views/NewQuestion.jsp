@@ -28,21 +28,21 @@
 	
 	<div class="row">
 		<div class="twelve columns">
-			<p>Please enter number of answers to your new question.</p>
+			<p>Unesite broj odgovora:</p>
 			<br>
 			<br>
 			<div class="row" id="bouterContainer">
 				<div class="twelve columns"></div>
 					<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
 						<tr>
-							<td><form:label path="numberOfIncorrectAnswers">Number of incorrect answers:</form:label></td>
+							<td><form:label path="numberOfIncorrectAnswers">Broj netočnih odgovora:</form:label></td>
 						</tr>
 						<tr>
 							<td><form:input path="numberOfIncorrectAnswers" /></td>	
 						</tr>
 						<br>
 						<tr>
-							<td><input class="button" type="submit" value="Next"/></td>
+							<td><input class="small button" type="submit" value="Dalje"/></td>
 						</tr>
 					</form:form>
 			</div>

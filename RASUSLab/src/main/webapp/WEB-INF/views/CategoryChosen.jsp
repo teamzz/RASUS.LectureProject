@@ -154,7 +154,7 @@ function deleteQuiz(quizId) {
 	
 	function reactivateQuiz(quizId)
 	{
-		window.open("/ztel/ReactivateQuiz/" + quizId, "_blank", "width=300 height=200");
+		window.open("/ztel/ReactivateQuiz/" + quizId, "_blank", "width=500 height=500");
 	}
 </script>
 </head>
@@ -165,9 +165,12 @@ function deleteQuiz(quizId) {
 			<h1>Sudjelovanje u nastavi #${selectedCategory.categoryName}</h1>
 		</div>
 		<div class="small-2 columns">
-			<h5 id="logout">${userName} |<a href="<c:url value="/j_spring_security_logout" />" > Logout</a></h5>
+			<h5 id="logout">${userName}
+				|<a href="<c:url value="/j_spring_security_logout" />"> Logout</a>
+			</h5>
 		</div>
 		<hr>
+		<br>
 	</div>
 
 	<div class="row">
@@ -187,107 +190,86 @@ function deleteQuiz(quizId) {
 				<div class="larger-12 columns" id="CContent">
 					<div id="mainWindow">
 
-						<div id="controlMenu">
+						<div id="bouterContainer">
 							<p>Mogućnosti:</p>
 							<c:set var="pokazi" scope="session"
 								value="${selectedCategory.categoryName}"></c:set>
 							<c:if test="${not empty pokazi}">
 								<input id="mogucnostBtn" type="button" class="alert button"
 									onclick="newQuestion()" value="Dodaj pitanje" />
-								<input id="mogucnostBtn" type="button" class="alert button" onclick="newQuiz()"
-									value="Dodaj kviz" />
+								<input id="mogucnostBtn" type="button" class="alert button"
+									onclick="window.open('/ztel/Questions/overview?idCategory=${selectedCategory.idCategory}','newwindow','width=500 height=500'); return false;"
+									value="Pregled pitanja" />
+								<input id="mogucnostBtn" type="button" class="alert button"
+									onclick="newQuiz()" value="Dodaj kviz" />
 							</c:if>
 							<input id="mogucnostBtn" type="button" class="alert button"
 								onclick="window.open('/ztel/AddCategory','newwindow','width=500 height=500'); return false;"
-								value="Dodaj kategoriju" /> <input id="mogucnostBtn" type="button"
-								class="alert button"
+								value="Dodaj kategoriju" /> <input id="mogucnostBtn"
+								type="button" class="alert button"
+								onclick="window.open('/ztel/Categories/overview','newwindow','width=500 height=500'); return false;"
+								value="Pregled kategorija" /> <input id="mogucnostBtn"
+								type="button" class="alert button"
 								onclick="window.open('/ztel/AddUser','newwindow','width=500 height=500'); return false;"
 								value="Dodaj korisnika" />
-								<input type="button"
-								class="alert button"
-								onclick="window.open('/ztel/Categories/overview','newwindow','width=500 height=500'); return false;"
-								value="Pregled kategorija" />
-								<input type="button"
-								class="alert button"
-								onclick="window.open('/ztel/Questions/overview?idCategory=${selectedCategory.idCategory}','newwindow','width=500 height=500'); return false;"
-								value="Pregled pitanja" />
 						</div>
 						<br> <br> <br>
 
 						<h4>Raspoloživi kvizevi:</h4>
-
+						<br> <br>
 
 						<c:forEach items="${quizesByUser }" var="quiz">
-							<table id="quizTable${quiz.idQuiz }">
-								<tr bgcolor="#FFBBBB">
-									<td>ID</td>
-									<td>Ime</td>
-									<td>Kategorija</td>
-									<td>KOD</td>
-									<td></td>
-									<td></td>
-									<tr>
-								
-								<tr bgcolor="#BB7878" id="quiz${quiz.idQuiz }">
-									<td><c:out value="${quiz.idQuiz}" /></td>
-									<td><c:out value="${quiz.quizName}" /></td>
-									<td><c:out value="${quiz.category.categoryName}" /></td>
+							<div class="panel" id="quizTable${quiz.idQuiz }">
+								<b>Ime kviza:</b>
+								<c:out value="${quiz.quizName}" />
+								<br> <br> <b>Kod kviza:</b> ${quiz.code} <br> <br>
+								<div id="quiz${quiz.idQuiz }">
 									<c:set value="${quiz.activated }" var="active" />
-									<td>${quiz.code}
-										</td>
-									<td><button id="activateBtn${quiz.idQuiz}" type="button"
-											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${quiz.activated }">disabled="disabled"</c:if>>
-										Upravljaj
-										</button>
-										</td>
-										<td>
-										
-										<button type="button"
-											onclick="startQuiz(${quiz.idQuiz})" <c:if test="${!quiz.activated }">disabled="disabled"</c:if>>
-										Statistike
-										</button>
-										</td>
-										<td><button type="button"
-											onclick="reactivateQuiz(${quiz.idQuiz})">
-										Reaktivacija
-										</button>
-										</td>
-										<td><button type="button"
-											onclick="deleteQuiz(${quiz.idQuiz})">
-										Izbriši
-										</button>
-										</td>
-										
-									
-								</tr>
-							</table>
-							<!--  jebene makni ovo -->
-						<button id="btnShowQuestions${quiz.idQuiz }" onclick="showQuestions(${quiz.idQuiz})">+</button>
+								</div>
+								<div id="bouterContainer">
+									<button class="small button" id="activateBtn${quiz.idQuiz}"
+										type="button" onclick="startQuiz(${quiz.idQuiz})"
+										<c:if test="${quiz.activated }">disabled="disabled"</c:if>>
+										Upravljaj</button>
 
-									<table id="questionsQuizId${quiz.idQuiz }"
+
+									<button class="small button" type="button"
+										onclick="startQuiz(${quiz.idQuiz})"
+										<c:if test="${!quiz.activated }">disabled="disabled"</c:if>>
+										Statistike</button>
+									<button class="small button" type="button"
+										onclick="reactivateQuiz(${quiz.idQuiz})">
+										Reaktivacija</button>
+									<button class="small button" type="button"
+										onclick="deleteQuiz(${quiz.idQuiz})">Izbriši</button>
+
+									<br>
+
+									<button class="small button"
+										id="btnShowQuestions${quiz.idQuiz }"
+										onclick="showQuestions(${quiz.idQuiz})">+</button>
+
+									<div id="questionsQuizId${quiz.idQuiz }"
 										style="display: none;">
-								<tr bgcolor="#7070BB">
-									<td>Id pitanja</td>
-									<td>pitanje</td>
-									<td>kategorija</td>
-								</tr>
-								<tr>
-									<c:forEach items="${quiz.questions }" var="question">
-										<tr bgcolor="#BBBBFF"
-													id="questionOfQuiz${question.idQuestion }">
-											<td><c:out value="${question.idQuestion}" /></td>
-											<td><c:out value="${question.textQuestion}" /></td>
-											<td><c:out value="${question.category.categoryName}" /></td>
-											<td><button type="button"
-															onclick="deleteQuestion(${question.idQuestion}, ${quiz.idQuiz })">Delete</button>
-										
-												</tr>
-									</c:forEach>
-								
-										<tr height="20dp"></tr>
-							</table>
-						
-								</c:forEach>
+											<b>Pitanja u kvizu:</b>
+											<br>
+											<br>
+											<div class="pitanjaUKvizu">
+												<c:forEach items="${quiz.questions }" var="question">
+													<div id="questionOfQuiz${question.idQuestion }">
+														<c:out value="${question.textQuestion}" />
+														<br>
+														<br>
+														<button class="small button" type="button"
+																onclick="deleteQuestion(${question.idQuestion}, ${quiz.idQuiz })">Obriši</button>
+													</div>
+												</c:forEach>
+											</div>
+
+								</div>
+							</div>
+							</div>
+						</c:forEach>
 
 					</div>
 				</div>

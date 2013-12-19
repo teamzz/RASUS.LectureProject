@@ -124,7 +124,6 @@ function submitAnswer(questionId, quizId) {
 		}
 	%>
 	
->>>>>>> branch 'master' of https://github.com/teamzz/RASUS.LectureProject
 	<div class="row">
 		<div class="panel">
 
@@ -172,11 +171,12 @@ function submitAnswer(questionId, quizId) {
 					<input id="userAnswer" />
 				</c:if>
 			</div>
-			<br> <input id="send" type="button" class="small button"
+		</div>
+		<div id="bouterContainer">
+		<br> <input id="send" type="button" class="small button"
 				onclick="submitAnswer(${questionInQuiz.question.idQuestion },${idQuiz})"
 				value="Spremi" id="save" /> <input id="refresh" type="button"
 				class="small button" onclick="refresh()" value="Osvježi" />
-
 		</div>
 	</div>
 	</c:otherwise>

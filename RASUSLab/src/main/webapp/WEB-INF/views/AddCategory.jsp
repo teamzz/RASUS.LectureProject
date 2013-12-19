@@ -32,7 +32,7 @@
 
 	<div class="row" id="bouterContainer">
 		<div class="twelve columns">
-			<p>Please enter number of answers to your new question.</p>
+			<p>Unesite podatke o kategoriji:</p>
 			<br> <br>
 			<div class="row" id="bouterContainer">
 				<div class="twelve columns"></div>

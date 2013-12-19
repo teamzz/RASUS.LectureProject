@@ -75,7 +75,7 @@
 
 	<div class="row">
 		<div class="twelve columns">
-			<p>Please enter number of answers to your new question.</p>
+			<p>Unesite potrebne podatke:</p>
 			<br> <br>
 			<div class="row" id="bouterContainer">
 				<div class="twelve columns"></div>
@@ -83,14 +83,14 @@
 					id="questionForm" modelAttribute="questionHolder">
 					<form:input path="" type="hidden" name="question.category.idCategory" value="${category.idCategory}"></form:input>
 					<tr>
-						<td><form:label path="">Question: </form:label></td>
+						<td><form:label path="">Pitanje: </form:label></td>
 						<td><form:input path="" name="question.textQuestion" /></td>
 						</tr>
 
 						<c:forEach var="i" begin="0" end="0">
 							<tr>
-								<td><form:label path="" name="correctAnswers[${i}].textAnswer">Correct
-										Answer</form:label></td>
+								<td><form:label path="" name="correctAnswers[${i}].textAnswer">Točan
+										odgovor</form:label></td>
 								<td><form:input path="" name="correctAnswers[${i}].textAnswer" /></td>
 							</tr>
 						</c:forEach>
@@ -98,15 +98,15 @@
 							<c:forEach var="j" begin="0"
 								end="${question.numberOfIncorrectAnswers-1}">
 								<tr>
-									<td><form:label path="" name="incorrectAnswers[${j}].textAnswer">Incorrect
-											Answer</form:label></td>
+									<td><form:label path="" name="incorrectAnswers[${j}].textAnswer">Netočan 
+											odgovor</form:label></td>
 									<td><form:input path="" name="incorrectAnswers[${j}].textAnswer" /></td>
 								</tr>
 							</c:forEach>
 						</c:if>
 						<br>
 						<tr>
-							<td colspan="2"><form:input path="" class="small button" type="submit" value="Next" /></td>
+							<td colspan="2"><form:input path="" class="small button" type="submit" value="Spremi" /></td>
 						</tr>
 				</form:form>
 			</div>
