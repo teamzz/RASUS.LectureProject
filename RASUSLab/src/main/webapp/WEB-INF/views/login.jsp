@@ -48,9 +48,9 @@
 			<form id="loginForm" name='f'
 				action="<c:url value='j_spring_security_check' />" method='POST'>
 
-				<label>User:</label> <input type='text' name='j_username' value=''>
+				<label>Korisničko ime:</label> <input type='text' name='j_username' value=''>
 
-				<label>Password:</label> <input type='password' name='j_password' />
+				<label>Lozinka:</label> <input type='password' name='j_password' />
 
 				<input  name="submit" class="small button" type="submit"
 					value="Pošalji" /> <input  name="reset" class="small button"
@@ -67,5 +67,4 @@
 		$(document).foundation();
 	</script>
 </body>
-
 </html>

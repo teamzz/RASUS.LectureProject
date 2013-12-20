@@ -22,18 +22,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private ProfessorDao profDao;
-
-//	public CustomUserDetailsService() {
-//		System.out.println("Jeebene");
-//	}
-
 	
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 
 		Professor professor = profDao.getProfessorByUsername(username);
-		System.out.println("Jebene");
 
 		boolean enabled = true;
 		boolean accountNonExpired = true;

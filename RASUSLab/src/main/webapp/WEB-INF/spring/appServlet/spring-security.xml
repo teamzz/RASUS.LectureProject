@@ -43,10 +43,16 @@
 			access="ROLE_ADMIN" />	
 		<security:intercept-url pattern="/NewQuestion?idCategory*"
 			access="ROLE_ADMIN" /> 
-		<security:intercept-url pattern="/AddQuiz/*"
+		<security:intercept-url pattern="/AddQuiz/*"  
 			access="ROLE_ADMIN" />	
 		<security:intercept-url pattern="/ManageQuiz/jax/changeactivequestion*"
-			access="ROLE_ADMIN" />	
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Categories/overview*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/Questions/overview*"
+			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/ReactivateQuiz*"
+			access="ROLE_ADMIN" />
 			
 
 		<security:form-login login-page="/login"
