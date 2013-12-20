@@ -16,7 +16,16 @@
 </head>
 <body>
 	<div class="row">
-		<div class="twelve columns">		
+		<div class="twelve columns">
+			<h1>Sudjelovanje u nastavi #${category.categoryName}</h1>
+			<hr>
+		</div>
+	</div>
+	<br>
+	<br>
+
+	<div class="row">
+		<div class="twelve columns" id="bouterContainer">		
 		<img src="/ztel/getStatistic/${idQuestion}/${idQuiz}"/>
 		</div>
 	</div>
