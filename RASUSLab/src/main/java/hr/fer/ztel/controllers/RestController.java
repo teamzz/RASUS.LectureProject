@@ -46,6 +46,7 @@ public class RestController {
 		System.out.println("init RestController");
 	}
 
+	
 	@RequestMapping(value = "/Categories/jax", method = RequestMethod.GET)
 	public @ResponseBody
 	Category getCategory(HttpServletResponse res) {
@@ -94,10 +95,12 @@ public class RestController {
 		return q;
 	}
 
-	// this method response to POST request
-	// http://localhost/spring-mvc-json/rest/cont/person
-	// receives json data sent by client --> map it to Person object
-	// return Person object as json
+	/**
+	 * AJAX kontroler za aktiviranje/deaktiviranje cijelog kviza
+	 * (trenutno se ne koristi u projektu)
+	 * @param q
+	 * @return
+	 */
 	@RequestMapping(value = "/Quizes/jax/changeactivequiz", method = RequestMethod.POST)
 	public @ResponseBody
 	Quiz changeActiveQuiz(@RequestBody final Quiz q) {
@@ -117,6 +120,11 @@ public class RestController {
 
 	}
 
+	/**
+	 * AJAX kontroler za upravljanje kvizom
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping(value = "/ManageQuiz/jax", method = RequestMethod.GET)
 	public @ResponseBody
 	AjaxQuizQuestionTransport getManageQuiz(HttpServletResponse res) {
@@ -128,6 +136,12 @@ public class RestController {
 		return q;
 	}
 
+	/**
+	 * AJAX kontroler za upravljanje pitanjima kviza
+	 * Aktivira ili deaktivira pitanja kviza
+	 * @param qQuiz
+	 * @return
+	 */
 	@RequestMapping(value = "/ManageQuiz/jax/changeactivequestion", method = RequestMethod.POST)
 	public @ResponseBody
 	AjaxQuizQuestionTransport activateQ(
@@ -150,6 +164,11 @@ public class RestController {
 		
 	}
 	
+	/**
+	 * AJAX kontroler za rješavanje pitanja kviza
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping(value = "/SolveQuiz/jax", method = RequestMethod.GET)
 	public @ResponseBody
 	AjaxQuestionSubmit getSolveQuiz(HttpServletResponse res) {
@@ -161,6 +180,11 @@ public class RestController {
 		return q;
 	}
 	
+	/**
+	 * AJAX kontroler koji prima odgovor na pitanje i sprema ga u bazu
+	 * @param uah
+	 * @return
+	 */
 	@RequestMapping(value = "/SolveQuiz/jax/submitanswer", method = RequestMethod.POST)
 	public @ResponseBody
 	AjaxQuestionSubmit submitAnswer(
@@ -182,7 +206,11 @@ public class RestController {
 	}
 	
 	
-	
+	/**
+	 * AJAX kontroler koji prima zahtjev za brisanje kviza
+	 * @param uah
+	 * @return
+	 */
 	@RequestMapping(value = "/Quiz/jax/deletequiz", method = RequestMethod.POST)
 	public @ResponseBody
 	Quiz deleteQuiz(

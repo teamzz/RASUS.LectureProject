@@ -66,13 +66,16 @@ public class QuizController {
 	@Autowired
 	private Statistic statService;
 
-	// add quiz
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 
+	/**
+	 * Prima zahtjev za stvaranje novog kviza u odabranoj kategoriji
+	 * @param categoryId - id kategorije u kojoj se kviz stvara
+	 * @param model
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping(value = "/AddQuiz/{idCategory}", method = RequestMethod.GET)
-	public String home(@PathVariable("idCategory") Long categoryId,
+	public String addQuiz(@PathVariable("idCategory") Long categoryId,
 			Model model, Principal principal) {
 
 		model.addAttribute("quizholder", new QuizHolder());
@@ -88,6 +91,11 @@ public class QuizController {
 		return "AddQuiz";
 	}
 
+	/**
+	 * 
+	 * @param res
+	 * @return
+	 */
 	@RequestMapping(value = "/AddQuiz/jax/{idCategory}", method = RequestMethod.GET)
 	public @ResponseBody
 	Question getQ(HttpServletResponse res) {
@@ -99,20 +107,29 @@ public class QuizController {
 		return q;
 	}
 
+	/**
+	 * AJAX kontroler koji prima podatke o pitanju koje je potrebno dodati kvizu
+	 * @param question
+	 * @param qh
+	 */
 	@RequestMapping(value = "/AddQuiz/jax/addquestion", method = RequestMethod.POST)
 	public @ResponseBody
 	void addQ(@RequestBody final Question question,
 			@ModelAttribute("quizholder") QuizHolder qh) {
+		
 //		System.out.println("u restu za dodavanje pitanja sam");
 //		System.out.println(question.getIdQuestion());
-		qh.addQuestion(question.getIdQuestion());
+
 //		System.out.println(qh.getQuestionsIdList().size());
 
 	}
 
 	/**
-	 * Saves the edited person and display all persons again
-	 * 
+	 * Kontroler koji iz session atributa "quizholder" 
+	 * i prethodno dodanih pitanja u session atribut
+	 * stvara novi kviz
+	 * @param quizHolder - session atribut
+	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = "/AddQuiz/formsubmit", method = RequestMethod.POST)
@@ -160,25 +177,14 @@ public class QuizController {
 		return "closer";
 	}
 
-	// manage quiz
-	// add quiz
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Kontroler za rješavanje kviza - na temelju koda kviza
+	 * vraća stranicu sa trenutno aktivnim pitanjem
+	 * @param codeQuiz - kod kviza koji se rješava
+	 * @param model
+	 * @param response
+	 * @return
 	 */
-
-	/*
-	@RequestMapping(value = "/Quizes", method = RequestMethod.GET)
-	public String homeQuizes(Model model) {
-
-		model.addAttribute("quizes", quizDao.list());
-		return "Quizes";
-	}
-	*/
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-
 	@RequestMapping(value = "/SolveQuiz/{codeQuiz}", method = RequestMethod.GET)
 	public String solveQ(@PathVariable("codeQuiz") String codeQuiz,
 			Model model, HttpServletResponse response) {
@@ -216,9 +222,13 @@ public class QuizController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Kontroler za rješavanje cjelokupnog kviza odjednom
+	 * korisniku se vraća stranica sa prikazanim svim pitanjima
+	 * (trenutno se ne koristi u projektu)
+	 * @param codeQuiz
+	 * @param model
+	 * @return
 	 */
-
 	@RequestMapping(value = "/SolveSimpleQuiz/{codeQuiz}", method = RequestMethod.GET)
 	public String solveQuiz(@PathVariable("codeQuiz") String codeQuiz,
 			Model model) {
@@ -238,9 +248,12 @@ public class QuizController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Kontroler koji prima odgovore na sva pitanja jednog kviza
+	 * (trenutno se ne koristi u projektu)
+	 * @param ansToQuestions
+	 * @param model
+	 * @return
 	 */
-
 	@RequestMapping(value = "/SolveSimpleQuiz/formsubmit", method = RequestMethod.POST)
 	public String submitQuiz(
 			@ModelAttribute("ansOfQuestions") UserAnswerHolder ansToQuestions,
@@ -263,6 +276,13 @@ public class QuizController {
 
 	}
 
+	/**
+	 * Kontroler za upravljanje kvizom
+	 * Vraća stranicu za upravljanje prvim neaktiviranim pitanjem
+	 * @param idQuiz - ID kviza kojim korisnik upravlja
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/ManageQuiz/{idQuiz}", method = RequestMethod.GET)
 	public String manageQuiz(@PathVariable("idQuiz") Long idQuiz, Model model) {
 
@@ -288,6 +308,13 @@ public class QuizController {
 			return null;
 	}
 
+	/**
+	 * Kontroler koji vraća statistiku za pojedino pitanje određenog kviza
+	 * @param idQuestion - ID pitanja
+	 * @param idQuiz - ID kviza
+	 * @return slika statistike u byte array-u (byte[])
+	 * @throws IOException
+	 */
 	@RequestMapping("/getStatistic/{idQuestion}/{idQuiz}")
 	public @ResponseBody
 	byte[] getPhoto(@PathVariable("idQuestion") final Long idQuestion,
@@ -299,6 +326,12 @@ public class QuizController {
 		return imageBytes;
 	}
 
+	/**
+	 * Kontroler koji prima zahtjev za stvaranje novog kviza na temelju postojećeg
+	 * @param quizId
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/ReactivateQuiz/{idQuiz}", method = RequestMethod.GET)
 	public String reactivateQuiz(@PathVariable("idQuiz") Long quizId,
 			Model model) {
@@ -307,6 +340,12 @@ public class QuizController {
 		return "ReactivateQuiz";
 	}
 	
+	/**
+	 * Kontroler koji prima informacije o novom kvizu napravljenom na temelju postojećeg
+	 * @param quiz
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/ReactivateQuiz/formsubmit", method = RequestMethod.POST)
 	public String saveReactivQuiz(@ModelAttribute("quiz") Quiz quiz,
 			Model model) {

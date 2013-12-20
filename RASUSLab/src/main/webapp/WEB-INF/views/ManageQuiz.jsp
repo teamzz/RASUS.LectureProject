@@ -39,7 +39,7 @@ function activateQuestion(questionId, quizId) {
 	    	if (data.activated)
 	    		{
 	    		state = "Aktivirano";
-	    		btnTxt = "Deaktivirano";
+	    		btnTxt = "Deaktiviraj";
 	    		var code = document.getElementById("activateButton");
 	    		code.innerHTML = btnTxt;
 	    		}

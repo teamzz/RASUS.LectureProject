@@ -97,8 +97,13 @@ function submitAnswer(questionId, quizId) {
 
 	
 	<c:choose>
-	<c:when test="${empty questionInQuiz}">Trenutno nema aktivnog pitanja.
-	<button id="refresh" onclick="refresh()">Osvježi</button>
+	<c:when test="${empty questionInQuiz}">
+		<div class="row">
+			<div class="twelve columns">
+				Trenutno nema aktivnog pitanja.
+				<button class="small button" id="refresh" onclick="refresh()">Osvježi</button>
+			</div>
+		</div>
 	</c:when>
 	<c:otherwise>
 	

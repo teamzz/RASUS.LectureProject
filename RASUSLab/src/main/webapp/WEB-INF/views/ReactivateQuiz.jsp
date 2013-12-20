@@ -31,7 +31,7 @@
 			<br> <br>
 			<b>Stari kod: ${quiz.code }</b>
 			<br> <br>
-			<div class="row" id="bouterContainer">
+			<div class="row" id="louterContainer">
 				<div class="twelve columns"></div>
 					
 

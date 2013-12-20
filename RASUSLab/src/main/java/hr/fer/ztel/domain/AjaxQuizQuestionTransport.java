@@ -1,5 +1,9 @@
 package hr.fer.ztel.domain;
 
+/**
+ * pomoćna klasa za upravljanje pitanjima pojedinom kviza pomoću AJAX-a
+ *
+ */
 public class AjaxQuizQuestionTransport {
 	
 	private Long idQuiz;

@@ -2,6 +2,13 @@ package hr.fer.ztel.domain;
 
 import java.util.ArrayList;
 
+/**
+ * Pomoćna klasa za prijenos odgovora na pitanja
+ * Sadrži listu stringova koji predstavljaju odgovore na pitanja
+ * te listu Stringova koji predstavljaju ID-eve pitanja
+ * Odgovori i pitanja su u paru po poziciji u listama
+ *
+ */
 public class UserAnswerHolder {
 
 	private ArrayList<String> userAnswers = new ArrayList<String>();

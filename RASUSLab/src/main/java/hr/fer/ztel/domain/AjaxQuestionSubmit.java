@@ -1,5 +1,9 @@
 package hr.fer.ztel.domain;
 
+/**
+ * pomoćna klasa za prijenos odgovora na pitanje putem AJAX-a
+ *
+ */
 public class AjaxQuestionSubmit {
 	private Long idQuiz;
 	private Long idQuestion;

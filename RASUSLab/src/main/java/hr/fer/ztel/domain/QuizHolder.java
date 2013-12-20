@@ -4,11 +4,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Pomoćna klasa za prijenos informacija o kvizu
+ * Sadrži varijablu tipa kviz, ID kategorije u kojoj se kviz nalazi, ID profesora
+ * koji je stvorio kviz te listu ID-eva pitanja kviza
+ *
+ */
 public class QuizHolder implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 8740367013878285527L;
 	private Quiz quiz;
 	private long idCategory;

@@ -16,6 +16,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ *
+ * Razred mapiran servisom, sluzi za citanje login podataka iz baze potrebnih Spring
+ * Security-u
+ * Logika u metodi loadUserByUsername
+ *
+ */
 @Service("customUserDetailsService")
 @Transactional
 public class CustomUserDetailsService implements UserDetailsService {
