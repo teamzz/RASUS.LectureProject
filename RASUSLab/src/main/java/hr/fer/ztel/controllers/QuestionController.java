@@ -2,8 +2,6 @@ package hr.fer.ztel.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,23 +11,17 @@ import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
-import hr.fer.ztel.dao.StatisticPictureDao;
-import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.QuestionHolder;
 import hr.fer.ztel.domain.CorrectAnswer;
 import hr.fer.ztel.domain.IncorrectAnswer;
 import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Quiz;
-import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.service.Statistic;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,8 +37,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @SessionAttributes({ "categories", "category", "workingCategory" })
 public class QuestionController {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
 
 	@Autowired
 	private QuestionDao questionDao;
@@ -129,11 +119,11 @@ public class QuestionController {
 
 		holder.getQuestion().setCreator(prof);
 
-		System.out.println("creator:" + holder.getQuestion().getCreator());
-		System.out.println("qu: " + holder.getQuestion());
-		System.out.println("cor: " + holder.getQuestion().getCorrectAnswers());
-		System.out
-				.println("inc: " + holder.getQuestion().getIncorrectAnswers());
+//		System.out.println("creator:" + holder.getQuestion().getCreator());
+//		System.out.println("qu: " + holder.getQuestion());
+//		System.out.println("cor: " + holder.getQuestion().getCorrectAnswers());
+//		System.out
+//				.println("inc: " + holder.getQuestion().getIncorrectAnswers());
 
 		// holder.getQuestion().setCategory(cat);
 		// System.out.println("cat " +
@@ -158,12 +148,12 @@ public class QuestionController {
 	@RequestMapping(value = "/Questions/jax/deletequestion", method = RequestMethod.POST)
 	public @ResponseBody
 	Question addQ(@RequestBody final Question question) {
-		System.out.println("u restu za brisanje pitanja sam");
-		System.out.println(question.getIdQuestion());
+//		System.out.println("u restu za brisanje pitanja sam");
+//		System.out.println(question.getIdQuestion());
 		Quiz q = quizDao.find(Long.parseLong(question.getTextQuestion()));
 		q.deleteQuestion(question.getIdQuestion());
 		quizDao.update(q);
-		System.out.println("pitanje obrisano");
+//		System.out.println("pitanje obrisano");
 		return question;
 	}
 
@@ -186,7 +176,7 @@ public class QuestionController {
 				(pr.getName())).getNotusedQuestion(cat);
 		if (!questions.isEmpty())
 			model.addAttribute("questions", questions);
-		System.out.println("cat: " + cat + " questions: " + questions);
+//		System.out.println("cat: " + cat + " questions: " + questions);
 		return "QuestionsOverview";
 	}
 

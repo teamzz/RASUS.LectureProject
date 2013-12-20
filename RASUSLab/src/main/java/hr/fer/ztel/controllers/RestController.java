@@ -1,7 +1,6 @@
 package hr.fer.ztel.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import hr.fer.ztel.dao.CategoryDao;
@@ -13,22 +12,15 @@ import hr.fer.ztel.domain.AjaxQuestionSubmit;
 import hr.fer.ztel.domain.AjaxQuizQuestionTransport;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Question;
-import hr.fer.ztel.domain.QuestionInQuizId;
 import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
-import hr.fer.ztel.domain.QuizHolder;
 import hr.fer.ztel.domain.UserAnswer;
-import hr.fer.ztel.domain.UserAnswerHolder;
 import hr.fer.ztel.service.ProfessorService;
 
-import javax.persistence.Access;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,7 +49,7 @@ public class RestController {
 	@RequestMapping(value = "/Categories/jax", method = RequestMethod.GET)
 	public @ResponseBody
 	Category getCategory(HttpServletResponse res) {
-		System.out.println("u GET kontroleru sam");
+//		System.out.println("u GET kontroleru sam");
 		Category cat = new Category();
 		cat.setIdCategory(4);
 		return cat;
@@ -70,8 +62,8 @@ public class RestController {
 	@RequestMapping(value = "/Categories/jax/getCategory", method = RequestMethod.POST)
 	public @ResponseBody
 	List<Quiz> postCategory(@RequestBody final Category cat, Principal principal) {
-		System.out.println("u POST kontroleru sam,cat: "
-				+ cat.getCategoryName());
+//		System.out.println("u POST kontroleru sam,cat: "
+//				+ cat.getCategoryName());
 		// make List<Quiz> with all quiz under category cat.getIdCategory() and
 		// made by professor!!!;
 		Category c = categoryDao.find(cat.getIdCategory());
@@ -195,7 +187,6 @@ public class RestController {
 	public @ResponseBody
 	Quiz deleteQuiz(
 			@RequestBody final Quiz uah) {
-		System.out.println("brisem kviz");
 		
 		Quiz quiz = quizDao.find(uah.getIdQuiz());
 		quizDao.remove(quiz);

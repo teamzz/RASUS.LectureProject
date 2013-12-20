@@ -8,7 +8,7 @@
 
 
 	<security:http auto-config="true">
-
+		<!--  stranice dostupne jedino uz login -->
 		<security:intercept-url pattern="/NewQuestion*"
 			access="ROLE_ADMIN" />
 		<security:intercept-url pattern="/Categories*"
@@ -54,7 +54,7 @@
 		<security:intercept-url pattern="/ReactivateQuiz*"
 			access="ROLE_ADMIN" />
 			
-
+		<!-- definiranje login uri-a -->
 		<security:form-login login-page="/login"
 			always-use-default-target="true"
 			default-target-url="/Categories" authentication-failure-url="/loginfailed" />
@@ -65,7 +65,7 @@
 	<context:component-scan base-package="hr.fer.ztel.dao"></context:component-scan>
 	<context:component-scan base-package="hr.fer.ztel.service"></context:component-scan>
 
-
+	<!-- "izvor" za provjeru login podataka -->
 	<security:authentication-manager>
 		<security:authentication-provider
 			user-service-ref="customUserDetailsService">

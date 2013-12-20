@@ -102,6 +102,7 @@ function submitAnswer(questionId, quizId) {
 	</c:when>
 	<c:otherwise>
 	
+	<div class="row" id="souterContainer">
 	<%
 		if (request.getCookies() != null)
 			{
@@ -123,6 +124,7 @@ function submitAnswer(questionId, quizId) {
 			}
 		}
 	%>
+	</div>
 	
 	<div class="row">
 		<div class="panel">

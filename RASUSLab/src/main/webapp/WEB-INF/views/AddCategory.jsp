@@ -34,7 +34,7 @@
 		<div class="twelve columns">
 			<p>Unesite podatke o kategoriji:</p>
 			<br> <br>
-			<div class="row" id="bouterContainer">
+			<div class="row" id="louterContainer">
 				<div class="twelve columns"></div>
 				<form:form method="POST" action="/ztel/categoryAdded"
 					id="categoryForm" modelAttribute="newCategory">

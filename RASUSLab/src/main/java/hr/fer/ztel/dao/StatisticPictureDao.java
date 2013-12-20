@@ -3,8 +3,6 @@ package hr.fer.ztel.dao;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.Quiz;
 import hr.fer.ztel.domain.StatisticPicture;
-import hr.fer.ztel.domain.UserAnswer;
-import hr.fer.ztel.service.Statistic;
 
 import java.util.List;
 

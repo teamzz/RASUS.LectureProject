@@ -4,8 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.domain.Professor;
-import hr.fer.ztel.domain.Question;
-import hr.fer.ztel.service.ProfessorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,5 @@
 package hr.fer.ztel.dao;
 
-import hr.fer.ztel.domain.CorrectAnswer;
 import hr.fer.ztel.domain.IncorrectAnswer;
 
 import java.util.List;

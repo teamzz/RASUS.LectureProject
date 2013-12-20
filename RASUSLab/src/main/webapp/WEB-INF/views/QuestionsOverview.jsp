@@ -41,7 +41,7 @@ function deleteQuestion(questionId){
 			<div class="row">
 				<div class="twelve columns"></div>
 				<c:forEach items="${questions}" var="question" varStatus="status">
-				<div class="row">
+				<div class="row" id="souterContainer">
 					<div class="large-10 columns">
 						<b>Pitanje: ${question.textQuestion}
 						</b><br>

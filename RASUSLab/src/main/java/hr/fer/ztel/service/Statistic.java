@@ -10,10 +10,7 @@ import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,10 +77,10 @@ public class Statistic {
 				"Statistika za pitanje: "
 						+ questionDao.find(idQuestion).getTextQuestion(),
 				createDataset(idQuiz, idQuestion), true, true, true);
-		PiePlot plot = (PiePlot) chart.getPlot();
-
-		final ChartRenderingInfo info = new ChartRenderingInfo(
-				new StandardEntityCollection());
+//		PiePlot plot = (PiePlot) chart.getPlot();
+//
+//		final ChartRenderingInfo info = new ChartRenderingInfo(
+//				new StandardEntityCollection());
 		StatisticPicture tempStatPic = null;
 		try {
 

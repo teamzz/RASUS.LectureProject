@@ -31,7 +31,7 @@
 			<p>Unesite broj odgovora:</p>
 			<br>
 			<br>
-			<div class="row" id="bouterContainer">
+			<div class="row" id="louterContainer">
 				<div class="twelve columns"></div>
 					<form:form method="POST" action="/ztel/formsubmit" modelAttribute="question" id="inputsForm">
 						<tr>

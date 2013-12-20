@@ -1,6 +1,5 @@
 package hr.fer.ztel.dao;
 
-import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Professor;
 
 import java.util.List;

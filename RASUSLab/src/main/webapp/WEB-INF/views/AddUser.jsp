@@ -45,7 +45,7 @@
 		<div class="twelve columns">
 			<p>Unesite tražene podatke:</p>
 			<br> <br>
-			<div class="row" id="bouterContainer">
+			<div class="row" id="louterContainer">
 				<div class="twelve columns"></div>
 				<form:form method="POST" action="/ztel/userAdded" id="userForm"
 					modelAttribute="newProfessor">

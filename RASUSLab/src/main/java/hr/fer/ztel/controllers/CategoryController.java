@@ -1,13 +1,10 @@
 package hr.fer.ztel.controllers;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +19,6 @@ import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.domain.Category;
 import hr.fer.ztel.domain.Professor;
-import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.service.ProfessorService;
 
 
@@ -31,8 +27,6 @@ import hr.fer.ztel.service.ProfessorService;
 @SessionAttributes({"categories"})
 public class CategoryController {
 	
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
 
 	@Autowired
 	private QuestionDao questionDao;
@@ -49,7 +43,7 @@ public class CategoryController {
 	@RequestMapping(value = "/Categories", method = RequestMethod.GET)
 	public String categoriesHome(Model model, Principal pr, HttpServletRequest request){
 		model.addAttribute("categories", professorDao.getProfessorByUsername(pr.getName()).getCategories());
-		System.out.println("quer " + request.getQueryString());
+//		System.out.println("quer " + request.getQueryString());
 		model.addAttribute("userName", pr.getName());
 		if (request.getQueryString()!=null && request.getQueryString()!=""){
 			String str = request.getQueryString().replaceAll("\\D+","");
@@ -117,10 +111,5 @@ public class CategoryController {
 		model.addAttribute("categories", categories);
 		return "CategoriesOverview";
 	}
-	
-
-
-
-
 }
 
