@@ -36,12 +36,12 @@ function refresh()
 
 
 function submitAnswer(questionId, quizId) {
-	var answer = document.getElementById("userAnswer");
+	var answer = document.getElementById("userAnswer").value.replace(/["]/g, "\\\"");
 	$.ajax({
 	    url: "/ztel/SolveQuiz/jax/submitanswer", 
 	    type: 'POST', 
 	    dataType: 'json', 
-	    data: "{\"idQuestion\":\"" + questionId + "\", \"answer\":\""+ answer.value +"\", \"idQuiz\":\""+ quizId +"\"}", 
+	    data: "{\"idQuestion\":\"" + questionId + "\", \"answer\":\""+ answer +"\", \"idQuiz\":\""+ quizId +"\"}", 
 	    contentType: 'application/json',
 	    mimeType: 'application/json',
 	    success: function(data) { 
@@ -161,7 +161,7 @@ function submitAnswer(questionId, quizId) {
 			<form:input path="idQuiz" style="visibility:collapse;" />
 
 			<div>
-				<label>${questionInQuiz.question.textQuestion}</label> <input
+				<label><c:out value="${questionInQuiz.question.textQuestion}" escapeXml="true"></c:out></label> <input
 					value="${questionInQuiz.question.idQuestion}"
 					style="display: none;" /> <br>
 				<c:if test="${questionInQuiz.question.answers.size() != 1 }">
@@ -169,7 +169,7 @@ function submitAnswer(questionId, quizId) {
 						<c:forEach items="${questionInQuiz.question.answers }"
 							var="answer">
 
-							<option>${answer}</option>
+							<option><c:out value="${answer}" escapeXml="true"></c:out></option>
 
 						</c:forEach>
 					</select>

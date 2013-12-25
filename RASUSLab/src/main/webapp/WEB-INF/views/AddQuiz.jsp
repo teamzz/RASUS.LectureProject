@@ -56,7 +56,7 @@
 		{
 			var row = table.insertRow(-1);
 			var cell1 = row.insertCell(0);
-			cell1.innerHTML = document.getElementById("selectQuestion" + questionId).textContent;
+			cell1.innerHTML = document.getElementById("selectQuestion" + questionId).innerHTML;
 		}
 		
 		document.getElementById("selectQuestion" + questionId).remove();
@@ -115,7 +115,8 @@
 							<c:forEach items="${ questions }" var="question">
 								<option id="selectQuestion${question.idQuestion}"
 									value="${question.idQuestion }">
-									${question.textQuestion}</option>
+									<c:out value="${question.textQuestion}" escapeXml="true"></c:out>
+									</option>
 							</c:forEach>
 						</select>
 						<button class="small button" type="button" onclick="saveQuestion()">Postavi

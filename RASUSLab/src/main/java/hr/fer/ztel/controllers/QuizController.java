@@ -2,14 +2,23 @@ package hr.fer.ztel.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import hr.fer.ztel.dao.CategoryDao;
 import hr.fer.ztel.dao.ProfessorDao;
 import hr.fer.ztel.dao.QuestionDao;
 import hr.fer.ztel.dao.QuizDao;
 import hr.fer.ztel.dao.UserAnswerDao;
+import hr.fer.ztel.domain.Category;
+import hr.fer.ztel.domain.Professor;
 import hr.fer.ztel.domain.Question;
 import hr.fer.ztel.domain.QuestionInQuizInformation;
 import hr.fer.ztel.domain.Quiz;
@@ -24,6 +33,7 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -116,11 +126,9 @@ public class QuizController {
 	public @ResponseBody
 	void addQ(@RequestBody final Question question,
 			@ModelAttribute("quizholder") QuizHolder qh) {
-		
-//		System.out.println("u restu za dodavanje pitanja sam");
-//		System.out.println(question.getIdQuestion());
-
-//		System.out.println(qh.getQuestionsIdList().size());
+		System.out.println(question.getIdQuestion());
+		qh.addQuestion(question.getIdQuestion());
+		System.out.println(qh.getQuestionsIdList().size());
 
 	}
 
@@ -139,21 +147,21 @@ public class QuizController {
 			return "entry";
 		}
 		logger.debug("Received request to add quiz");
-//		System.out.println("add quiz kontroler");
+		System.out.println("add quiz kontroler");
 		Quiz quiz = quizHolder.getQuiz();
-//		System.out.println("id category je " + quizHolder.getIdCategory());
-//		System.out.println("id professor je " + quizHolder.getIdProfessor());
+		System.out.println("id category je " + quizHolder.getIdCategory());
+		System.out.println("id professor je " + quizHolder.getIdProfessor());
 		quiz.setCategory(categoryDao.find(quizHolder.getIdCategory()));
 		quiz.setCreator(professorDao.find(quizHolder.getIdProfessor()));
 
-//		List<Question> questionsList = new ArrayList<Question>();
+		List<Question> questionsList = new ArrayList<Question>();
 		for (long questionId : quizHolder.getQuestionsIdList()) {
 			/*
 			 * System.out.println("question id je " + questionId);
 			 * System.out.println("question text je " +
 			 * questionDao.find(questionId).getTextQuestion());
 			 */
-//			System.out.println("dodajem pitanje kviza " + questionId);
+			System.out.println("dodajem pitanje kviza " + questionId);
 
 			QuestionInQuizInformation qqinfo = new QuestionInQuizInformation();
 			qqinfo.setQuestion(questionDao.find(questionId));
@@ -162,14 +170,14 @@ public class QuizController {
 			qqinfo.setQuiz(quiz);
 			quiz.addQuestionInQuizInformation(qqinfo);
 		}
-//		for (Question q : questionsList) {
-//			System.out.println(q);
-//		}
-//		System.out.println("dodajem kviz\n");
-//
-//		for (Question q : questionDao.list()) {
-//			System.out.println(q);
-//		}
+		for (Question q : questionsList) {
+			System.out.println(q);
+		}
+		System.out.println("dodajem kviz\n");
+
+		for (Question q : questionDao.list()) {
+			System.out.println(q);
+		}
 
 		quizDao.add(quiz);
 
@@ -197,14 +205,14 @@ public class QuizController {
 				model.addAttribute("quiz", playQuiz);
 				return "EndQuizInfo";
 			}
-//			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
 			uah.setIdQuiz(playQuiz.getIdQuiz());
 			model.addAttribute("quizCode", codeQuiz);
 			model.addAttribute("idQuiz", playQuiz.getIdQuiz());
 			if (playQuiz.getActivatedQuestion() != null) {
-//				System.out.println("question id "
-//						+ playQuiz.getNextNotactivatedQuestion().getQuestion()
-//								.getIdQuestion());
+				System.out.println("question id "
+						+ playQuiz.getNextNotactivatedQuestion().getQuestion()
+								.getIdQuestion());
 				// response.addCookie(new Cookie("id_question",
 				// String.valueOf(playQuiz.getNextNotactivatedQuestion().getQuestion().getIdQuestion())));
 				model.addAttribute("questionInQuiz",
@@ -213,7 +221,7 @@ public class QuizController {
 						.getActivatedQuestion().getQuestion().getIdQuestion());
 				return "SolveQuiz";
 			} else {
-//				System.out.println("null vracam");
+				System.out.println("null vracam");
 				return "SolveQuiz";
 			}
 		} else
@@ -236,7 +244,7 @@ public class QuizController {
 
 		Quiz playQuiz = qs.getQuizByCode(codeQuiz);
 		if (playQuiz != null) {
-//			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
+			System.out.println("playQuiz id: " + playQuiz.getIdQuiz());
 			uah.setIdQuiz(playQuiz.getIdQuiz());
 			model.addAttribute("quizCode", codeQuiz);
 			model.addAttribute("questions", quizDao.find(playQuiz.getIdQuiz())
@@ -269,7 +277,7 @@ public class QuizController {
 					.getQuestionsId().get(i))));
 			ua.setQuiz(quizDao.find(ansToQuestions.getIdQuiz()));
 			userAnsDao.add(ua);
-//			System.out.println(ua);
+			System.out.println(ua);
 		}
 		model.addAttribute("quizes", quizDao.list());
 		return "entry";
@@ -288,7 +296,7 @@ public class QuizController {
 
 		Quiz manageQuiz = quizDao.find(idQuiz);
 		if (manageQuiz != null) {
-//			System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
+			System.out.println("playQuiz id: " + manageQuiz.getIdQuiz());
 			model.addAttribute("quizCode", manageQuiz.getCode());
 			model.addAttribute("idQuiz", idQuiz);
 			if (manageQuiz.getNextNotactivatedQuestion() != null) {
@@ -352,7 +360,7 @@ public class QuizController {
 		if (quiz == null) {
 			return "entry";
 		}
-//		System.out.println("Reaktivacija kviza");
+		System.out.println("Reaktivacija kviza");
 		Quiz getQuiz = quizDao.find(quiz.getIdQuiz());
 		Quiz qnew = getQuiz.clone(quiz.getCode());
 		quizDao.add(qnew);
